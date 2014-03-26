@@ -32,6 +32,11 @@
   font-weight: 600;
   font-style: normal;
 }
+.mono {
+  font-family: "mono45-headline", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
 .btn-default,
 .btn-primary,
 .btn-success,
