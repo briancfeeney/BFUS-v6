@@ -1,0 +1,55 @@
+{#
+ # Layout template
+ # ---------------
+ #
+ # This template defines your site’s global layout. It can be
+ # “extended” by other templates to fill in the gaps.
+ #
+ # See Twig’s Template Inheritance documentation for more details:
+ # http://twig.sensiolabs.org/doc/templates.html#template-inheritance
+ #}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+	<meta charset="utf-8" />
+	<title>{% if title is defined %}{{ title }} - {% endif %}{{ siteName }}</title>
+	<link rel="home" href="{{ siteUrl }}" />
+	
+	<link rel="stylesheet" type="text/css" href="./public/css/feeney.css" />	
+	
+	<script type="text/javascript" src="http://use.typekit.com/ppq8gss.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+	<script src="http://brianfeeney.us/js/FitVids/jquery.fitvids.js"></script>
+	<script>$(document).ready(function(){ $(".container").fitVids(); });</script>
+</head>
+
+<body id="{{ craft.request.lastSegment }}" class="HolyGrail">
+
+	<main class="HolyGrail-body">
+		<header class="HolyGrail-nav">
+			<nav>
+				<ul>
+					<li id="title"><a href="{{ siteUrl }}">{{ siteName }}</a></li>
+					<li><a href="{{ url('work') }}" {% if craft.request.firstSegment == 'work' %}class="active"{% endif %}>Work</a></li>
+					<li><a href="{{ url('writing') }}" {% if craft.request.firstSegment == 'writing' %}class="active"{% endif %}>Writing</a></li>
+					<li><a href="{{ url('photos') }}" {% if craft.request.firstSegment == 'photos' %}class="active"{% endif %}>Photos</a></li>
+					<li><a href="{{ url('playground') }}" {% if craft.request.firstSegment == 'playground' %}class="active"{% endif %}>Playground</a></li>
+					<li><a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>About</a></li>
+				</ul>
+			</nav>
+		</header>
+		
+		{% block content %}
+			<p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
+			<p>See Twig’s <a href="http://twig.sensiolabs.org/doc/templates.html#template-inheritance">Template Inheritance</a> documentation for an explanation.</p>
+		{% endblock %}
+	</main>
+
+	<!-- <footer>
+		Copyright {{ now.year }} Brian Feeney.
+	</footer> -->
+		
+</body>
+</html>

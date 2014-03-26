@@ -1,0 +1,158 @@
+{#
+ # Homepage template
+ # ---------------
+ #
+ # When this template gets loaded, it will be because someone has accessed
+ # http://yoursite.com/ (without any URI). Craft checks to see if you have
+ # a Single section set to be the Homepage (as you do, by default), and
+ # loads the section’s Template (this file). A special ‘entry’ variable
+ # will already be set for you, assigned to the Homepage entry.
+ #
+ # It's worth noting that even if you didn't have a Homepage Single section,
+ # as long as this template remains at craft/templates/index.html, it
+ # would still be the one to get loaded when accessing http://yoursite.com/,
+ # albeit without an ‘entry’ variable already set for you.
+ #
+ # See this page for more details on how Craft routes requests:
+ # http://buildwithcraft.com/docs/routing
+ #}
+
+{% extends "_layout" %}
+
+{% block content %}
+
+<div id="brooklynmuseum">	
+	
+	<img src="./public/images/BM-logo.png" id="BMlogo">
+	
+	<section>
+		<h1>January 2013</h1>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="text">
+					<ul>
+						<li>Studied BMA print material and branding guidelines. Began creating a front end style guide for the website.</li>
+						<li>Helped create the RFP for the Sackler Center Video project. Searched for and hired a design/dev team to build it.</li>
+						<li>Studied the Google analytics for the site, took extensive notes, and prepared for a content audit.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="text">
+					<ul>
+						<li>Comped new headers for the BMA website refresh. A preliminary exercise for selling possible new directions to website stakeholders.
+							<div class="images" data-toggle="modal" data-target="#headersModal">
+								<div class="row">
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps4.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps5.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps6.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps9.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps12.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps13.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps17.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps22.png">
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="text">
+					<ul>
+						<li>Comped new footers for a BMA website refresh.
+							<div class="images">
+								<div class="row">
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r2.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r22.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r23.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r24.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r25.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r26.png">
+									</div>
+									<div class="col-sm-3">
+										<img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r27.png">
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="text">
+					<ul class="center-text">
+						<li>Began designing prototype for the VEI dashboard.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<h1>February 2013</h1>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="text">
+					<ul>
+						<li>Acted as creative director for the <a href="http://brooklynmuseum.org/eascfa/video">Sackler Video website</a>, which launched March 4th.</li>
+						<li>Full content audit of the current BMA website</li>
+						<li>Comped new typographic layouts for the BMA site refresh</li>
+						<li>Further progress creating the front end style guide for the BMA website</li>
+						<li>Began researching agencies for the VEI digital signage</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<h1>March 2013</h1>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="text">
+					<ul>
+						<li>Created wireframes for the BMA website refresh.</li>
+						<li>Began collecting UI/UX examples for VEI project and sketching out user flows.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+		
+</div>
+
+{% endblock %}
