@@ -35,9 +35,8 @@ a {
 }
 
 .HolyGrail-nav {
-  flex: 0 0 18em;
+  flex: 0 0 12.5em;
   order: -1;
-	background-color: @dust;
 }
 
 @media (max-width: 600px) {
@@ -57,33 +56,42 @@ a {
 // HEADER & NAV
 
 nav {
-	ul {
+	padding-left: 20px;
+	margin-top: 15px;
+	h4 {
+		.mono();
+		font-size: 27px;
+		width: 55px;
+		letter-spacing: -3px;
 		margin: 0;
-		padding: 0;
-		li {
-			text-align: center;
-			
-			background-color: @dust;
-			.proximaSB();
-			font-size: 15px;
-			letter-spacing: 3px;
-			&:hover {
-				background-color: mix(@dust, @coal, 90%);
-				a {
-					color: @chalk;
-				}
-			}
-			a {
-				color: @chalk;
-				padding: 20px 0;
-				text-transform: uppercase;
-				display: block;
+		&#title {
+			width: 200px;
+			a:hover {
+				color: @dust;
 			}
 		}
+		a {
+			color: @coal;
+			text-transform: uppercase;
+			word-wrap: break-word;
+			display: inline;
+		}
+		& a:nth-child(1):hover {
+			color: @blue;
+		}
+		& a:nth-child(2):hover {
+			color: @green;
+		}
+		& a:nth-child(3):hover {
+			color: @yellow;
+		}
+		& a:nth-child(4):hover {
+			color: @orange;
+		}
+		& a:nth-child(5):hover {
+			color: @lightblue;
+		}
 	}
-}
-#title {
-	background-color: @coal;
 }
 
 

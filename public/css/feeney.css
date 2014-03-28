@@ -6101,9 +6101,8 @@ a:hover {
   flex: 1;
 }
 .HolyGrail-nav {
-  flex: 0 0 18em;
+  flex: 0 0 12.5em;
   order: -1;
-  background-color: #dadad4;
 }
 @media (max-width: 600px) {
   .HolyGrail-body {
@@ -6118,33 +6117,45 @@ a:hover {
   }
 }
 /* -------------------------------------------------------------------------------- */
-nav ul {
-  margin: 0;
-  padding: 0;
+nav {
+  padding-left: 20px;
+  margin-top: 15px;
 }
-nav ul li {
-  text-align: center;
-  background-color: #dadad4;
-  font-family: "proxima-nova-1", "proxima-nova-2";
-  font-weight: 600;
+nav h4 {
+  font-family: "mono45-headline", sans-serif;
   font-style: normal;
-  font-size: 15px;
-  letter-spacing: 3px;
+  font-weight: 500;
+  font-size: 27px;
+  width: 55px;
+  letter-spacing: -3px;
+  margin: 0;
 }
-nav ul li:hover {
-  background-color: #c4c6c3;
+nav h4#title {
+  width: 200px;
 }
-nav ul li:hover a {
-  color: #f2f3ec;
+nav h4#title a:hover {
+  color: #dadad4;
 }
-nav ul li a {
-  color: #f2f3ec;
-  padding: 20px 0;
+nav h4 a {
+  color: #000e28;
   text-transform: uppercase;
-  display: block;
+  word-wrap: break-word;
+  display: inline;
 }
-#title {
-  background-color: #000e28;
+nav h4 a:nth-child(1):hover {
+  color: #006a98;
+}
+nav h4 a:nth-child(2):hover {
+  color: #5cb247;
+}
+nav h4 a:nth-child(3):hover {
+  color: #f0c000;
+}
+nav h4 a:nth-child(4):hover {
+  color: #cc4600;
+}
+nav h4 a:nth-child(5):hover {
+  color: #0e98bd;
 }
 /* -------------------------------------------------------------------------------- */
 #brooklynmuseum {
