@@ -29,19 +29,21 @@
 	<script>$(document).ready(function(){ $(".container").fitVids(); });</script>
 </head>
 
-<body id="{{ craft.request.lastSegment }}" class="HolyGrail">
+<body id="{{ craft.request.firstSegment }}" class="bodyFlex">
 
-	<main class="HolyGrail-body">
-		<header class="HolyGrail-nav">
-			<nav>
-				<h4 id="title"><a href="{{ siteUrl }}">B r i a n <br>F e e n e y</a></h4>
-				<h4><a href="{{ url('work') }}" {% if craft.request.firstSegment == 'work' %}class="active"{% endif %}>W o r k</a>
-				<a href="{{ url('writing') }}" {% if craft.request.firstSegment == 'writing' %}class="active"{% endif %}>W r i t i n g</a>
-				<a href="{{ url('photos') }}" {% if craft.request.firstSegment == 'photos' %}class="active"{% endif %}>P h o t o s</a>
-				<a href="{{ url('playground') }}" {% if craft.request.firstSegment == 'playground' %}class="active"{% endif %}>P l a y g r o u n d</a>
-				<a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>A b o u t</a></h4>
-			</nav>
-		</header>
+	<main class="mainFlex">
+		<header class="columnFlex">
+					<nav>
+						<ul>
+							<li id="title"><a href="{{ siteUrl }}">{{ siteName }}</a></li>
+							<li><a href="{{ url('work') }}" {% if craft.request.firstSegment == 'work' %}class="active"{% endif %}>Work</a></li>
+							<li><a href="{{ url('writing') }}" {% if craft.request.firstSegment == 'writing' %}class="active"{% endif %}>Writing</a></li>
+							<!-- <li><a href="{{ url('photos') }}" {% if craft.request.firstSegment == 'photos' %}class="active"{% endif %}>Photos</a></li>
+							<li><a href="{{ url('playground') }}" {% if craft.request.firstSegment == 'playground' %}class="active"{% endif %}>Playground</a></li> -->
+							<li><a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>About</a></li>
+						</ul>
+					</nav>
+				</header>
 		
 		{% block content %}
 			<p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>

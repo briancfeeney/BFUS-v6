@@ -16,9 +16,27 @@
 {% extends "_layout" %}
 
 {% block content %}
-	<article>
-		<h1>{{ entry.title }}</h1>
-		<p>Posted on {{ entry.postDate.format('F d, Y') }}</p>
-		{{ entry.body }}
-	</article>
+	<section id="writing-index">
+		<h4 id="page-title">Writing</h4>
+	
+		{% if globalWriting.articleSubjects | length %}
+			{% for subject in globalWriting.articleSubjects %}
+				<h4>{{ subject.subjectTitle }}</h4>
+				<ul>
+					{% for link in subject.subjectArticles %}
+						<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+					{% endfor %}
+				</ul>
+			
+			{% endfor %}
+		{% endif %}
+	
+	</section>
+	<section id="writing-main" class="single">
+		<article>
+			<h5>{{ entry.postDate.format('F d, Y') }}</h5>
+			<h1>{{ entry.title }}</h1>
+			{{ entry.body }}
+		</article>
+	</section>
 {% endblock %}

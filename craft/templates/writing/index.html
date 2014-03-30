@@ -14,14 +14,29 @@
 {% set title = "Writing" %}
 
 {% block content %}
-	<h1>Writing</h1>
-
-	{% for entry in craft.entries.section('writing').find() %}
-		<article>
-			<h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
-			<p>Posted on {{ entry.postDate.format('F d, Y') }}</p>
-			{{ entry.body.getPage(1) }}
-			<p><a href="{{ entry.url }}">Continue reading</a></p>
+	<section id="writing-index">
+		<h4 id="page-title">Writing</h4>
+		
+		{% if globalWriting.articleSubjects | length %}
+			{% for subject in globalWriting.articleSubjects %}
+				<h4>{{ subject.subjectTitle }}</h4>
+				<ul>
+					{% for link in subject.subjectArticles %}
+						<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+					{% endfor %}
+				</ul>
+				
+			{% endfor %}
+		{% endif %}
+		
+	</section>
+	<section id="writing-main">
+		<article class="editor">
+			<h5>Letter from the Editor</h5>
+			{% for entry in craft.entries.section('writing').type('lettersFromTheEditor').limit(1).find() %}
+				<h1 class="subTitle">{{ entry.title }}</h1>
+				{{ entry.body }}
+			{% endfor %}
 		</article>
-	{% endfor %}
+	</section>
 {% endblock %}

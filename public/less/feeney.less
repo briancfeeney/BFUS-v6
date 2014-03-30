@@ -1,4 +1,5 @@
 @import "bootstrap.less";
+@import "friendly-font.less";
 
 /* -------------------------------------------------------------------------------- */
 // BASIC RESET
@@ -9,6 +10,27 @@ body {
 	font-weight: 4e00;
 	font-style: normal;
 }
+
+h1 {
+	.proximaC();
+	font-size: 3em;
+}
+
+h2 {
+	.proximaSB();
+	text-transform: uppercase;
+}
+
+h4 {
+	color: @chalk;
+	margin-top: 22px;
+}
+
+h5 {
+	.proximaSB();
+	text-transform: uppercase;
+}
+
 a {
 	text-decoration: none;
 	&:hover {
@@ -16,38 +38,56 @@ a {
 	}
 }
 
+p {
+	.chaparral();
+	font-size: 18px;
+}
+
+article {
+	a {
+		color: inherit;
+		text-decoration: underline;
+		&:hover {
+			color: inherit;
+			opacity: .6;
+			text-decoration: underline;
+		}
+	}
+}
+
 /* -------------------------------------------------------------------------------- */
 // FLEXBOX LAYOUT
 
-.HolyGrail {
+.bodyFlex {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
 }
 
-.HolyGrail-body {
+.mainFlex {
   display: flex;
   flex: 1;
 }
 
-.HolyGrail-content {
-  flex: 1;
+.contentFlex {
+  flex-grow: 1;
 }
 
-.HolyGrail-nav {
-  flex: 0 0 12.5em;
-  order: -1;
+.columnFlex {
+  flex: 0 0 16em;
+  order: 0;
+	background-color: @dust;
 }
 
 @media (max-width: 600px) {
-  .HolyGrail-body {
+  .mainFlex {
     flex-direction: column;
     flex: 1;
   }
-  .HolyGrail-content {
-    flex: 1;
+  .contentFlex {
+    flex-grow: 1;
   }
-  .HolyGrail-nav {
+  .columnFlex {
     flex: 0 0 5em;
   }
 }
@@ -56,40 +96,255 @@ a {
 // HEADER & NAV
 
 nav {
-	padding-left: 20px;
-	margin-top: 15px;
-	h4 {
-		.mono();
-		font-size: 27px;
-		width: 55px;
-		letter-spacing: -3px;
+	ul {
 		margin: 0;
-		&#title {
-			width: 200px;
-			a:hover {
-				color: @dust;
+		padding: 0;
+		li {
+			text-align: center;
+			background-color: @dust;
+			.proximaSB();
+			letter-spacing: 3px;
+			&:hover {
+				background-color: mix(@dust, @coal, 90%);
+				a {
+					color: @chalk;
+				}
+			}
+			a {
+				color: @chalk;
+				padding: 20px 0;
+				text-transform: uppercase;
+				display: block;
 			}
 		}
+	}
+}
+#title {
+	background-color: @coal;
+}
+
+
+/* -------------------------------------------------------------------------------- */
+// SPLASH - The Big Bang
+
+#splash {
+	background-image: url("../images/pleiades.jpg");
+	background-size: cover;
+	min-height: 100vh;
+	padding: 60px;
+	h2 {
+		color: @chalk;
+		text-transform: uppercase;
+		font-size: 3.3em;
+		letter-spacing: 4px;
+		display: block;
+		margin-bottom: 40px;
+	}
+	p {
+		color: @chalk;
+		max-width: 21em;
+		font-size: 1.4em;
+	}
+}
+
+
+/* -------------------------------------------------------------------------------- */
+// MISC.
+
+.topBar {
+	flex-direction: row;
+	flex: 1;
+	flex-flow: row wrap;
+}
+
+#page-title {
+	padding: 20px 0;
+	margin: 0;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+	color: @chalk;
+	font-size: 3em;
+}
+
+/* -------------------------------------------------------------------------------- */
+// ABOUT
+
+#about {
+	.topBar {
+		background-color: @coal;
+	}
+}
+
+.aboutFlex {
+	display: flex;
+	flex: 1;
+	flex-direction:column;
+}
+
+#social-links {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: flex-end;
+	li {
+		padding: 6px;
+		margin: 0;
+		display: inline-block;
+		transition: all .2s linear;
+		&:nth-child(1) {
+			background-color: @lightblue;
+		}
+		&:nth-child(2) {
+			background-color: @blue;
+		}
+		&:nth-child(3) {
+			background-color: @yellow;
+		}
+		&:nth-child(4) {
+			background-color: @green;
+		}
+		&:nth-child(5) {
+			background-color: @orange;
+		}
+		&:nth-child(6) {
+			background-color: @brown;
+		}
+		&:nth-child(7) {
+			background-color: @red;
+		}
+		&:hover {
+			background-color: @coal;
+		}
 		a {
-			color: @coal;
-			text-transform: uppercase;
-			word-wrap: break-word;
-			display: inline;
+			color: @chalk;
 		}
-		& a:nth-child(1):hover {
-			color: @blue;
+	}
+}
+
+#myPortrait {
+	background-image: url("../images/me-parris.png");
+	background-size: cover;
+	background-position: 50% 100%;
+	flex: 0 0 50%;
+	max-width: 40em;
+	min-width: 22em;
+	min-height: 100vh;
+	max-height: 100vh;
+	position: relative;
+	a {
+		color: @chalk;
+		font-size: .7em;
+		opacity: .4;
+		position: absolute;
+		bottom: 10px;
+		right: 20px;
+		&:hover {
+			opacity: 1;
 		}
-		& a:nth-child(2):hover {
-			color: @green;
+	}
+}
+
+#aboutText {
+	max-width: 35em;
+	padding: 20px 40px;
+}
+
+
+/* -------------------------------------------------------------------------------- */
+// WRITING
+
+#writing {
+	h5 {
+		color: @green;
+		margin-top: 30px;
+	}
+	.subTitle {
+		margin: 1em 0 .5em;
+	}
+}
+
+#writing-index {
+	flex: 0 0 20%;
+	max-width: 20em;
+	min-width: 18em;
+	background-color: @green;
+	h4 {
+		margin: 0 20px 8px;
+	}
+	ul {
+		.list-unstyled();
+		margin-bottom: 40px;
+		li {
+			a {
+				color: @chalk;
+				.proximaC();
+				font-size: 1.3em;
+				display: block;
+				margin-bottom: 5px;
+				padding: 4px 20px;
+				&:hover {
+					background-color: mix(@coal, @green, 20%);
+				}
+			}
 		}
-		& a:nth-child(3):hover {
-			color: @yellow;
+	}
+}
+
+#writing-main {
+	max-width: 40em;
+	padding: 0 40px;
+	margin-bottom: 80px;
+	&.single {
+		h1 {
+			margin: 1em 0 .5em;
 		}
-		& a:nth-child(4):hover {
-			color: @orange;
-		}
-		& a:nth-child(5):hover {
-			color: @lightblue;
+	}
+}
+
+
+/* -------------------------------------------------------------------------------- */
+// WORK
+
+.workFlex {
+	display: flex;
+	flex: 1;
+	flex-direction:column;
+}
+
+#work {
+	.topBar {
+		ul {
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-flow: row wrap;
+			li {
+				color: @chalk;
+				padding: 20px;
+				flex: 1;
+				text-align: center;
+				&:nth-child(1) {
+					background-color: @blue;
+					&:hover {
+						background-color: mix(@coal, @blue, 50%);
+					}
+				}
+				&:nth-child(2) {
+					background-color: @yellow;
+					&:hover {
+						background-color: mix(@coal, @yellow, 50%);
+					}
+				}
+				&:nth-child(3) {
+					background-color: @red;
+					&:hover {
+						background-color: mix(@coal, @red, 50%);
+					}
+				}
+			}
 		}
 	}
 }
@@ -103,7 +358,7 @@ nav {
 #brooklynmuseum {
 	header {
 		position: absolute;
-		width: 18em;
+		width: 16em;
 		nav {
 			li {
 				display: none;
@@ -134,18 +389,28 @@ nav {
 	margin-top: 40px;
 }
 
-.text ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	li {
-		padding: 30px 20px;
-		background-color: @bmcolor;
-		color: @chalk;
-		font-size: 1.3em;
-		margin-bottom: 2px;
+.text { 
+	a {
+		color: inherit;
+		text-decoration: underline;
+		&:hover {
+			opacity: .8;
+		}
+	}
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		li {
+			padding: 30px 20px;
+			background-color: @bmcolor;
+			color: @chalk;
+			font-size: 1.3em;
+			margin-bottom: 2px;
+		}
 	}
 }
+
 
 /* -------------------------------------------------------------------------------- */
 // FOOTER

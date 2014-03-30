@@ -14,7 +14,16 @@
 {% set title = "Work" %}
 
 {% block content %}
-	<h1>Work</h1>
+
+<div class="workFlex">
+	
+	<div class="topBar">
+		<ul class="list-inline">
+			<li>Web Design</li>
+			<li>Print Design</li>
+			<li>Front-End Development</li>
+		</ul>
+	</div>
 
 	{% for entry in craft.entries.section('work').find() %}
 		<article>
@@ -24,4 +33,7 @@
 			<p><a href="{{ entry.url }}">Continue reading</a></p>
 		</article>
 	{% endfor %}
+	
+</div>
+	
 {% endblock %}

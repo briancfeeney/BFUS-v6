@@ -21,18 +21,14 @@
 
 {% block content %}
 
-<div id="main" class="HolyGrail-content">
+<div id="main" class="contentFlex">
 
-	<h1>{{ entry.heading }}</h1>
-
-	{{ entry.body }}
-
-	<h2>Recent News</h2>
-	<ul>
-		{% for entry in craft.entries.section('writing').limit(5).find() %}
-			<li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
-		{% endfor %}
-	</ul>
+	<section id="splash">
+		<!-- <img src="./public/images/pleiades.jpg"> -->
+		<h2>The Big Bang</h2>
+		<p>Welcome to the new BrianFeeney.us.</p>
+		<p>This is the start of something. A new site with a new CMS and a new intention to have some fun on the internet.</p>
+	</section>
 	
 </div>	
 	
