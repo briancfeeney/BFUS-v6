@@ -33,17 +33,20 @@
 
 	<main class="mainFlex">
 		<header class="columnFlex">
-					<nav>
-						<ul>
-							<li id="title"><a href="{{ siteUrl }}">{{ siteName }}</a></li>
-							<li><a href="{{ url('work') }}" {% if craft.request.firstSegment == 'work' %}class="active"{% endif %}>Work</a></li>
-							<li><a href="{{ url('writing') }}" {% if craft.request.firstSegment == 'writing' %}class="active"{% endif %}>Writing</a></li>
-							<!-- <li><a href="{{ url('photos') }}" {% if craft.request.firstSegment == 'photos' %}class="active"{% endif %}>Photos</a></li>
-							<li><a href="{{ url('playground') }}" {% if craft.request.firstSegment == 'playground' %}class="active"{% endif %}>Playground</a></li> -->
-							<li><a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>About</a></li>
-						</ul>
-					</nav>
-				</header>
+			<nav>
+				<ul>
+					<li id="title"><a href="{{ siteUrl }}">{{ siteName }}</a></li>
+					<li><a href="{{ url('work') }}" {% if craft.request.firstSegment == 'work' %}class="active"{% endif %}>Work</a></li>
+					<li><a href="{{ url('writing') }}" {% if craft.request.firstSegment == 'writing' %}class="active"{% endif %}>Writing</a></li>
+					<!-- <li><a href="{{ url('photos') }}" {% if craft.request.firstSegment == 'photos' %}class="active"{% endif %}>Photos</a></li> -->
+					<li><a href="{{ url('playground') }}" {% if craft.request.firstSegment == 'playground' %}class="active"{% endif %}>Playground</a></li>
+					<li><a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>About</a></li>
+				</ul>
+			</nav>
+			<footer>
+				<p>© Brian Feeney / <a href="#">RSS</a> / <a href="/archive">Archive</a></p>
+			</footer>
+		</header>
 		
 		{% block content %}
 			<p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>

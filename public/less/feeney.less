@@ -45,13 +45,37 @@ p {
 
 article {
 	a {
+		border-bottom: 1px solid @green;
 		color: inherit;
-		text-decoration: underline;
 		&:hover {
 			color: inherit;
-			opacity: .6;
-			text-decoration: underline;
+			opacity: 1;
+			background-color: @dust;
 		}
+	}
+}
+
+blockquote {
+	text-indent: 0em;
+	padding: 0 0 0 30px;
+	margin: -5px 0 20px; 
+	border: none;
+	font-size: 1em;
+	line-height: 1em;
+	&:before {
+	    content: "“";
+		font-size: 3.5em;
+		color: @green;
+		display:block; 
+		.translate(-30px, 30px);
+	}
+	p {
+		.proximaR();
+		line-height: 1.4em;
+		font-size: 1.05em;
+	}
+	h6 {
+		text-align: right;
 	}
 }
 
@@ -82,7 +106,6 @@ article {
 @media (max-width: 600px) {
   .mainFlex {
     flex-direction: column;
-    flex: 1;
   }
   .contentFlex {
     flex-grow: 1;
@@ -153,7 +176,6 @@ nav {
 
 .topBar {
 	flex-direction: row;
-	flex: 1;
 	flex-flow: row wrap;
 }
 
@@ -267,12 +289,17 @@ nav {
 }
 
 #writing-index {
-	flex: 0 0 20%;
-	max-width: 20em;
+	flex: 0 0 23%;
+	max-width: 21em;
 	min-width: 18em;
 	background-color: @green;
 	h4 {
 		margin: 0 20px 8px;
+	}
+	.subjectTitle {
+		.proximaSC();
+		text-transform: uppercase;
+		margin: 20px 20px 5px;
 	}
 	ul {
 		.list-unstyled();
@@ -280,11 +307,10 @@ nav {
 		li {
 			a {
 				color: @chalk;
-				.proximaC();
-				font-size: 1.3em;
+				.proximaL();
+				font-size: 1em;
 				display: block;
-				margin-bottom: 5px;
-				padding: 4px 20px;
+				padding: 5px 20px 5px 30px;
 				&:hover {
 					background-color: mix(@coal, @green, 20%);
 				}
@@ -294,12 +320,41 @@ nav {
 }
 
 #writing-main {
-	max-width: 40em;
+	max-width: 35em;
 	padding: 0 40px;
 	margin-bottom: 80px;
 	&.single {
 		h1 {
 			margin: 1em 0 .5em;
+		}
+	}
+	article {
+		footer {
+			margin-top: 20px;
+			text-align: right;
+			strong {
+				font-size: 1.75em;
+				.chaparral();
+			}
+			h5 {
+				margin-top: 10px;
+			}
+		}
+	}
+}
+
+#writingLinks {
+	margin-top: 140px;
+	ul {
+		li {
+			margin-bottom: 10px;
+			a {
+				color: @coal;
+				border-bottom: 1px solid @green;
+				&:hover {
+					background-color: @dust;
+				}
+			}
 		}
 	}
 }
@@ -321,30 +376,118 @@ nav {
 			padding: 0;
 			display: flex;
 			flex-flow: row wrap;
-			li {
-				color: @chalk;
-				padding: 20px;
+			a {
 				flex: 1;
-				text-align: center;
-				&:nth-child(1) {
+				&:nth-child(1) li {
 					background-color: @blue;
 					&:hover {
 						background-color: mix(@coal, @blue, 50%);
 					}
 				}
-				&:nth-child(2) {
+				&:nth-child(2) li {
 					background-color: @yellow;
 					&:hover {
 						background-color: mix(@coal, @yellow, 50%);
 					}
 				}
-				&:nth-child(3) {
+				&:nth-child(3) li {
 					background-color: @red;
 					&:hover {
 						background-color: mix(@coal, @red, 50%);
 					}
 				}
 			}
+			li {
+				color: @chalk;
+				padding: 20px;
+				text-align: center;
+				cursor: pointer;
+			}
+		}
+	}
+}
+
+#theWork {
+	h2 {
+		color: @chalk;
+		text-align: center;
+		margin: 0;
+		padding: 40px 0;
+	}
+	.workType {
+		display: none;
+		&:target {
+			display: block;
+		}
+	}
+	#web.workType {
+		h2 {
+			background-color: @blue;
+		}
+	}
+	#print.workType {
+		h2 {
+			background-color: @yellow;
+		}
+	}
+	#dev.workType {
+		h2 {
+			background-color: @red;
+		}
+	}
+}
+
+
+/* -------------------------------------------------------------------------------- */
+// PLAYGROUND
+
+@keyframes playColor {
+	0%, 100%   {background:@red;}
+	20%  {background:@blue;}
+	40%  {background:@green;}
+	60% {background:@yellow;}
+	80% {background: @orange;}
+}
+
+@-webkit-keyframes playColor {
+	0%, 100%   {background:@red;}
+	20%  {background:@blue;}
+	40%  {background:@green;}
+	60% {background:@yellow;}
+	80% {background: @orange;}
+}
+
+@-moz-keyframes playColor {
+	0%, 100%   {background:@red;}
+	20%  {background:@blue;}
+	40%  {background:@green;}
+	60% {background:@yellow;}
+	80% {background: @orange;}
+}
+
+#playgroundTitle {
+	background: @red;
+	animation: playColor 40s linear infinite;
+	-webkit-animation: playColor 40s linear infinite;
+	animation-delay: 1s;
+	-webkit-animation-delay: 1s;
+	flex: 2;
+	h2 {
+		margin: 0;
+		padding: 40px;
+		color: @chalk;
+	}
+}
+
+
+/* -------------------------------------------------------------------------------- */
+// ARCHIVE
+
+#archive {
+	.archive {
+		padding: 0 20px;
+		h4 {
+			color: @coal;
 		}
 	}
 }
@@ -356,18 +499,6 @@ nav {
 @bmcolor: rgb(0,174,239);
 
 #brooklynmuseum {
-	header {
-		position: absolute;
-		width: 16em;
-		nav {
-			li {
-				display: none;
-			}
-			#title {
-				display: block;
-			}
-		}
-	}
 	text-align: center;
 	h1 {
 		font-size: 2em;
@@ -407,6 +538,9 @@ nav {
 			color: @chalk;
 			font-size: 1.3em;
 			margin-bottom: 2px;
+			&:hover {
+				background-color: darken(@bmcolor, 5%);
+			}
 		}
 	}
 }
@@ -416,6 +550,21 @@ nav {
 // FOOTER
 
 footer {
-	padding: 20px;
-	text-align: center;
+	justify-content: center;
+	align-content: flex-end;
+	p {
+		text-align: center;
+		margin: 40px 10px 20px;
+		.proximaR();
+		font-size: .8em;
+		a {
+			color: @coal;
+			&:hover {
+				color: @coal;
+				background-color: mix(@dust, @coal, 90%);
+			}
+		}
+	}
 }
+
+

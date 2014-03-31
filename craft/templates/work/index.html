@@ -1,13 +1,6 @@
 {#
- # News index template
+ # Work index template
  # -------------------
- #
- # This template is loaded whenever http://example.com/news is
- # requested, because it is located at news/index.html in your
- # craft/templates/ folder.
- #
- # See this page for more details on how Craft routes requests:
- # http://buildwithcraft.com/docs/routing
  #}
 
 {% extends "_layout" %}
@@ -19,20 +12,32 @@
 	
 	<div class="topBar">
 		<ul class="list-inline">
-			<li>Web Design</li>
-			<li>Print Design</li>
-			<li>Front-End Development</li>
+			<a href="#web"><li>Web Design</li></a>
+			<a href="#print"><li>Print Design</li></a>
+			<a href="#dev"><li>Front-End Development</li></a>
 		</ul>
 	</div>
 
-	{% for entry in craft.entries.section('work').find() %}
-		<article>
-			<h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
-			<p>Posted on {{ entry.postDate.format('F d, Y') }}</p>
-			{{ entry.body.getPage(1) }}
-			<p><a href="{{ entry.url }}">Continue reading</a></p>
-		</article>
-	{% endfor %}
+	<section id="theWork">
+		<div id="web" class="workType">
+			<h2>Web Design</h2>
+			{% for entry in craft.entries.section('work').find() %}
+				<article>
+					<h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
+					{{ entry.body.getPage(1) }}
+					<p><a href="{{ entry.url }}">Continue reading</a></p>
+				</article>
+			{% endfor %}
+		</div>
+		<div id="print" class="workType">
+			<h2>Print Design</h2>
+			My print design work.
+		</div>
+		<div id="dev" class="workType">
+			<h2>Front-End Development</h2>
+			This is my front-end development experience.
+		</div>
+	</section>
 	
 </div>
 	

@@ -1,13 +1,6 @@
 {#
- # News index template
+ # Writing index template
  # -------------------
- #
- # This template is loaded whenever http://example.com/news is
- # requested, because it is located at news/index.html in your
- # craft/templates/ folder.
- #
- # See this page for more details on how Craft routes requests:
- # http://buildwithcraft.com/docs/routing
  #}
 
 {% extends "_layout" %}
@@ -19,7 +12,7 @@
 		
 		{% if globalWriting.articleSubjects | length %}
 			{% for subject in globalWriting.articleSubjects %}
-				<h4>{{ subject.subjectTitle }}</h4>
+				<h4 class="subjectTitle">{{ subject.subjectTitle }}</h4>
 				<ul>
 					{% for link in subject.subjectArticles %}
 						<li><a href="{{ link.url }}">{{ link.title }}</a></li>
@@ -36,6 +29,10 @@
 			{% for entry in craft.entries.section('writing').type('lettersFromTheEditor').limit(1).find() %}
 				<h1 class="subTitle">{{ entry.title }}</h1>
 				{{ entry.body }}
+				
+				<footer>
+					<strong>Brian Feeney</strong>
+					<h5>{{ entry.postDate.format('F d, Y') }}</h5>
 			{% endfor %}
 		</article>
 	</section>

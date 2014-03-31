@@ -1,37 +1,29 @@
 {#
- # News entry template
+ # Writing entry template
  # -------------------
- #
- # This template gets loaded whenever a News entry’s URL is
- # requested. That’s because the News section’s Template setting is
- # set to “news/_entry”, the path to this template.
- #
- # When this template is loaded, it will already have an ‘entry’
- # variable, set to the requested News entry.
- #
- # See this page for more details on how Craft routes requests:
- # http://buildwithcraft.com/docs/routing
  #}
 
 {% extends "_layout" %}
+{% set title = "Writing" %}
 
 {% block content %}
-	<section id="writing-index">
-		<h4 id="page-title">Writing</h4>
+
+<section id="writing-index">
+	<h4 id="page-title">Writing</h4>
 	
-		{% if globalWriting.articleSubjects | length %}
-			{% for subject in globalWriting.articleSubjects %}
-				<h4>{{ subject.subjectTitle }}</h4>
-				<ul>
-					{% for link in subject.subjectArticles %}
-						<li><a href="{{ link.url }}">{{ link.title }}</a></li>
-					{% endfor %}
-				</ul>
+	{% if globalWriting.articleSubjects | length %}
+		{% for subject in globalWriting.articleSubjects %}
+			<h4 class="subjectTitle">{{ subject.subjectTitle }}</h4>
+			<ul>
+				{% for link in subject.subjectArticles %}
+					<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+				{% endfor %}
+			</ul>
 			
-			{% endfor %}
-		{% endif %}
+		{% endfor %}
+	{% endif %}
 	
-	</section>
+</section>
 	<section id="writing-main" class="single">
 		<article>
 			<h5>{{ entry.postDate.format('F d, Y') }}</h5>
@@ -39,4 +31,15 @@
 			{{ entry.body }}
 		</article>
 	</section>
+	<section id="writingLinks">
+		{% if entry.writingLinks | length %}
+			<h5>Links</h5>
+			<ul class="list-unstyled">
+				{% for link in entry.writingLinks %}
+					<li><a href="{{ link.linkAddress }}">{{ link.linkText }}</a></li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+	</section>
+	
 {% endblock %}
