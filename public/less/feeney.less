@@ -33,6 +33,7 @@ h5 {
 
 a {
 	text-decoration: none;
+	color: @coal;
 	&:hover {
 		text-decoration: none;
 	}
@@ -320,7 +321,7 @@ nav {
 }
 
 #writing-main {
-	max-width: 35em;
+	max-width: 40em;
 	padding: 0 40px;
 	margin-bottom: 80px;
 	&.single {
@@ -437,6 +438,43 @@ nav {
 	}
 }
 
+.workTop {
+	text-align: center;
+	h1 {
+		color: @chalk;
+		text-transform: uppercase;
+		padding: 60px 0 20px;
+	}
+	a {
+		color: @chalk;
+	}
+}
+
+.workBody {
+	max-width: 50em;
+	margin: 20px auto 80px;
+	p {
+		max-width: 35em;
+		margin: 20px auto;
+		a:hover {
+			color: @coal;
+			background-color: @dust;
+		}
+	}
+	img {
+		width: 100%;
+		margin: 20px 0;
+	}
+	.btn {
+		color: @chalk;
+		margin: 20px auto;
+		display: inline-block;
+		&:hover {
+			background: @coal !important;
+		}
+	}
+}
+
 
 /* -------------------------------------------------------------------------------- */
 // PLAYGROUND
@@ -489,6 +527,18 @@ nav {
 		h4 {
 			color: @coal;
 		}
+		ul {
+			.list-unstyled();
+		}
+		.articles:before {
+			content: "article";
+		}
+		.webDesign:before {
+			content: "web design";
+		}
+		.lettersFromTheEditor:before {
+			content: "letter from the editor";
+		}
 	}
 }
 
@@ -520,7 +570,7 @@ nav {
 	margin-top: 40px;
 }
 
-.text { 
+#brooklynmuseum section { 
 	a {
 		color: inherit;
 		text-decoration: underline;
@@ -540,6 +590,26 @@ nav {
 			margin-bottom: 2px;
 			&:hover {
 				background-color: darken(@bmcolor, 5%);
+			}
+		}
+	}
+	.flexslider {
+		max-width: 800px;
+		margin: 40px auto 40px;
+		border: 10px solid @chalk;
+		ul, ol {
+			li {
+				padding: 0;
+			}
+		}
+		.flex-control-nav {
+			margin-top: 20px;
+			li a {
+				background: @chalk;
+				opacity: .6;
+				&.flex-active {
+					opacity: 1;
+				}
 			}
 		}
 	}

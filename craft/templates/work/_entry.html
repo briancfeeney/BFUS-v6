@@ -6,9 +6,37 @@
 {% extends "_layout" %}
 
 {% block content %}
-	<article>
+
+<style>
+	.workBody p a {border-bottom: 1px solid #{{ entry.color }};}
+</style>
+
+<div class="workFlex">
+
+	<div class="workTop topBar" style="background: #{{ entry.color }};">
+
+		<h4>{% if entry.type == 'webDesign' %}<a href="/work#web">Web Design</a>{% endif %}</h4>
+	
 		<h1>{{ entry.title }}</h1>
-		<p>{{ entry.postDate.format('F, Y') }}</p>
+		
+	</div>
+	<div class="workBody">
 		{{ entry.body }}
-	</article>
+		
+			{% if entry.screenshots|length %}
+				{% for image in entry.screenshots %}
+					<img src="{{ image.getUrl() }}">
+				{% endfor %}
+			{% endif %}
+		
+		<p>{{ entry.postDate.format('F Y') }}</p>
+		
+		{% if entry.websiteLink %}
+			<a href="{{ entry.websiteLink }}" class="btn" style="background: #{{ entry.color }};">Visit the Site</a>
+		{% endif %}
+			
+	</div>
+	
+</div>
+		
 {% endblock %}
