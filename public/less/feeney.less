@@ -1,5 +1,10 @@
 @import "bootstrap.less";
 @import "friendly-font.less";
+@import "responsive-nav.less";
+
+@phone:		420px;
+@tablet: 	600px;
+@desktop:	1200px;
 
 /* -------------------------------------------------------------------------------- */
 // BASIC RESET
@@ -44,6 +49,11 @@ p {
 	font-size: 18px;
 }
 
+img {
+	width: 100%;
+	height: auto;
+}
+
 article {
 	a {
 		border-bottom: 1px solid @green;
@@ -84,65 +94,79 @@ blockquote {
 // FLEXBOX LAYOUT
 
 .bodyFlex {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
 }
 
 .mainFlex {
-  display: flex;
-  flex: 1;
+	display: flex;
+	flex: 1;
 }
 
 .contentFlex {
-  flex-grow: 1;
+	flex-grow: 1;
 }
 
 .columnFlex {
-  flex: 0 0 16em;
-  order: 0;
+	flex: 0 0 16em;
+	order: 0;
 	background-color: @dust;
 }
 
-@media (max-width: 600px) {
-  .mainFlex {
-    flex-direction: column;
-  }
-  .contentFlex {
-    flex-grow: 1;
-  }
-  .columnFlex {
-    flex: 0 0 5em;
-  }
+@media (max-width: 700px) {
+	header.columnFlex {
+		flex: 0 0 13em;
+	}
+}
+
+@media (max-width: @tablet) {
+	.mainFlex {
+	  flex-direction: column;
+	}
+	.columnFlex {
+	  flex: 0 0 5em;
+	}
+	header.columnFlex {
+		flex: 0 0 auto;
+		min-height: 0;
+	}
 }
 
 /* -------------------------------------------------------------------------------- */
 // HEADER & NAV
 
-nav {
-	ul {
-		margin: 0;
-		padding: 0;
-		li {
-			text-align: center;
-			background-color: @dust;
-			.proximaSB();
-			letter-spacing: 3px;
-			&:hover {
-				background-color: mix(@dust, @coal, 90%);
+header {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	nav {
+		flex: 1;
+		ul {
+			margin: 0;
+			padding: 0;
+			li {
+				text-align: center;
+				background-color: @dust;
+				.proximaSB();
+				letter-spacing: 3px;
+				&:hover {
+					background-color: mix(@dust, @coal, 90%);
+					a {
+						color: @chalk;
+					}
+				}
 				a {
 					color: @chalk;
+					padding: 20px 0;
+					text-transform: uppercase;
+					display: block;
 				}
-			}
-			a {
-				color: @chalk;
-				padding: 20px 0;
-				text-transform: uppercase;
-				display: block;
 			}
 		}
 	}
 }
+
 #title {
 	background-color: @coal;
 }
@@ -291,7 +315,7 @@ nav {
 
 #writing-index {
 	flex: 0 0 23%;
-	max-width: 21em;
+	max-width: 22em;
 	min-width: 18em;
 	background-color: @green;
 	h4 {
@@ -310,6 +334,7 @@ nav {
 				color: @chalk;
 				.proximaL();
 				font-size: 1em;
+				line-height: 1.35em;
 				display: block;
 				padding: 5px 20px 5px 30px;
 				&:hover {
@@ -324,12 +349,18 @@ nav {
 	max-width: 40em;
 	padding: 0 40px;
 	margin-bottom: 80px;
+	background-size: contain;
+	background-repeat: no-repeat;
 	&.single {
 		h1 {
 			margin: 1em 0 .5em;
 		}
 	}
 	article {
+		img {
+			margin-bottom: 20px;
+			max-width: 100%;
+		}
 		footer {
 			margin-top: 20px;
 			text-align: right;
@@ -340,6 +371,20 @@ nav {
 			h5 {
 				margin-top: 10px;
 			}
+		}
+	}
+}
+
+#writingImages {
+	max-width: 15%;
+	img {
+		cursor: pointer;
+		-webkit-transition: .5s ease;
+		&:hover {
+			-webkit-transform: scale(3) translate(-33.333%,33.333%);
+			-webkit-transition: .75s ease;
+			border-left: 5px solid @chalk;
+			border-bottom: 5px solid @chalk;
 		}
 	}
 }
@@ -435,6 +480,12 @@ nav {
 		h2 {
 			background-color: @red;
 		}
+		.project {
+			float: left;
+			width: 25%;
+			height: 240px;
+			padding: 20px;
+		}
 	}
 }
 
@@ -444,6 +495,7 @@ nav {
 		color: @chalk;
 		text-transform: uppercase;
 		padding: 60px 0 20px;
+		font-size: 4em;
 	}
 	a {
 		color: @chalk;
@@ -571,6 +623,7 @@ nav {
 }
 
 #brooklynmuseum section { 
+	margin-bottom: 60px;
 	a {
 		color: inherit;
 		text-decoration: underline;
@@ -634,6 +687,9 @@ footer {
 				background-color: mix(@dust, @coal, 90%);
 			}
 		}
+	}
+	@media (max-width: @tablet) {
+		display: none;
 	}
 }
 

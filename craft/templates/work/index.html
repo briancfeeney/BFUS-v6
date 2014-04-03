@@ -24,8 +24,6 @@
 			{% for entry in craft.entries.section('work').find() %}
 				<article>
 					<h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
-					{{ entry.body.getPage(1) }}
-					<p><a href="{{ entry.url }}">Continue reading</a></p>
 				</article>
 			{% endfor %}
 		</div>
@@ -35,7 +33,14 @@
 		</div>
 		<div id="dev" class="workType">
 			<h2>Front-End Development</h2>
-			This is my front-end development experience.
+			{% if workIndex.frontEndDev | length %}
+				{% for project in workIndex.frontEndDev %}
+					<div class="project">
+						<h5>{{ project.employer }}</h5>
+						<h1><a href="{{ project.siteWebAddress }}">{{ project.siteName }}</a><h1>
+					</div>
+				{% endfor %}
+			{% endif %}
 		</div>
 	</section>
 	

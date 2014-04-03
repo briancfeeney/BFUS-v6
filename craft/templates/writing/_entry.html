@@ -8,22 +8,23 @@
 
 {% block content %}
 
-<section id="writing-index">
-	<h4 id="page-title">Writing</h4>
+	<section id="writing-index">
+		<h4 id="page-title">Writing</h4>
 	
-	{% if globalWriting.articleSubjects | length %}
-		{% for subject in globalWriting.articleSubjects %}
-			<h4 class="subjectTitle">{{ subject.subjectTitle }}</h4>
-			<ul>
-				{% for link in subject.subjectArticles %}
-					<li><a href="{{ link.url }}">{{ link.title }}</a></li>
-				{% endfor %}
-			</ul>
+		{% if globalWriting.articleSubjects | length %}
+			{% for subject in globalWriting.articleSubjects %}
+				<h4 class="subjectTitle">{{ subject.subjectTitle }}</h4>
+				<ul>
+					{% for link in subject.subjectArticles %}
+						<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+					{% endfor %}
+				</ul>
 			
-		{% endfor %}
-	{% endif %}
+			{% endfor %}
+		{% endif %}
 	
-</section>
+	</section>
+	
 	<section id="writing-main" class="single">
 		<article>
 			<h5>{{ entry.postDate.format('F d, Y') }}</h5>
@@ -31,6 +32,15 @@
 			{{ entry.body }}
 		</article>
 	</section>
+	
+	{% if entry.featuredImage|length %}
+		<section id="writingImages">
+		{% for image in entry.featuredImage %}
+			<img src="{{ image.getUrl() }}">
+		{% endfor %}
+		</section>
+	{% endif %}
+	
 	<section id="writingLinks">
 		{% if entry.writingLinks | length %}
 			<h5>Links</h5>
