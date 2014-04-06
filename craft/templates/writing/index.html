@@ -9,6 +9,12 @@
 {% block content %}
 	<section id="writing-index">
 		<h4 id="page-title">Writing</h4>
+		<button class="navbar-toggle">
+			<span class="sr-only">Toggle navigation</span>
+		    <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+		</button>
 		
 		{% if globalWriting.articleSubjects | length %}
 			{% for subject in globalWriting.articleSubjects %}
@@ -18,7 +24,6 @@
 						<li><a href="{{ link.url }}">{{ link.title }}</a></li>
 					{% endfor %}
 				</ul>
-				
 			{% endfor %}
 		{% endif %}
 		
@@ -29,11 +34,19 @@
 			{% for entry in craft.entries.section('writing').type('lettersFromTheEditor').limit(1).find() %}
 				<h1 class="subTitle">{{ entry.title }}</h1>
 				{{ entry.body }}
-				
 				<footer>
 					<strong>Brian Feeney</strong>
 					<h5>{{ entry.postDate.format('F d, Y') }}</h5>
 			{% endfor %}
 		</article>
 	</section>
+	
+	<script>
+		$(window).load(function() {
+			$("#writing-index .navbar-toggle").click(function () {
+			    $("#writing-index").toggleClass("open-index");
+			});
+		});
+	</script>
+	
 {% endblock %}

@@ -1,0 +1,62 @@
+{#
+ # Photos index template
+ # -------------------
+ #}
+
+{% extends "_layout" %}
+{% set title = "Photos" %}
+
+{% block content %}
+
+<div class="photosFlex">
+	<div class="topBar">
+		<h4 id="page-title">Photos</h4>
+	</div>
+
+	<div class="galleryWrapper">
+		<section class="gallery">
+			{% paginate craft.entries.section('photos').limit(20) as entries %}
+			{% for entry in entries %}
+				{% if entry.photo|length %}
+					<article>
+					{% for image in entry.photo %}
+						<a href="{{ entry.url() }}"><img src="{{ image.getUrl() }}"></a>
+					{% endfor %}
+					</article>
+				{% endif %}
+			{% endfor %}
+		</section>
+		{% if paginate.prevUrl %}
+	        <a href="{{ paginate.prevUrl }}" class="paging prev">Next Page</a>
+	    {% endif %}
+	    {% if paginate.nextUrl %}
+	        <a href="{{ paginate.nextUrl }}" class="paging next">Previous Page</a>
+	    {% endif %}
+	
+		{% endpaginate %}
+	</div>
+</div>
+	
+	<script src="../public/js/jquery.masonry.min.js"></script>
+	<script>
+
+		var $container = $('.gallery');
+		// initialize Masonry after all images have loaded  
+		$container.imagesLoaded( function() {
+		  $container.masonry(	{
+			  itemSelector: 'article'
+			});
+		});
+
+		$( window ).resize(function() {
+		  	var $container = $('.gallery');
+			// initialize
+			$container.masonry({
+			  itemSelector: 'article'
+			});
+		});
+
+	</script>
+
+
+{% endblock %}

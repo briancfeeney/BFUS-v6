@@ -1,0 +1,37 @@
+{#
+ # Photo entry template
+ # -------------------
+ #
+ # This template gets loaded whenever a News entry’s URL is
+ # requested. That’s because the News section’s Template setting is
+ # set to “news/_entry”, the path to this template.
+ #
+ # When this template is loaded, it will already have an ‘entry’
+ # variable, set to the requested News entry.
+ #
+ # See this page for more details on how Craft routes requests:
+ # http://buildwithcraft.com/docs/routing
+ #}
+
+{% extends "_layout" %}
+
+{% block content %}
+
+<div class="photosFlex">
+	<div class="topBar">
+		<h4 id="page-title">Photos</h4>
+	</div>
+
+	<div class="photoWrapper">
+	{% if entry.photo|length %}
+		<article class="single">
+			{% for image in entry.photo %}
+				<img src="{{ image.getUrl() }}">
+			{% endfor %}
+		</article>
+	{% endif %}
+	</div>
+
+</div>
+
+{% endblock %}

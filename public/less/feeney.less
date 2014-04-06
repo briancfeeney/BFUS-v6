@@ -28,12 +28,18 @@ h2 {
 
 h4 {
 	color: @chalk;
-	margin-top: 22px;
+	margin-top: 1.1em;
 }
 
 h5 {
 	.proximaSB();
 	text-transform: uppercase;
+}
+
+h6 {
+	.proximaSB();
+	text-transform: uppercase;
+	font-weight: normal;
 }
 
 a {
@@ -46,7 +52,8 @@ a {
 
 p {
 	.chaparral();
-	font-size: 18px;
+	font-size: 1.1em;
+	max-width: 40em;
 }
 
 img {
@@ -55,6 +62,9 @@ img {
 }
 
 article {
+	h5 {
+		margin-top: 1.5em;
+	}
 	a {
 		border-bottom: 1px solid @green;
 		color: inherit;
@@ -68,7 +78,7 @@ article {
 
 blockquote {
 	text-indent: 0em;
-	padding: 0 0 0 30px;
+	padding: 0 0 0 1.875em;
 	margin: -5px 0 20px; 
 	border: none;
 	font-size: 1em;
@@ -93,15 +103,15 @@ blockquote {
 /* -------------------------------------------------------------------------------- */
 // FLEXBOX LAYOUT
 
-.bodyFlex {
+/* .bodyFlex {
 	display: flex;
 	min-height: 100vh;
 	flex-direction: column;
-}
+} */
 
 .mainFlex {
 	display: flex;
-	flex: 1;
+	/* flex: 1; */
 }
 
 .contentFlex {
@@ -116,7 +126,7 @@ blockquote {
 
 @media (max-width: 700px) {
 	header.columnFlex {
-		flex: 0 0 13em;
+		flex: 0 0 11em;
 	}
 }
 
@@ -136,13 +146,14 @@ blockquote {
 /* -------------------------------------------------------------------------------- */
 // HEADER & NAV
 
-header {
+main > header {
 	display: flex;
 	min-height: 100vh;
 	flex-direction: column;
 	nav {
 		flex: 1;
 		ul {
+			list-style-type: none;
 			margin: 0;
 			padding: 0;
 			li {
@@ -158,7 +169,8 @@ header {
 				}
 				a {
 					color: @chalk;
-					padding: 20px 0;
+					line-height: 1.3em;
+					padding: 1.25em 0;
 					text-transform: uppercase;
 					display: block;
 				}
@@ -179,14 +191,14 @@ header {
 	background-image: url("../images/pleiades.jpg");
 	background-size: cover;
 	min-height: 100vh;
-	padding: 60px;
+	padding: 3.75em; /* 60px */
 	h2 {
 		color: @chalk;
 		text-transform: uppercase;
 		font-size: 3.3em;
 		letter-spacing: 4px;
 		display: block;
-		margin-bottom: 40px;
+		margin-bottom: 3.5rem;
 	}
 	p {
 		color: @chalk;
@@ -199,20 +211,31 @@ header {
 /* -------------------------------------------------------------------------------- */
 // MISC.
 
-.topBar {
-	flex-direction: row;
-	flex-flow: row wrap;
-}
-
 #page-title {
 	padding: 20px 0;
 	margin: 0;
+	@media (max-width: @tablet) {
+		text-align: center;
+	}
 }
 
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
 	color: @chalk;
 	font-size: 3em;
+}
+
+.paging {
+	padding: 1.25em;
+	color: @chalk;
+	background-color: mix(@dust, @coal, 85%);
+	width: 50%;
+	&.next {
+	
+	}
+	&.prev {
+
+	}
 }
 
 /* -------------------------------------------------------------------------------- */
@@ -225,9 +248,9 @@ header {
 }
 
 .aboutFlex {
-	display: flex;
+	/* display: flex; */
 	flex: 1;
-	flex-direction:column;
+	/* flex-direction:column; */
 }
 
 #social-links {
@@ -237,7 +260,7 @@ header {
 	display: flex;
 	justify-content: flex-end;
 	li {
-		padding: 6px;
+		padding: 5px;
 		margin: 0;
 		display: inline-block;
 		transition: all .2s linear;
@@ -268,6 +291,13 @@ header {
 		a {
 			color: @chalk;
 		}
+		@media (max-width: @tablet) {
+			width: 14.285%;
+			text-align: center;
+			a {
+				font-size: .8em;
+			}
+		}
 	}
 }
 
@@ -296,7 +326,7 @@ header {
 
 #aboutText {
 	max-width: 35em;
-	padding: 20px 40px;
+	padding: 1.25em 2.5em;
 }
 
 
@@ -316,7 +346,7 @@ header {
 #writing-index {
 	flex: 0 0 23%;
 	max-width: 22em;
-	min-width: 18em;
+	min-width: 14em;
 	background-color: @green;
 	h4 {
 		margin: 0 20px 8px;
@@ -343,20 +373,49 @@ header {
 			}
 		}
 	}
+	.navbar-toggle {
+		position: absolute;
+		top: 3.75em;;
+		left: 0;
+		padding: 22px;
+		display: none;
+		cursor: pointer;
+		&:hover {
+			background-color: mix(@coal, @green, 20%);
+		}
+		@media (max-width: @tablet) {
+			display: block;
+		}
+	}
+	@media (max-width: @tablet) {
+		flex: 0;
+		max-height: 60px;
+		max-width: 100%;
+		#page-title {
+			text-align: center;
+		}
+		&.open-index {
+			max-height: none;
+		}
+	}
 }
 
 #writing-main {
 	max-width: 40em;
-	padding: 0 40px;
+	padding: 0 2.5em;
 	margin-bottom: 80px;
 	background-size: contain;
 	background-repeat: no-repeat;
+	z-index: 2;
 	&.single {
 		h1 {
 			margin: 1em 0 .5em;
 		}
 	}
 	article {
+		header {
+			padding: 0 2.5em;
+		}
 		img {
 			margin-bottom: 20px;
 			max-width: 100%;
@@ -372,6 +431,9 @@ header {
 				margin-top: 10px;
 			}
 		}
+	}
+	@media (max-width: 950px) {
+		padding: 0 1.25em;
 	}
 }
 
@@ -445,7 +507,7 @@ header {
 			}
 			li {
 				color: @chalk;
-				padding: 20px;
+				padding: 19px;
 				text-align: center;
 				cursor: pointer;
 			}
@@ -477,14 +539,29 @@ header {
 		}
 	}
 	#dev.workType {
+		h1 {
+			margin: 0;
+			a {
+				color: @red;
+			}
+		}
 		h2 {
 			background-color: @red;
 		}
 		.project {
 			float: left;
 			width: 25%;
-			height: 240px;
+			height: 200px;
 			padding: 20px;
+			@media (max-width: 1250px) {
+				width: 33.333%;
+			}
+			@media (max-width: 950px) {
+				width: 50%;
+			}
+			@media (max-width: 500px) {
+				width: 100%;
+			}
 		}
 	}
 }
@@ -527,6 +604,64 @@ header {
 	}
 }
 
+
+/* -------------------------------------------------------------------------------- */
+// PHOTOS
+
+#photos {
+	.photosFlex {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+	}
+	.topBar {
+		background-color: @yellow;
+		width: 100%;
+		height: 3.75em;;
+		h4 {
+			margin-left: 1.25em;
+		}
+	}
+	.galleryWrapper {
+		padding: .75em;
+	}
+	.gallery {
+		margin-bottom: 1.25em;
+		article {
+			width: 49.9%;
+			height: auto;
+			padding: .75em;
+			@media (max-width: 1100px) {
+				width: 100%;
+			}
+			@media (min-width: 1400px) {
+				width: 33.3%;
+			}
+		}
+	}
+	.photoWrapper {
+		justify-content: center;
+		align-items: center;
+		display: flex;
+		flex-direction: row;
+		flex: 1;
+		@media (max-width: 750px) {
+			display: block;
+		}
+	}
+	.single {
+		text-align: center;
+		img {
+			max-width: 90%;
+			max-height: 90%;
+			@media (max-width: 750px) {
+				max-width: none;
+				max-height: none;
+				width: 100%;
+			}
+		}
+	}
+}
 
 /* -------------------------------------------------------------------------------- */
 // PLAYGROUND
@@ -574,22 +709,92 @@ header {
 // ARCHIVE
 
 #archive {
+	background: @coal;
+	color: @chalk;
 	.archive {
-		padding: 0 20px;
-		h4 {
-			color: @coal;
+		width: 100%;
+		a {
+			color: @chalk;
+		}
+		h1 {
+			margin: 0;
+		}
+		h5 {
+			margin: 1.25em 0 0;
+			padding: 0 1.25em .75em 2.5em;
+			color: mix(@chalk, @coal, 50%);
+			border-bottom: 1px solid mix(@coal, @chalk, 90%);
 		}
 		ul {
 			.list-unstyled();
+			margin-bottom: 3.75em;
+			li {
+				padding: 1.25em;
+				display: flex;
+				border-bottom: 1px solid mix(@coal, @chalk, 90%);
+				&:hover {
+					background-color: mix(@coal, @chalk, 95%);
+				}
+				.icon {
+					font-size: 2em;
+					color: mix(@chalk, @coal, 50%);
+					margin: auto 1.25em auto .75em;
+					width: 1em;
+				}
+				.archive-info {
+					display: flex;
+					flex-direction: column;
+					max-width: 75%;
+				}
+			}
 		}
-		.articles:before {
-			content: "article";
+		.Writing {
+			h6 { color: @green; }
 		}
-		.webDesign:before {
-			content: "web design";
+		.Work {
+			h6 { color: @blue; }
 		}
-		.lettersFromTheEditor:before {
-			content: "letter from the editor";
+		.Photos {
+			h6 { color: @yellow; }
+		}
+		.Playground {
+			h6 { color: @red; }
+		}
+		@media (max-width: 1000px) {
+			h1 {
+				font-size: 2em;
+			}
+			h5 {
+				padding: .5em 1em;
+				font-size: .9em;
+			}
+			ul {
+				li {
+					padding: .5em 1em;
+					.icon {
+						margin: auto .75em auto 0;
+						font-size: 1.5em;
+					}
+				}
+			}
+		}
+		@media (max-width: @tablet) {
+			h1 {
+				font-size: 2em;
+			}
+			h5 {
+				padding: .5em 1em;
+				font-size: .75em;
+			}
+			ul {
+				li {
+					padding: .5em 1em;
+					.icon {
+						margin: auto .75em auto 0;
+						font-size: 1.25em;
+					}
+				}
+			}
 		}
 	}
 }
@@ -672,7 +877,7 @@ header {
 /* -------------------------------------------------------------------------------- */
 // FOOTER
 
-footer {
+header footer {
 	justify-content: center;
 	align-content: flex-end;
 	p {

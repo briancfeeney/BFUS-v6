@@ -9,12 +9,28 @@
 
 <div class="archive">
 
-	{% set allEntries = craft.entries.section('writing,work').limit(null) %}
-	{% for date, entries in allEntries | group("postDate|date('F Y')") %}
+	{% set allEntries = craft.entries.section('writing,work,photos').limit(null) %}
+	{% for date, entries in allEntries | group("postDate|date('Y')") %}
 	    <h5>{{ date }}</h5>
 	    <ul>
 	        {% for entry in entries %}
-	            <li class="{{ entry.type }}">{{ entry.getLink() }} <small>{{ entry.type }}</small></li>
+	            <a href="{{ entry.url() }}">
+					<li class="{{ entry.section }}">
+						{% if entry.section == 'Writing' %}
+							<div data-icon="x" class="icon"></div>
+						{% endif %}
+						{% if entry.section == 'Photos' %}
+							<div data-icon="t" class="icon"></div>
+						{% endif %}
+						{% if entry.section == 'Work' %}
+							<div data-icon="b" class="icon"></div>
+						{% endif %}
+						<div class="archive-info">
+							<h6>{{ entry.type.name }}</h6>
+							<h1>{{ entry.title }}</h1>
+						</div>
+					</li>
+				</a>
 	        {% endfor %}
 	    </ul>
 	{% endfor %}
