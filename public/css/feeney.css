@@ -852,8 +852,8 @@ body {
   font-family: "proxima-nova-1", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.428571429;
-  color: #000e28;
-  background-color: #f2f3ec;
+  color: #232529;
+  background-color: #edeae4;
 }
 input,
 button,
@@ -894,7 +894,7 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.428571429;
-  background-color: #f2f3ec;
+  background-color: #edeae4;
   border: 1px solid #dddddd;
   border-radius: 0px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -2298,7 +2298,7 @@ select[multiple].input-lg {
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;
-  color: #003ba8;
+  color: #5e636e;
 }
 @media (min-width: 768px) {
   .form-inline .form-group {
@@ -2403,7 +2403,7 @@ select[multiple].input-lg {
 }
 .btn:hover,
 .btn:focus {
-  color: #f2f3ec;
+  color: #edeae4;
   text-decoration: none;
 }
 .btn:active,
@@ -2424,8 +2424,8 @@ fieldset[disabled] .btn {
   box-shadow: none;
 }
 .btn-default {
-  color: #f2f3ec;
-  background-color: #000e28;
+  color: #edeae4;
+  background-color: #232529;
   border-color: #cccccc;
 }
 .btn-default:hover,
@@ -2433,8 +2433,8 @@ fieldset[disabled] .btn {
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-  color: #f2f3ec;
-  background-color: #000000;
+  color: #edeae4;
+  background-color: #0c0c0d;
   border-color: #adadad;
 }
 .btn-default:active,
@@ -2457,12 +2457,12 @@ fieldset[disabled] .btn-default:active,
 .btn-default.disabled.active,
 .btn-default[disabled].active,
 fieldset[disabled] .btn-default.active {
-  background-color: #000e28;
+  background-color: #232529;
   border-color: #cccccc;
 }
 .btn-default .badge {
-  color: #000e28;
-  background-color: #f2f3ec;
+  color: #232529;
+  background-color: #edeae4;
 }
 .btn-primary {
   color: #ffffff;
@@ -3591,7 +3591,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   padding: 23px 23px;
 }
 #showLeftPush:hover {
-  background-color: #2c374a;
+  background-color: #2d2f32;
 }
 .cbp-spmenu-push-toright .mainFlex {
   min-width: 100vw;
@@ -3612,7 +3612,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   display: block;
   width: 22px;
   height: 2px;
-  background-color: #f2f3ec;
+  background-color: #edeae4;
 }
 .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
@@ -3631,9 +3631,9 @@ body {
     display: inherit;
   }
   .cbp-spmenu {
-    background: #dadad4;
+    background: #565658;
     position: fixed;
-    border-top: 62px solid #000e28;
+    border-top: 62px solid #232529;
   }
   .cbp-spmenu h3 {
     padding: 20px;
@@ -3727,7 +3727,7 @@ h2 {
   text-transform: uppercase;
 }
 h4 {
-  color: #f2f3ec;
+  color: #edeae4;
   margin-top: 1.1em;
 }
 h5 {
@@ -3745,7 +3745,7 @@ h6 {
 }
 a {
   text-decoration: none;
-  color: #000e28;
+  color: #232529;
 }
 a:hover {
   text-decoration: none;
@@ -3764,13 +3764,13 @@ article h5 {
   margin-top: 1.5em;
 }
 article a {
-  border-bottom: 1px solid #5cb247;
+  border-bottom: 1px solid #888887;
   color: inherit;
 }
 article a:hover {
   color: inherit;
   opacity: 1;
-  background-color: #dadad4;
+  background-color: #565658;
 }
 blockquote {
   text-indent: 0em;
@@ -3783,7 +3783,7 @@ blockquote {
 blockquote:before {
   content: "“";
   font-size: 3.5em;
-  color: #5cb247;
+  color: #b3c8b7;
   display: block;
   -webkit-transform: translate(-30px, 30px);
   -ms-transform: translate(-30px, 30px);
@@ -3816,7 +3816,7 @@ blockquote h6 {
 .columnFlex {
   flex: 0 0 16em;
   order: 0;
-  background-color: #dadad4;
+  background-color: #565658;
 }
 @media (max-width: 700px) {
   header.columnFlex {
@@ -3851,27 +3851,27 @@ main > header nav ul {
 }
 main > header nav ul li {
   text-align: center;
-  background-color: #dadad4;
+  background-color: #565658;
   font-family: "proxima-nova-1", "proxima-nova-2";
   font-weight: 600;
   font-style: normal;
   letter-spacing: 3px;
 }
 main > header nav ul li:hover {
-  background-color: #c4c6c3;
+  background-color: #505153;
 }
 main > header nav ul li:hover a {
-  color: #f2f3ec;
+  color: #edeae4;
 }
 main > header nav ul li a {
-  color: #f2f3ec;
+  color: #edeae4;
   line-height: 1.3em;
   padding: 1.25em 0;
   text-transform: uppercase;
   display: block;
 }
 #title {
-  background-color: #000e28;
+  background-color: #232529;
 }
 /* -------------------------------------------------------------------------------- */
 #splash {
@@ -3882,7 +3882,7 @@ main > header nav ul li a {
   /* 60px */
 }
 #splash h2 {
-  color: #f2f3ec;
+  color: #edeae4;
   text-transform: uppercase;
   font-size: 3.3em;
   letter-spacing: 4px;
@@ -3890,7 +3890,7 @@ main > header nav ul li a {
   margin-bottom: 3.5rem;
 }
 #splash p {
-  color: #f2f3ec;
+  color: #edeae4;
   max-width: 21em;
   font-size: 1.4em;
 }
@@ -3906,18 +3906,18 @@ main > header nav ul li a {
 }
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
-  color: #f2f3ec;
+  color: #edeae4;
   font-size: 3em;
 }
 .paging {
   padding: 1.25em;
-  color: #f2f3ec;
-  background-color: #b9bbba;
+  color: #edeae4;
+  background-color: #4e4f51;
   width: 50%;
 }
 /* -------------------------------------------------------------------------------- */
 #about .topBar {
-  background-color: #000e28;
+  background-color: #232529;
 }
 .aboutFlex {
   /* display: flex; */
@@ -3937,32 +3937,11 @@ main > header nav ul li a {
   display: inline-block;
   transition: all .2s linear;
 }
-#social-links li:nth-child(1) {
-  background-color: #0e98bd;
-}
-#social-links li:nth-child(2) {
-  background-color: #006a98;
-}
-#social-links li:nth-child(3) {
-  background-color: #f0c000;
-}
-#social-links li:nth-child(4) {
-  background-color: #5cb247;
-}
-#social-links li:nth-child(5) {
-  background-color: #cc4600;
-}
-#social-links li:nth-child(6) {
-  background-color: #524b4b;
-}
-#social-links li:nth-child(7) {
-  background-color: #ce1707;
-}
 #social-links li:hover {
-  background-color: #000e28;
+  background-color: #888887;
 }
 #social-links li a {
-  color: #f2f3ec;
+  color: #edeae4;
 }
 @media (max-width: 600px) {
   #social-links li {
@@ -3985,7 +3964,7 @@ main > header nav ul li a {
   position: relative;
 }
 #myPortrait a {
-  color: #f2f3ec;
+  color: #edeae4;
   font-size: .7em;
   opacity: .4;
   position: absolute;
@@ -4001,7 +3980,7 @@ main > header nav ul li a {
 }
 /* -------------------------------------------------------------------------------- */
 #writing h5 {
-  color: #5cb247;
+  color: #888887;
   margin-top: 30px;
 }
 #writing .subTitle {
@@ -4011,7 +3990,7 @@ main > header nav ul li a {
   flex: 0 0 23%;
   max-width: 22em;
   min-width: 14em;
-  background-color: #5cb247;
+  background-color: #8f9f94;
 }
 #writing-index h4 {
   margin: 0 20px 8px;
@@ -4029,7 +4008,7 @@ main > header nav ul li a {
   margin-bottom: 40px;
 }
 #writing-index ul li a {
-  color: #f2f3ec;
+  color: #edeae4;
   font-family: "proxima-nova-1", "proxima-nova-2";
   font-weight: 300;
   font-style: normal;
@@ -4039,7 +4018,7 @@ main > header nav ul li a {
   padding: 5px 20px 5px 30px;
 }
 #writing-index ul li a:hover {
-  background-color: #4a9141;
+  background-color: #747474;
 }
 #writing-index .navbar-toggle {
   position: absolute;
@@ -4050,7 +4029,7 @@ main > header nav ul li a {
   cursor: pointer;
 }
 #writing-index .navbar-toggle:hover {
-  background-color: #4a9141;
+  background-color: #747474;
 }
 @media (max-width: 600px) {
   #writing-index .navbar-toggle {
@@ -4115,8 +4094,8 @@ main > header nav ul li a {
 #writingImages img:hover {
   -webkit-transform: scale(3) translate(-33.333%, 33.333%);
   -webkit-transition: .75s ease;
-  border-left: 5px solid #f2f3ec;
-  border-bottom: 5px solid #f2f3ec;
+  border-left: 5px solid #edeae4;
+  border-bottom: 5px solid #edeae4;
 }
 #writingLinks {
   margin-top: 140px;
@@ -4125,11 +4104,11 @@ main > header nav ul li a {
   margin-bottom: 10px;
 }
 #writingLinks ul li a {
-  color: #000e28;
-  border-bottom: 1px solid #5cb247;
+  color: #232529;
+  border-bottom: 1px solid #888887;
 }
 #writingLinks ul li a:hover {
-  background-color: #dadad4;
+  background-color: #565658;
 }
 /* -------------------------------------------------------------------------------- */
 .workFlex {
@@ -4147,31 +4126,22 @@ main > header nav ul li a {
   flex: 1;
 }
 #work .topBar ul a:nth-child(1) li {
-  background-color: #006a98;
-}
-#work .topBar ul a:nth-child(1) li:hover {
-  background-color: #003c60;
+  background-color: #bad8d8;
 }
 #work .topBar ul a:nth-child(2) li {
-  background-color: #f0c000;
-}
-#work .topBar ul a:nth-child(2) li:hover {
-  background-color: #786714;
+  background-color: #b3c8b7;
 }
 #work .topBar ul a:nth-child(3) li {
-  background-color: #ce1707;
-}
-#work .topBar ul a:nth-child(3) li:hover {
-  background-color: #671318;
+  background-color: #b7d0c8;
 }
 #work .topBar ul li {
-  color: #f2f3ec;
+  color: #edeae4;
   padding: 19px;
   text-align: center;
   cursor: pointer;
 }
 #theWork h2 {
-  color: #f2f3ec;
+  color: #edeae4;
   text-align: center;
   margin: 0;
   padding: 40px 0;
@@ -4183,19 +4153,19 @@ main > header nav ul li a {
   display: block;
 }
 #theWork #web.workType h2 {
-  background-color: #006a98;
+  background-color: #bad8d8;
 }
 #theWork #print.workType h2 {
-  background-color: #f0c000;
+  background-color: #b3c8b7;
 }
 #theWork #dev.workType h1 {
   margin: 0;
 }
 #theWork #dev.workType h1 a {
-  color: #ce1707;
+  color: #b7d0c8;
 }
 #theWork #dev.workType h2 {
-  background-color: #ce1707;
+  background-color: #b7d0c8;
 }
 #theWork #dev.workType .project {
   float: left;
@@ -4222,13 +4192,13 @@ main > header nav ul li a {
   text-align: center;
 }
 .workTop h1 {
-  color: #f2f3ec;
+  color: #edeae4;
   text-transform: uppercase;
   padding: 60px 0 20px;
   font-size: 4em;
 }
 .workTop a {
-  color: #f2f3ec;
+  color: #edeae4;
 }
 .workBody {
   max-width: 50em;
@@ -4239,20 +4209,20 @@ main > header nav ul li a {
   margin: 20px auto;
 }
 .workBody p a:hover {
-  color: #000e28;
-  background-color: #dadad4;
+  color: #232529;
+  background-color: #565658;
 }
 .workBody img {
   width: 100%;
   margin: 20px 0;
 }
 .workBody .btn {
-  color: #f2f3ec;
+  color: #edeae4;
   margin: 20px auto;
   display: inline-block;
 }
 .workBody .btn:hover {
-  background: #000e28 !important;
+  background: #232529 !important;
 }
 /* -------------------------------------------------------------------------------- */
 #photos .photosFlex {
@@ -4261,7 +4231,7 @@ main > header nav ul li a {
   flex-grow: 1;
 }
 #photos .topBar {
-  background-color: #f0c000;
+  background-color: #888887;
   width: 100%;
   height: 3.75em;
 }
@@ -4319,59 +4289,32 @@ main > header nav ul li a {
 @keyframes playColor {
   0%,
   100% {
-    background: #ce1707;
+    background: #bad8d8;
   }
-  20% {
-    background: #006a98;
-  }
-  40% {
-    background: #5cb247;
-  }
-  60% {
-    background: #f0c000;
-  }
-  80% {
-    background: #cc4600;
+  50% {
+    background: #b3c8b7;
   }
 }
 @-webkit-keyframes playColor {
   0%,
   100% {
-    background: #ce1707;
+    background: #bad8d8;
   }
-  20% {
-    background: #006a98;
-  }
-  40% {
-    background: #5cb247;
-  }
-  60% {
-    background: #f0c000;
-  }
-  80% {
-    background: #cc4600;
+  50% {
+    background: #b3c8b7;
   }
 }
 @-moz-keyframes playColor {
   0%,
   100% {
-    background: #ce1707;
+    background: #bad8d8;
   }
-  20% {
-    background: #006a98;
-  }
-  40% {
-    background: #5cb247;
-  }
-  60% {
-    background: #f0c000;
-  }
-  80% {
-    background: #cc4600;
+  50% {
+    background: #b3c8b7;
   }
 }
 #playgroundTitle {
-  background: #ce1707;
+  background: #bad8d8;
   animation: playColor 40s linear infinite;
   -webkit-animation: playColor 40s linear infinite;
   animation-delay: 1s;
@@ -4381,18 +4324,18 @@ main > header nav ul li a {
 #playgroundTitle h2 {
   margin: 0;
   padding: 40px;
-  color: #f2f3ec;
+  color: #edeae4;
 }
 /* -------------------------------------------------------------------------------- */
 #archive {
-  background: #000e28;
-  color: #f2f3ec;
+  background: #232529;
+  color: #edeae4;
 }
 #archive .archive {
   width: 100%;
 }
 #archive .archive a {
-  color: #f2f3ec;
+  color: #edeae4;
 }
 #archive .archive h1 {
   margin: 0;
@@ -4400,8 +4343,8 @@ main > header nav ul li a {
 #archive .archive h5 {
   margin: 1.25em 0 0;
   padding: 0 1.25em .75em 2.5em;
-  color: #79818a;
-  border-bottom: 1px solid #18253c;
+  color: #888887;
+  border-bottom: 1px solid #37393c;
 }
 #archive .archive ul {
   padding-left: 0;
@@ -4411,14 +4354,14 @@ main > header nav ul li a {
 #archive .archive ul li {
   padding: 1.25em;
   display: flex;
-  border-bottom: 1px solid #18253c;
+  border-bottom: 1px solid #37393c;
 }
 #archive .archive ul li:hover {
-  background-color: #0c1932;
+  background-color: #2d2f32;
 }
 #archive .archive ul li .icon {
   font-size: 2em;
-  color: #79818a;
+  color: #888887;
   margin: auto 1.25em auto .75em;
   width: 1em;
 }
@@ -4428,16 +4371,16 @@ main > header nav ul li a {
   max-width: 75%;
 }
 #archive .archive .Writing h6 {
-  color: #5cb247;
+  color: #b3c8b7;
 }
 #archive .archive .Work h6 {
-  color: #006a98;
+  color: #bad8d8;
 }
 #archive .archive .Photos h6 {
-  color: #f0c000;
+  color: #b7d0c8;
 }
 #archive .archive .Playground h6 {
-  color: #ce1707;
+  color: #b7d0c8;
 }
 @media (max-width: 1000px) {
   #archive .archive h1 {
@@ -4484,7 +4427,7 @@ main > header nav ul li a {
 #brooklynmuseum .images img {
   width: 100%;
   max-width: 200px;
-  border: 1px solid #f2f3ec;
+  border: 1px solid #edeae4;
   display: inline;
   text-align: left;
   margin: 20px 0;
@@ -4511,7 +4454,7 @@ main > header nav ul li a {
 #brooklynmuseum section ul li {
   padding: 30px 20px;
   background-color: #00aeef;
-  color: #f2f3ec;
+  color: #edeae4;
   font-size: 1.3em;
   margin-bottom: 2px;
 }
@@ -4521,7 +4464,7 @@ main > header nav ul li a {
 #brooklynmuseum section .flexslider {
   max-width: 800px;
   margin: 40px auto 40px;
-  border: 10px solid #f2f3ec;
+  border: 10px solid #edeae4;
 }
 #brooklynmuseum section .flexslider ul li,
 #brooklynmuseum section .flexslider ol li {
@@ -4531,7 +4474,7 @@ main > header nav ul li a {
   margin-top: 20px;
 }
 #brooklynmuseum section .flexslider .flex-control-nav li a {
-  background: #f2f3ec;
+  background: #edeae4;
   opacity: .6;
 }
 #brooklynmuseum section .flexslider .flex-control-nav li a.flex-active {
@@ -4551,11 +4494,11 @@ header footer p {
   font-size: .8em;
 }
 header footer p a {
-  color: #000e28;
+  color: #232529;
 }
 header footer p a:hover {
-  color: #000e28;
-  background-color: #c4c6c3;
+  color: #232529;
+  background-color: #505153;
 }
 @media (max-width: 600px) {
   header footer {

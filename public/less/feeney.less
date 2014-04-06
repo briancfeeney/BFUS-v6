@@ -66,7 +66,7 @@ article {
 		margin-top: 1.5em;
 	}
 	a {
-		border-bottom: 1px solid @green;
+		border-bottom: 1px solid @stone;
 		color: inherit;
 		&:hover {
 			color: inherit;
@@ -264,29 +264,8 @@ main > header {
 		margin: 0;
 		display: inline-block;
 		transition: all .2s linear;
-		&:nth-child(1) {
-			background-color: @lightblue;
-		}
-		&:nth-child(2) {
-			background-color: @blue;
-		}
-		&:nth-child(3) {
-			background-color: @yellow;
-		}
-		&:nth-child(4) {
-			background-color: @green;
-		}
-		&:nth-child(5) {
-			background-color: @orange;
-		}
-		&:nth-child(6) {
-			background-color: @brown;
-		}
-		&:nth-child(7) {
-			background-color: @red;
-		}
 		&:hover {
-			background-color: @coal;
+			background-color: @stone;
 		}
 		a {
 			color: @chalk;
@@ -335,7 +314,7 @@ main > header {
 
 #writing {
 	h5 {
-		color: @green;
+		color: @stone;
 		margin-top: 30px;
 	}
 	.subTitle {
@@ -347,7 +326,7 @@ main > header {
 	flex: 0 0 23%;
 	max-width: 22em;
 	min-width: 14em;
-	background-color: @green;
+	background-color: mix(@green, @coal, 75%);
 	h4 {
 		margin: 0 20px 8px;
 	}
@@ -368,7 +347,7 @@ main > header {
 				display: block;
 				padding: 5px 20px 5px 30px;
 				&:hover {
-					background-color: mix(@coal, @green, 20%);
+					background-color: mix(@coal, @stone, 20%);
 				}
 			}
 		}
@@ -381,7 +360,7 @@ main > header {
 		display: none;
 		cursor: pointer;
 		&:hover {
-			background-color: mix(@coal, @green, 20%);
+			background-color: mix(@coal, @stone, 20%);
 		}
 		@media (max-width: @tablet) {
 			display: block;
@@ -458,7 +437,7 @@ main > header {
 			margin-bottom: 10px;
 			a {
 				color: @coal;
-				border-bottom: 1px solid @green;
+				border-bottom: 1px solid @stone;
 				&:hover {
 					background-color: @dust;
 				}
@@ -488,21 +467,12 @@ main > header {
 				flex: 1;
 				&:nth-child(1) li {
 					background-color: @blue;
-					&:hover {
-						background-color: mix(@coal, @blue, 50%);
-					}
 				}
 				&:nth-child(2) li {
-					background-color: @yellow;
-					&:hover {
-						background-color: mix(@coal, @yellow, 50%);
-					}
+					background-color: @green;
 				}
 				&:nth-child(3) li {
-					background-color: @red;
-					&:hover {
-						background-color: mix(@coal, @red, 50%);
-					}
+					background-color: mix(@green, @blue, 50%);
 				}
 			}
 			li {
@@ -535,18 +505,18 @@ main > header {
 	}
 	#print.workType {
 		h2 {
-			background-color: @yellow;
+			background-color: @green;
 		}
 	}
 	#dev.workType {
 		h1 {
 			margin: 0;
 			a {
-				color: @red;
+				color: mix(@green, @blue, 50%);
 			}
 		}
 		h2 {
-			background-color: @red;
+			background-color: mix(@green, @blue, 50%);
 		}
 		.project {
 			float: left;
@@ -615,7 +585,7 @@ main > header {
 		flex-grow: 1;
 	}
 	.topBar {
-		background-color: @yellow;
+		background-color: @stone;
 		width: 100%;
 		height: 3.75em;;
 		h4 {
@@ -667,31 +637,22 @@ main > header {
 // PLAYGROUND
 
 @keyframes playColor {
-	0%, 100%   {background:@red;}
-	20%  {background:@blue;}
-	40%  {background:@green;}
-	60% {background:@yellow;}
-	80% {background: @orange;}
+	0%, 100%   {background:@blue;}
+	50%  {background:@green;}
 }
 
 @-webkit-keyframes playColor {
-	0%, 100%   {background:@red;}
-	20%  {background:@blue;}
-	40%  {background:@green;}
-	60% {background:@yellow;}
-	80% {background: @orange;}
+	0%, 100%   {background:@blue;}
+	50%  {background:@green;}
 }
 
 @-moz-keyframes playColor {
-	0%, 100%   {background:@red;}
-	20%  {background:@blue;}
-	40%  {background:@green;}
-	60% {background:@yellow;}
-	80% {background: @orange;}
+	0%, 100%   {background:@blue;}
+	50%  {background:@green;}
 }
 
 #playgroundTitle {
-	background: @red;
+	background: @blue;
 	animation: playColor 40s linear infinite;
 	-webkit-animation: playColor 40s linear infinite;
 	animation-delay: 1s;
@@ -755,10 +716,10 @@ main > header {
 			h6 { color: @blue; }
 		}
 		.Photos {
-			h6 { color: @yellow; }
+			h6 { color: mix(@green, @blue, 50%); }
 		}
 		.Playground {
-			h6 { color: @red; }
+			h6 { color: mix(@green, @blue, 50%); }
 		}
 		@media (max-width: 1000px) {
 			h1 {
