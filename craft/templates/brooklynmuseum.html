@@ -21,17 +21,18 @@
 
 {% block content %}
 
-<div id="brooklynmuseum">	
+<div id="brooklynMuseum">	
 	
 	<img src="./public/images/BM-logo.png" id="BMlogo">
 	
 	<section class="BMwork">
 		<h1>January 2013</h1>
+		<p>On my first date of hire, there were already three projects set to move. The first was the biggest, the Visitor Experience Initiative, which was as yet undefinded, though the dashboard prototyping was underway. The second was the creation of a micro-site for the event videos for the Elizabeth A. Sackler Center for Feminist Art. And the third, for which I helped define the roadmap, was a refresh of the entire Brooklyn Museum website. Since there was not enough political capital to roll out a complete redesign, we planned to update the header and footer, as well as resetting the type and opening up the layout a little.</p>
 		<ul>
 			<li>Studied BMA print material and branding guidelines. Began creating a front end style guide for the website.</li>
 			<li>Helped create the RFP for the Sackler Center Video project. Searched for and hired a design/dev team to build it.</li>
 			<li>Studied the Google analytics for the site, took extensive notes, and prepared for a content audit.</li>
-			<li>Comped new headers for the BMA website refresh. A preliminary exercise for selling possible new directions to website stakeholders.
+			<li class="images"><span class="arrowDown">Comped new headers for the BMA website refresh. A preliminary exercise for selling possible new directions to website stakeholders.</span>
 				<div class="flexslider">
 					<ul class="slides">
 						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps4.png"></li>
@@ -45,7 +46,7 @@
 					</ul>
 				</div>
 			</li>
-			<li>Comped new footers for a BMA website refresh.
+			<li class="images"><span class="arrowDown">Comped new footers for a BMA website refresh.</span>
 				<div class="flexslider">
 					<ul class="slides">
 						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r2.png"></li>
@@ -81,7 +82,7 @@
 			<li>Helped to define the design roadmap for the VEI project with respect to established project deadlines.</li>
 			<li>Researched agencies with experience building digital signage.</li>
 			<li>Tested new color pallets for screens. Current official colors are meant for print and don't translate.</li>
-			<li>Designed the prototype for the VEI dashboard.
+			<li class="images"><span class="arrowDown">Designed the prototype for the VEI dashboard.</span>
 				<div class="flexslider">
 					<ul class="slides">
 						<li><img src="http://brianfeeney.us/brooklynmuseumimages/dashboard-comps_9.png"></li>
@@ -93,5 +94,11 @@
 	</section>
 		
 </div>
+
+<script>
+	$('.arrowDown').click( function() {
+		$(this).next('.flexslider').toggleClass('open');
+	});
+</script>
 
 {% endblock %}

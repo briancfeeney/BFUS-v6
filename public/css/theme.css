@@ -1,6 +1,6 @@
 .chaparral {
   font-family: chaparral-pro-1, chaparral-pro-2, georgia;
-  font-weight: 300;
+  font-weight: 400;
 }
 .proximaT {
   font-family: "proxima-nova-1", "proxima-nova-2";
@@ -67,25 +67,25 @@
   background-image: none;
 }
 .btn-default {
-  background-image: -webkit-linear-gradient(top, #232529 0%, #070708 100%);
-  background-image: -o-linear-gradient(top, #232529 0%, #070708 100%);
-  background-image: linear-gradient(to bottom, #232529 0%, #070708 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff232529', endColorstr='#ff070708', GradientType=0);
+  background-image: -webkit-linear-gradient(top, #23262b 0%, #080809 100%);
+  background-image: -o-linear-gradient(top, #23262b 0%, #080809 100%);
+  background-image: linear-gradient(to bottom, #23262b 0%, #080809 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff23262b', endColorstr='#ff080809', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   background-repeat: repeat-x;
-  border-color: #020202;
+  border-color: #030304;
   text-shadow: 0 1px 0 #fff;
   border-color: #ccc;
 }
 .btn-default:hover,
 .btn-default:focus {
-  background-color: #070708;
+  background-color: #080809;
   background-position: 0 -15px;
 }
 .btn-default:active,
 .btn-default.active {
-  background-color: #070708;
-  border-color: #020202;
+  background-color: #080809;
+  border-color: #030304;
 }
 .btn-primary {
   background-image: -webkit-linear-gradient(top, #428bca 0%, #2d6ca2 100%);

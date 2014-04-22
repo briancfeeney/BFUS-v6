@@ -29,6 +29,8 @@ h2 {
 h4 {
 	color: @chalk;
 	margin-top: 1.1em;
+	font-size: 1em;
+	line-height: 1.3em;
 }
 
 h5 {
@@ -66,7 +68,7 @@ article {
 		margin-top: 1.5em;
 	}
 	a {
-		border-bottom: 1px solid @stone;
+		border-bottom: 1px solid @orange;
 		color: inherit;
 		&:hover {
 			color: inherit;
@@ -79,21 +81,21 @@ article {
 blockquote {
 	text-indent: 0em;
 	padding: 0 0 0 1.875em;
-	margin: -5px 0 20px; 
+	margin: 10px 0 1.75em; 
 	border: none;
 	font-size: 1em;
 	line-height: 1em;
 	&:before {
 	    content: "“";
 		font-size: 3.5em;
-		color: @green;
+		color: @orange;
 		display:block; 
 		.translate(-30px, 30px);
 	}
 	p {
 		.proximaR();
-		line-height: 1.4em;
-		font-size: 1.05em;
+		line-height: 1.5em;
+		font-size: .97em;
 	}
 	h6 {
 		text-align: right;
@@ -161,6 +163,7 @@ main > header {
 				background-color: @dust;
 				.proximaSB();
 				letter-spacing: 3px;
+				height: 3.75em;
 				&:hover {
 					background-color: mix(@dust, @coal, 90%);
 					a {
@@ -238,6 +241,18 @@ main > header {
 	}
 }
 
+.arrowDown:after {
+	content:"";
+	position: relative;
+	right: -10px;
+	top: 14px;
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid @chalk;
+}
+
 /* -------------------------------------------------------------------------------- */
 // ABOUT
 
@@ -260,21 +275,23 @@ main > header {
 	display: flex;
 	justify-content: flex-end;
 	li {
-		padding: 5px;
+		padding: .95em;;
 		margin: 0;
 		display: inline-block;
 		transition: all .2s linear;
+		background-color: @blue;
 		&:hover {
-			background-color: @stone;
+			background-color: @red;
 		}
 		a {
 			color: @chalk;
+			font-size: .6em;
 		}
 		@media (max-width: @tablet) {
 			width: 14.285%;
 			text-align: center;
 			a {
-				font-size: .8em;
+				font-size: .5em;
 			}
 		}
 	}
@@ -314,8 +331,8 @@ main > header {
 
 #writing {
 	h5 {
-		color: @stone;
-		margin-top: 30px;
+		color: @orange;
+		margin-top: 1.5em;
 	}
 	.subTitle {
 		margin: 1em 0 .5em;
@@ -323,17 +340,23 @@ main > header {
 }
 
 #writing-index {
-	flex: 0 0 23%;
-	max-width: 22em;
+	flex: 0 0 30%;
+	max-width: 23em;
 	min-width: 14em;
-	background-color: mix(@green, @coal, 75%);
+	background-color: @blue;
 	h4 {
-		margin: 0 20px 8px;
+		padding: 1.25em 20px;
+		background-color: mix(@coal, @blue, 40%);
 	}
 	.subjectTitle {
+		margin: 0 20px 8px;
+		padding: 0;
 		.proximaSC();
 		text-transform: uppercase;
-		margin: 20px 20px 5px;
+		margin: 40px 20px 5px;
+		padding-bottom: 5px;
+		border-bottom: 1px solid @lightblue;
+		background-color: transparent;
 	}
 	ul {
 		.list-unstyled();
@@ -345,22 +368,21 @@ main > header {
 				font-size: 1em;
 				line-height: 1.35em;
 				display: block;
-				padding: 5px 20px 5px 30px;
+				padding: 5px 20px 5px 20px;
 				&:hover {
-					background-color: mix(@coal, @stone, 20%);
+					background-color: mix(@coal, @blue, 40%);
 				}
 			}
 		}
 	}
 	.navbar-toggle {
 		position: absolute;
-		top: 3.75em;;
+		top: 3.75em;
 		left: 0;
-		padding: 22px;
 		display: none;
 		cursor: pointer;
 		&:hover {
-			background-color: mix(@coal, @stone, 20%);
+			background-color: mix(@coal, @blue, 20%);
 		}
 		@media (max-width: @tablet) {
 			display: block;
@@ -416,20 +438,6 @@ main > header {
 	}
 }
 
-#writingImages {
-	max-width: 15%;
-	img {
-		cursor: pointer;
-		-webkit-transition: .5s ease;
-		&:hover {
-			-webkit-transform: scale(3) translate(-33.333%,33.333%);
-			-webkit-transition: .75s ease;
-			border-left: 5px solid @chalk;
-			border-bottom: 5px solid @chalk;
-		}
-	}
-}
-
 #writingLinks {
 	margin-top: 140px;
 	ul {
@@ -437,7 +445,7 @@ main > header {
 			margin-bottom: 10px;
 			a {
 				color: @coal;
-				border-bottom: 1px solid @stone;
+				border-bottom: 1px solid @orange;
 				&:hover {
 					background-color: @dust;
 				}
@@ -450,53 +458,88 @@ main > header {
 /* -------------------------------------------------------------------------------- */
 // WORK
 
+#work {
+	color: @blue;
+}
+
 .workFlex {
 	display: flex;
 	flex: 1;
 	flex-direction:column;
 }
 
-#work {
-	.topBar {
-		ul {
+.workIntro {
+	padding: 10em 4em 8em;
+	background-image: url('/public/images/home-office.jpg');
+	background-size: cover;
+	background-position: 50% 40%;
+	p {
+		font-size: 3.5em;
+		line-height: 1.2em;
+		max-width: 20em;
+		color: @white;
+		border-bottom: 2px solid @orange;
+		text-shadow: 0 0 10px @blue;
+	}
+}
+.workDescription {
+	background-color: @blue;
+	padding: 5em 1em;
+	p {
+		font-size: 1.5em;
+		color: @orange;
+		.proximaT();
+		margin: 0 auto;
+		max-width: 35em;
+	}
+}
+
+#design {
+	ul {
+		list-style-type: none;
+		.list-unstyled();
+		li {
 			margin: 0;
-			padding: 0;
 			display: flex;
-			flex-flow: row wrap;
-			a {
-				flex: 1;
-				&:nth-child(1) li {
-					background-color: @blue;
-				}
-				&:nth-child(2) li {
-					background-color: @green;
-				}
-				&:nth-child(3) li {
-					background-color: mix(@green, @blue, 50%);
+			align-items: center;
+			.visuals {
+				width: 40%;
+				.workImage {
+					width: 100%;
+					max-width: 750px;
+					height: 0;
+					margin: 0 auto;
+					padding-bottom: 60%;
+					background-size: cover !important;
+					background-repeat: no-repeat;
 				}
 			}
-			li {
-				color: @chalk;
-				padding: 19px;
-				text-align: center;
-				cursor: pointer;
+			.workMeta {
+				width: 60%;
+				padding: 1.25em;
+				margin: 0 auto;
+				h1 {
+					color: @chalk;
+				}
+			}
+			@media (max-width: 1100px) {
+				display: block;
+				.visuals, .workMeta {
+					width: 100%;
+					display: block;
+				}
 			}
 		}
 	}
 }
 
 #theWork {
+	padding-bottom: 100px;
 	h2 {
-		color: @chalk;
+		color: @blue;
 		text-align: center;
 		margin: 0;
 		padding: 40px 0;
-	}
-	.workType {
-		display: none;
-		&:target {
-			display: block;
-		}
 	}
 	#web.workType {
 		h2 {
@@ -505,33 +548,22 @@ main > header {
 	}
 	#print.workType {
 		h2 {
-			background-color: @green;
+			background-color: @blue;
 		}
 	}
 	#dev.workType {
 		h1 {
 			margin: 0;
 			a {
-				color: mix(@green, @blue, 50%);
+				color: @red;
+				&:hover {
+					color: @orange;
+				}
 			}
-		}
-		h2 {
-			background-color: mix(@green, @blue, 50%);
 		}
 		.project {
-			float: left;
-			width: 25%;
-			height: 200px;
-			padding: 20px;
-			@media (max-width: 1250px) {
-				width: 33.333%;
-			}
-			@media (max-width: 950px) {
-				width: 50%;
-			}
-			@media (max-width: 500px) {
-				width: 100%;
-			}
+			padding: 40px;
+			display: inline-block;
 		}
 	}
 }
@@ -541,7 +573,7 @@ main > header {
 	h1 {
 		color: @chalk;
 		text-transform: uppercase;
-		padding: 60px 0 20px;
+		padding: 1.5em 0 .5em;
 		font-size: 4em;
 	}
 	a {
@@ -604,7 +636,7 @@ main > header {
 			@media (max-width: 1100px) {
 				width: 100%;
 			}
-			@media (min-width: 1400px) {
+			@media (min-width: 1600px) {
 				width: 33.3%;
 			}
 		}
@@ -621,14 +653,14 @@ main > header {
 	}
 	.single {
 		text-align: center;
+		max-width: 100%;
 		img {
-			max-width: 90%;
-			max-height: 90%;
-			@media (max-width: 750px) {
-				max-width: none;
-				max-height: none;
-				width: 100%;
-			}
+			width: auto;
+			max-width: 100%;
+		}
+		@media (max-width: 750px) {
+			max-width: none;
+			max-height: none;
 		}
 	}
 }
@@ -637,24 +669,27 @@ main > header {
 // PLAYGROUND
 
 @keyframes playColor {
-	0%, 100%   {background:@blue;}
-	50%  {background:@green;}
+	0%, 100%   {background:@red;}
+	33%  {background:@orange;}
+	66%  {background:@blue;}
 }
 
 @-webkit-keyframes playColor {
-	0%, 100%   {background:@blue;}
-	50%  {background:@green;}
+	0%, 100%   {background:@red;}
+	33%  {background:@orange;}
+	66%  {background:@blue;}
 }
 
 @-moz-keyframes playColor {
-	0%, 100%   {background:@blue;}
-	50%  {background:@green;}
+	0%, 100%   {background:@red;}
+	33%  {background:@orange;}
+	66%  {background:@blue;}
 }
 
 #playgroundTitle {
-	background: @blue;
-	animation: playColor 40s linear infinite;
-	-webkit-animation: playColor 40s linear infinite;
+	background: @red;
+	animation: playColor 30s linear infinite;
+	-webkit-animation: playColor 30s linear infinite;
 	animation-delay: 1s;
 	-webkit-animation-delay: 1s;
 	flex: 2;
@@ -674,11 +709,13 @@ main > header {
 	color: @chalk;
 	.archive {
 		width: 100%;
+		padding-top: 3.75em;
 		a {
 			color: @chalk;
 		}
 		h1 {
 			margin: 0;
+			font-weight: normal;
 		}
 		h5 {
 			margin: 1.25em 0 0;
@@ -707,16 +744,21 @@ main > header {
 					flex-direction: column;
 					max-width: 75%;
 				}
+				small {
+					margin-left: 5px;
+					.proximaSB();
+					font-size: .4em;
+				}
 			}
 		}
 		.Writing {
 			h6 { color: @green; }
 		}
 		.Work {
-			h6 { color: @blue; }
+			h6 { color: @lightblue; }
 		}
 		.Photos {
-			h6 { color: mix(@green, @blue, 50%); }
+			h6 { color: @orange; }
 		}
 		.Playground {
 			h6 { color: mix(@green, @blue, 50%); }
@@ -740,16 +782,17 @@ main > header {
 			}
 		}
 		@media (max-width: @tablet) {
+			padding-top: 1em;
 			h1 {
 				font-size: 2em;
 			}
 			h5 {
-				padding: .5em 1em;
+				padding: .5em 1.75em;
 				font-size: .75em;
 			}
 			ul {
 				li {
-					padding: .5em 1em;
+					padding: .5em 1.5em;
 					.icon {
 						margin: auto .75em auto 0;
 						font-size: 1.25em;
@@ -766,7 +809,7 @@ main > header {
 
 @bmcolor: rgb(0,174,239);
 
-#brooklynmuseum {
+#brooklynMuseum {
 	text-align: center;
 	h1 {
 		font-size: 2em;
@@ -774,13 +817,9 @@ main > header {
 		letter-spacing: 2px;
 		margin: 60px 0 20px;
 	}
-	.images img {
-		width: 100%;
-		max-width: 200px;
-		border: 1px solid @chalk;
-		display: inline;
+	p {
+		margin: 20px auto;
 		text-align: left;
-		margin: 20px 0;
 	}
 }
 #BMlogo {
@@ -788,7 +827,7 @@ main > header {
 	margin-top: 40px;
 }
 
-#brooklynmuseum section { 
+#brooklynMuseum section { 
 	margin-bottom: 60px;
 	a {
 		color: inherit;
@@ -807,15 +846,29 @@ main > header {
 			color: @chalk;
 			font-size: 1.3em;
 			margin-bottom: 2px;
-			&:hover {
-				background-color: darken(@bmcolor, 5%);
+			&.images {
+				cursor: pointer;
+				&:hover {
+					background-color: darken(@bmcolor, 5%);
+				}
 			}
 		}
 	}
 	.flexslider {
 		max-width: 800px;
-		margin: 40px auto 40px;
-		border: 10px solid @chalk;
+		margin: 0 auto;
+		height: auto;
+		max-height: 0;
+		border: 0px;
+		overflow: hidden;
+		transition: all .3s ease-in;
+		&.open {
+			height: auto;
+			margin: 40px auto 40px;
+			border: 10px solid @chalk;
+			max-height: 1000px;
+			transition: all .3s ease-in;
+		}
 		ul, ol {
 			li {
 				padding: 0;
@@ -858,5 +911,35 @@ header footer {
 		display: none;
 	}
 }
+
+
+/* -------------------------------------------------------------------------------- */
+// STYLEGUIDE
+
+.colors {
+	ul {
+		width: 100%;
+		li {
+			width: 100%;
+			height: 120px;
+			&:nth-child(1) {
+				background-color: @blue;
+			}
+			&:nth-child(2) {
+				background-color: @orange;
+			}
+			&:nth-child(3) {
+				background-color: @red;
+			}
+			&:nth-child(4) {
+				background-color: @lightblue;
+			}
+			&:nth-child(5) {
+				background-color: @green;
+			}
+		}
+	}
+}
+
 
 

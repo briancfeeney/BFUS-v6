@@ -16,6 +16,7 @@
 	<div class="workTop topBar" style="background: #{{ entry.color }};">
 
 		<h4>{% if entry.type == 'webDesign' %}<a href="/work#web">Web Design</a>{% endif %}</h4>
+		<h4>{% if entry.type == 'printDesign' %}<a href="/work#print">Print Design</a>{% endif %}</h4>
 	
 		<h1>{{ entry.title }}</h1>
 		
@@ -23,8 +24,8 @@
 	<div class="workBody">
 		{{ entry.body }}
 		
-			{% if entry.screenshots|length %}
-				{% for image in entry.screenshots %}
+			{% if entry.portfolioImages|length %}
+				{% for image in entry.portfolioImages %}
 					<img src="{{ image.getUrl() }}">
 				{% endfor %}
 			{% endif %}

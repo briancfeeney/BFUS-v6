@@ -10,27 +10,38 @@
 
 <div class="workFlex">
 	
-	<div class="topBar">
-		<ul class="list-inline">
-			<a href="#web"><li>Web Design</li></a>
-			<a href="#print"><li>Print Design</li></a>
-			<a href="#dev"><li>Front-End Development</li></a>
-		</ul>
-	</div>
+	<section class="workIntro">
+		{{ workIndex.body }}
+	</section>
+	<section class="workDescription">
+		<p>I'm currently employed as the web designer for the Brooklyn Museum, but that doesn't mean I don't have time for building other stuff. I love working on small projects with big aspirations, helping everyone reach their full potential.</p>
+	</section>
 
 	<section id="theWork">
-		<div id="web" class="workType">
-			<h2>Web Design</h2>
-			{% for entry in craft.entries.section('work').find() %}
-				<article>
-					<h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
-				</article>
-			{% endfor %}
+		
+		<div id="design">
+		    <ul>
+		{% set allEntries = craft.entries.section('work').limit(null) %}
+		{% for date, entries in allEntries | group("postDate|date('Y')") %}
+		        {% for entry in entries %}
+		            <a href="{{ entry.url() }}">
+						<li class="{{ entry.section }}" style="background: #{{ entry.color }};">
+							<div class="visuals">
+								{% for image in entry.portfolioImages.limit(1) %}
+									<div class="workImage" style="background:url({{ image.getUrl() }});"></div>
+								{% endfor %}
+							</div>
+							<div class="workMeta">
+								<h6>{{ entry.type.name }}</h6>
+								<h1>{{ entry.title }}</h1>
+							</div>
+						</li>
+					</a>
+		        {% endfor %}
+		{% endfor %}
+		    </ul>
 		</div>
-		<div id="print" class="workType">
-			<h2>Print Design</h2>
-			My print design work.
-		</div>
+		
 		<div id="dev" class="workType">
 			<h2>Front-End Development</h2>
 			{% if workIndex.frontEndDev | length %}
@@ -42,6 +53,7 @@
 				{% endfor %}
 			{% endif %}
 		</div>
+		
 	</section>
 	
 </div>

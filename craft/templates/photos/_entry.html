@@ -18,15 +18,12 @@
 {% block content %}
 
 <div class="photosFlex">
-	<div class="topBar">
-		<h4 id="page-title">Photos</h4>
-	</div>
 
 	<div class="photoWrapper">
 	{% if entry.photo|length %}
 		<article class="single">
 			{% for image in entry.photo %}
-				<img src="{{ image.getUrl() }}">
+				<a href="/photos"><img src="{{ image.getUrl() }}"></a>
 			{% endfor %}
 		</article>
 	{% endif %}

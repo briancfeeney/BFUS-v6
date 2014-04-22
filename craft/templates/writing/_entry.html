@@ -35,10 +35,14 @@
 		<article>
 			<h5>{{ entry.postDate.format('F d, Y') }}</h5>
 			<h1>{{ entry.title }}</h1>
+			{% for image in entry.featuredImage %}
+				<img src="{{ image.getUrl() }}">
+			{% endfor %}
 			{{ entry.body }}
 		</article>
 	</section>
 	
+	<!--
 	{% if entry.featuredImage|length %}
 		<section id="writingImages">
 		{% for image in entry.featuredImage %}
@@ -46,6 +50,7 @@
 		{% endfor %}
 		</section>
 	{% endif %}
+	-->
 	
 	<section id="writingLinks">
 		{% if entry.writingLinks | length %}
