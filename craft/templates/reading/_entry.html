@@ -1,0 +1,56 @@
+{#
+ # Reading entry template
+ # -------------------
+ #}
+
+{% extends "_layout" %}
+{% set title = "Reading" %}
+
+{% block content %}
+
+<div class="main">
+	<h4 id="page-title"><a href="/reading">Reading</a></h4>
+	<article class="books">
+		<section class="cover">
+			<div class="bookCover">
+				{% for image in entry.bookCover %}
+					<img src="{{ image.getUrl() }}">
+				{% endfor %}
+			</div>
+			<div class="meta list-unstyled">
+				<h1>{{ entry.title }}</h1>
+				<h2>{{ entry.readingAuthor }}</h2>
+				<!-- <a href="http://www.amazon.com/Selected-Essays-John-Berger/dp/0375713182/ref=sr_1_1?ie=UTF8&qid=1400426000&sr=8-1&keywords=john+berger+selected+essays" class="purchase">Purchase</a> -->
+				{{ entry.body }}
+			</div>
+		</section>
+		
+		{% if entry.readingQuotes | length %}
+		<section class="quotesNotes">
+			<aside>
+				<div class="quotes">
+					<h5>Quotes</h5>
+				</div>
+				<div class="notes">
+					<h5>Notes</h5>
+				</div>
+			</aside>
+			{% for quote in entry.readingQuotes %}
+				<aside>
+					<div class="quotes">
+						{{ quote.readingQuotation }}
+						<h6>p. {{ quote.readingPage }}</h6>
+					</div>
+					{% if quote.readingNote | length %}
+					<div class="notes">
+						{{ quote.readingNote }}
+					</div>
+					{% endif %}
+				</aside>
+			{% endfor %}
+		</section>
+		{% endif %}
+	</article>
+</div>
+
+{% endblock %}

@@ -20,6 +20,7 @@ class ElementRelationParamParser
 	private $_joinTargetMatrixBlocksCount;
 	private $_joinSourcesCount;
 	private $_joinTargetsCount;
+	private $_sourceLocaleParamCount;
 
 	/**
 	 * Constructor
@@ -30,6 +31,7 @@ class ElementRelationParamParser
 		$this->_joinTargetMatrixBlocksCount = 0;
 		$this->_joinSourcesCount = 0;
 		$this->_joinTargetsCount = 0;
+		$this->_sourceLocaleParamCount = 0;
 	}
 
 	/**
@@ -58,6 +60,26 @@ class ElementRelationParamParser
 		else
 		{
 			$glue = 'or';
+		}
+
+		if ($glue == 'or')
+		{
+			// Group all of the unspecified elements, so we avoid adding massive JOINs to the query
+			$unspecifiedElements = array();
+
+			foreach ($relatedTo as $i => $relCriteria)
+			{
+				if (!is_array($relCriteria))
+				{
+					$unspecifiedElements[] = $relCriteria;
+					unset($relatedTo[$i]);
+				}
+			}
+
+			if ($unspecifiedElements)
+			{
+				$relatedTo[] = array('element' => $unspecifiedElements);
+			}
 		}
 
 		foreach ($relatedTo as $relCriteria)
@@ -242,7 +264,19 @@ class ElementRelationParamParser
 						$sourcesAlias            = 'sources'.$this->_joinSourcesCount;
 						$targetMatrixBlocksAlias = 'target_matrixblocks'.$this->_joinTargetMatrixBlocksCount;
 
-						$query->leftJoin('relations '.$sourcesAlias, $sourcesAlias.'.targetId = elements.id');
+						$relationsJoinConditions = array('and', $sourcesAlias.'.targetId = elements.id');
+						$relationsJoinParams = array();
+
+						if (!empty($relCriteria['sourceLocale']))
+						{
+							$this->_sourceLocaleParamCount++;
+							$sourceLocaleParam = ':sourceLocale'.$this->_sourceLocaleParamCount;
+
+							$relationsJoinConditions[] = array('or', $sourcesAlias.'.sourceLocale is null', $sourcesAlias.'.sourceLocale = '.$sourceLocaleParam);
+							$relationsJoinParams[$sourceLocaleParam] = $relCriteria['sourceLocale'];
+						}
+
+						$query->leftJoin('relations '.$sourcesAlias, $relationsJoinConditions, $relationsJoinParams);
 						$query->leftJoin('matrixblocks '.$targetMatrixBlocksAlias, $targetMatrixBlocksAlias.'.id = '.$sourcesAlias.'.sourceId');
 
 						$condition = array('and',
@@ -261,8 +295,20 @@ class ElementRelationParamParser
 						$sourceMatrixBlocksAlias = 'source_matrixblocks'.$this->_joinSourceMatrixBlocksCount;
 						$matrixBlockTargetsAlias = 'matrixblock_targets'.$this->_joinSourceMatrixBlocksCount;
 
+						$relationsJoinConditions = array('and', $matrixBlockTargetsAlias.'.sourceId = '.$sourceMatrixBlocksAlias.'.id');
+						$relationsJoinParams = array();
+
+						if (!empty($relCriteria['sourceLocale']))
+						{
+							$this->_sourceLocaleParamCount++;
+							$sourceLocaleParam = ':sourceLocale'.$this->_sourceLocaleParamCount;
+
+							$relationsJoinConditions[] = array('or', $matrixBlockTargetsAlias.'.sourceLocale is null', $matrixBlockTargetsAlias.'.sourceLocale = '.$sourceLocaleParam);
+							$relationsJoinParams[$sourceLocaleParam] = $relCriteria['sourceLocale'];
+						}
+
 						$query->leftJoin('matrixblocks '.$sourceMatrixBlocksAlias, $sourceMatrixBlocksAlias.'.ownerId = elements.id');
-						$query->leftJoin('relations '.$matrixBlockTargetsAlias, $matrixBlockTargetsAlias.'.sourceId = '.$sourceMatrixBlocksAlias.'.id');
+						$query->leftJoin('relations '.$matrixBlockTargetsAlias, $relationsJoinConditions, $relationsJoinParams);
 
 						$condition = array('and',
 							DbHelper::parseParam($matrixBlockTargetsAlias.'.targetId', $relElementIds, $query->params),
@@ -303,7 +349,19 @@ class ElementRelationParamParser
 				$relElementColumn = 'sourceId';
 			}
 
-			$query->leftJoin('relations '.$relTableAlias, $relTableAlias.'.'.$relElementColumn.' = elements.id');
+			$relationsJoinConditions = array('and', $relTableAlias.'.'.$relElementColumn.' = elements.id');
+			$relationsJoinParams = array();
+
+			if (!empty($relCriteria['sourceLocale']))
+			{
+				$this->_sourceLocaleParamCount++;
+				$sourceLocaleParam = ':sourceLocale'.$this->_sourceLocaleParamCount;
+
+				$relationsJoinConditions[] = array('or', $relTableAlias.'.sourceLocale is null', $relTableAlias.'.sourceLocale = '.$sourceLocaleParam);
+				$relationsJoinParams[$sourceLocaleParam] = $relCriteria['sourceLocale'];
+			}
+
+			$query->leftJoin('relations '.$relTableAlias, $relationsJoinConditions, $relationsJoinParams);
 			$condition = DbHelper::parseParam($relTableAlias.'.'.$relConditionColumn, $relElementIds, $query->params);
 
 			if ($normalFieldIds)

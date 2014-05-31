@@ -9,10 +9,9 @@
 {% block content %}
 
 <div class="photosFlex">
-
 	<div class="galleryWrapper">
 		<section class="gallery">
-			{% paginate craft.entries.section('photos').limit(20) as entries %}
+			{% paginate craft.entries.section('photos').limit(16) as entries %}
 			{% for entry in entries %}
 				{% if entry.photo|length %}
 					<article>
@@ -23,13 +22,15 @@
 				{% endif %}
 			{% endfor %}
 		</section>
-		{% if paginate.prevUrl %}
-	        <a href="{{ paginate.prevUrl }}" class="paging prev">Next Page</a>
-	    {% endif %}
+	</div>
+	<div class="photoNav">
 	    {% if paginate.nextUrl %}
-	        <a href="{{ paginate.nextUrl }}" class="paging next">Previous Page</a>
+	        <a href="{{ paginate.nextUrl }}" class="paging prev">Older</a>
 	    {% endif %}
-	
+		{% if paginate.prevUrl %}
+	        <a href="{{ paginate.prevUrl }}" class="paging next">Newer</a>
+	    {% endif %}
+
 		{% endpaginate %}
 	</div>
 </div>
@@ -44,6 +45,14 @@
 			  itemSelector: 'article'
 			});
 		});
+		
+		$( window ).ready(function() {
+		  	var $container = $('.gallery');
+			// initialize
+			$container.masonry({
+			  itemSelector: 'article'
+			});
+		});
 
 		$( window ).resize(function() {
 		  	var $container = $('.gallery');
@@ -52,6 +61,25 @@
 			  itemSelector: 'article'
 			});
 		});
+		
+		(function($) {
+
+		    var resizeTimer; // Set resizeTimer to empty so it resets on page load
+
+		    function resizeFunction() {
+		        // Stuff that should happen on resize
+		    };
+
+		    // On resize, run the function and reset the timeout
+		    // 250 is the delay in milliseconds. Change as you see fit.
+		    $(window).resize(function() {
+		        clearTimeout(resizeTimer);
+		        resizeTimer = setTimeout(resizeFunction, 250);
+		    });
+
+		    resizeFunction();
+
+		})(jQuery);
 
 	</script>
 

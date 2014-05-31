@@ -16,11 +16,14 @@ namespace Craft;
  * @property AssetSourcesService         $assetSources         The assets sources service
  * @property AssetsService               $assets               The assets service
  * @property AssetTransformsService      $assetTransforms      The assets sizes service
+ * @property CacheService                $cache                The cache service
+ * @property CategoriesService           $categories           The categories service
  * @property ComponentsService           $components           The components service
  * @property ConfigService               $config               The config service
  * @property ContentService              $content              The content service
  * @property DashboardService            $dashboard            The dashboard service
  * @property DbConnection                $db                   The database
+ * @property DeprecatorService           $deprecator           The deprecator service
  * @property ElementsService             $elements             The elements service
  * @property EmailMessagesService        $emailMessages        The email messages service
  * @property EmailService                $email                The email service
@@ -29,27 +32,34 @@ namespace Craft;
  * @property EtService                   $et                   The E.T. service
  * @property FeedsService                $feeds                The feeds service
  * @property FieldsService               $fields               The fields service
+ * @property FileCache                   $fileCache            File caching
  * @property GlobalsService              $globals              The globals service
  * @property HttpRequestService          $request              The request service
  * @property HttpSessionService          $httpSession          The HTTP session service
  * @property ImagesService               $images               The images service
  * @property InstallService              $install              The images service
  * @property LocalizationService         $localization         The localization service
+ * @property MatrixService               $matrix               The matrix service
  * @property MigrationsService           $migrations           The migrations service
  * @property PathService                 $path                 The path service
  * @property PluginsService              $plugins              The plugins service
  * @property RelationsService            $relations            The relations service
  * @property ResourcesService            $resources            The resources service
  * @property RoutesService               $routes               The routes service
+ * @property SearchService               $search               The search service
  * @property SectionsService             $sections             The sections service
  * @property SecurityService             $security             The security service
+ * @property StructuresService           $structures           The structures service
  * @property SystemSettingsService       $systemSettings       The system settings service
- * @property TemplatesService            $templates            The template service
  * @property TagsService                 $tags                 The tags service
+ * @property TasksService                $tasks                The tasks service
+ * @property TemplateCacheService        $templateCache        The template cache service
+ * @property TemplatesService            $templates            The template service
  * @property UpdatesService              $updates              The updates service
  * @property UserGroupsService           $userGroups           The user groups service
  * @property UserPermissionsService      $userPermissions      The user permission service
  * @property UserSessionService          $userSession          The user session service
+ * @property UsersService                $users                The users service
  */
 class WebApp extends \CWebApplication
 {
@@ -67,10 +77,11 @@ class WebApp extends \CWebApplication
 	 */
 	public $componentAliases;
 
+	private $_language;
 	private $_templatePath;
-	private $_packageComponents;
+	private $_editionComponents;
 	private $_pendingEvents;
-
+	private $_gettingLanguage = false;
 
 	/**
 	 * Processes resource requests before anything else has a chance to initialize.
@@ -113,17 +124,6 @@ class WebApp extends \CWebApplication
 	}
 
 	/**
-	 * Returns the localization data for a given locale.
-	 *
-	 * @param string $localeId
-	 * @return LocaleData
-	 */
-	public function getLocale($localeId = null)
-	{
-		return craft()->i18n->getLocaleData($localeId);
-	}
-
-	/**
 	 * Processes the request.
 	 *
 	 * @throws HttpException
@@ -144,9 +144,6 @@ class WebApp extends \CWebApplication
 		{
 			throw new HttpException(503);
 		}
-
-		// Set the target language
-		$this->setLanguage($this->_getTargetLanguage());
 
 		// Check if the app path has changed.  If so, run the requirements check again.
 		$this->_processRequirementsCheck();
@@ -170,8 +167,8 @@ class WebApp extends \CWebApplication
 			}
 		}
 
-		// Set the package components
-		$this->_setPackageComponents();
+		// Set the edition components
+		$this->_setEditionComponents();
 
 		// isCraftDbMigrationNeeded will return true if we're in the middle of a manual or auto-update for Craft itself.
 		// If we're in maintenance mode and it's not a site request, show the manual update template.
@@ -197,12 +194,15 @@ class WebApp extends \CWebApplication
 			($this->request->isCpRequest() && (
 				// ...and the user has permission to access the CP when the site is off
 				$this->userSession->checkPermission('accessCpWhenSystemIsOff') ||
+				// ...or this is a manual update request
+				$this->request->getSegment(1) == 'manualupdate' ||
 				// ...or they're accessing the Login, Forgot Password, Set Password, or Validation pages
 				(($actionSegs = $this->request->getActionSegments()) && (
 					$actionSegs == array('users', 'login') ||
 					$actionSegs == array('users', 'forgotpassword') ||
 					$actionSegs == array('users', 'setpassword') ||
-					$actionSegs == array('users', 'validate')
+					$actionSegs == array('users', 'validate') ||
+					$actionSegs[0] == 'update'
 				))
 			)) ||
 			// ...or it's a site request...
@@ -265,6 +265,53 @@ class WebApp extends \CWebApplication
 				$this->runController('templates/offline');
 			}
 		}
+	}
+
+	/**
+	 * Returns the target application language.
+	 *
+	 * @return string
+	 */
+	public function getLanguage()
+	{
+		if (!isset($this->_language))
+		{
+			// Defend against an infinite getLanguage() loop
+			if (!$this->_gettingLanguage)
+			{
+				$this->_gettingLanguage = true;
+				$this->setLanguage($this->_getTargetLanguage());
+			}
+			else
+			{
+				// We tried to get the language, but something went wrong. Use fallback to prevent infinite loop.
+				$this->setLanguage($this->_getFallbackLanguage());
+				$this->_gettingLanguage = false;
+			}
+		}
+
+		return $this->_language;
+	}
+
+	/**
+	 * Sets the target application language.
+	 *
+	 * @param string $language
+	 */
+	public function setLanguage($language)
+	{
+		$this->_language = $language;
+	}
+
+	/**
+	 * Returns the localization data for a given locale.
+	 *
+	 * @param string $localeId
+	 * @return LocaleData
+	 */
+	public function getLocale($localeId = null)
+	{
+		return craft()->i18n->getLocaleData($localeId);
 	}
 
 	/**
@@ -484,10 +531,10 @@ class WebApp extends \CWebApplication
 	 */
 	public function setComponents($components, $merge = true)
 	{
-		if (isset($components['pkgComponents']))
+		if (isset($components['editionComponents']))
 		{
-			$this->_packageComponents = $components['pkgComponents'];
-			unset($components['pkgComponents']);
+			$this->_editionComponents = $components['editionComponents'];
+			unset($components['editionComponents']);
 		}
 
 		parent::setComponents($components, $merge);
@@ -535,7 +582,6 @@ class WebApp extends \CWebApplication
 		if (!$component && $createIfNull)
 		{
 			$component = parent::getComponent($id, true);
-
 			$this->_attachEventListeners($id);
 		}
 
@@ -564,6 +610,31 @@ class WebApp extends \CWebApplication
 	public function getTimeZone()
 	{
 		return $this->getInfo('timezone');
+	}
+
+	/**
+	 * Tries to find a match between the browser's preferred locales and the locales Craft has been translated into.
+	 *
+	 * @return string
+	 */
+	public function getTranslatedBrowserLanguage()
+	{
+		$browserLanguages = $this->request->getBrowserLanguages();
+
+		if ($browserLanguages)
+		{
+			$appLocaleIds = $this->i18n->getAppLocaleIds();
+
+			foreach ($browserLanguages as $language)
+			{
+				if (in_array($language, $appLocaleIds))
+				{
+					return $language;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -613,22 +684,22 @@ class WebApp extends \CWebApplication
 	}
 
 	/**
-	 * Sets the package components.
+	 * Sets the edition components.
 	 */
-	private function _setPackageComponents()
+	private function _setEditionComponents()
 	{
-		// Set the appropriate package components
-		if (isset($this->_packageComponents))
+		// Set the appropriate edition components
+		if (isset($this->_editionComponents))
 		{
-			foreach ($this->_packageComponents as $packageName => $packageComponents)
+			foreach ($this->_editionComponents as $edition => $editionComponents)
 			{
-				if (craft()->hasPackage($packageName))
+				if (craft()->getEdition() >= $edition)
 				{
-					$this->setComponents($packageComponents);
+					$this->setComponents($editionComponents);
 				}
 			}
 
-			unset($this->_packageComponents);
+			unset($this->_editionComponents);
 		}
 	}
 
@@ -694,7 +765,7 @@ class WebApp extends \CWebApplication
 				}
 				else
 				{
-					$locale = strtolower(CRAFT_LOCALE);
+					$locale = StringHelper::toLowerCase(CRAFT_LOCALE);
 				}
 
 				// Get the list of actual site locale IDs
@@ -703,12 +774,20 @@ class WebApp extends \CWebApplication
 				// Is it set to "auto"?
 				if ($locale == 'auto')
 				{
-					// If the user is logged in *and* has a primary language set, use that
-					$user = $this->userSession->getUser();
-
-					if ($user && $user->preferredLocale)
+					// Place this within a try/catch in case userSession is being fussy.
+					try
 					{
-						return $user->preferredLocale;
+						// If the user is logged in *and* has a primary language set, use that
+						$user = $this->userSession->getUser();
+
+						if ($user && $user->preferredLocale)
+						{
+							return $user->preferredLocale;
+						}
+					}
+					catch (\Exception $e)
+					{
+						Craft::log("Tried to determine the user's preferred locale, but got this exception: ".$e->getMessage(), LogLevel::Error);
 					}
 
 					// Otherwise check if the browser's preferred language matches any of the site locales
@@ -738,27 +817,27 @@ class WebApp extends \CWebApplication
 		}
 		else
 		{
-			// Just try to find a match between the browser's preferred locales
-			// and the locales Craft has been translated into.
-
-			$browserLanguages = $this->request->getBrowserLanguages();
-
-			if ($browserLanguages)
-			{
-				$appLocaleIds = $this->i18n->getAppLocaleIds();
-
-				foreach ($browserLanguages as $language)
-				{
-					if (in_array($language, $appLocaleIds))
-					{
-						return $language;
-					}
-				}
-			}
-
-			// Default to the source language.
-			return $this->sourceLanguage;
+			return $this->_getFallbackLanguage();
 		}
+	}
+
+	/**
+	 * Tries to find a language match with the user's browser's preferred language(s).  If not uses the app's sourceLanguage.
+	 *
+	 * @return string
+	 */
+	private function _getFallbackLanguage()
+	{
+		// See if we have the CP translated in one of the user's browsers preferred language(s)
+		$language = $this->getTranslatedBrowserLanguage();
+
+		// Default to the source language.
+		if (!$language)
+		{
+			$language = $this->sourceLanguage;
+		}
+
+		return $language;
 	}
 
 	/**
@@ -817,7 +896,7 @@ class WebApp extends \CWebApplication
 		// Only run for CP requests and if we're not in the middle of an update.
 		if ($this->request->isCpRequest() && !$update)
 		{
-			$cachedAppPath = craft()->fileCache->get('appPath');
+			$cachedAppPath = craft()->cache->get('appPath');
 			$appPath = $this->path->getAppPath();
 
 			if ($cachedAppPath === false || $cachedAppPath !== $appPath)

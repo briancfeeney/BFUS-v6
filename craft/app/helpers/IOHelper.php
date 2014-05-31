@@ -40,7 +40,7 @@ class IOHelper
 		{
 			$folder = static::getFolderName($path, true, $suppressErrors);
 			$files = static::getFolderContents($folder, false, null, false, $suppressErrors);
-			$lcaseFileName = mb_strtolower($path);
+			$lcaseFileName = StringHelper::toLowerCase($path);
 
 			if (is_array($files) && count($files) > 0)
 			{
@@ -50,7 +50,7 @@ class IOHelper
 
 					if ($suppressErrors ? @is_file($file) : is_file($file))
 					{
-						if (mb_strtolower($file) === $lcaseFileName)
+						if (StringHelper::toLowerCase($file) === $lcaseFileName)
 						{
 							return $file;
 						}
@@ -84,7 +84,7 @@ class IOHelper
 
 			if ($caseInsensitive)
 			{
-				return mb_strtolower(static::getFolderName($path, true, $suppressErrors)) === mb_strtolower($path);
+				return StringHelper::toLowerCase(static::getFolderName($path, true, $suppressErrors)) === StringHelper::toLowerCase($path);
 			}
 		}
 
@@ -317,7 +317,7 @@ class IOHelper
 	public static function getExtension($path, $default = null, $suppressErrors = false)
 	{
 		$path = static::normalizePathSeparators($path);
-		$extension = mb_strtolower($suppressErrors ? @pathinfo($path, PATHINFO_EXTENSION) : pathinfo($path, PATHINFO_EXTENSION));
+		$extension = StringHelper::toLowerCase($suppressErrors ? @pathinfo($path, PATHINFO_EXTENSION) : pathinfo($path, PATHINFO_EXTENSION));
 
 		if ($extension)
 		{
@@ -338,7 +338,14 @@ class IOHelper
 	 */
 	public static function getMimeType($path)
 	{
-		return \CFileHelper::getMimeType($path);
+		if (@file_exists($path))
+		{
+			return \CFileHelper::getMimeType($path);
+		}
+		else
+		{
+			return \CFileHelper::getMimeTypeByExtension($path);
+		}
 	}
 
 	/**
@@ -423,7 +430,15 @@ class IOHelper
 	 */
 	public static function normalizePathSeparators($path)
 	{
-		$path = str_replace('\\', '/', $path);
+		// Don't normalize if it looks like the path starts on a network share.
+		if (isset($path[0]) && isset($path[1]))
+		{
+			if ($path[0] !== '\\' && $path[1] !== '\\')
+			{
+				$path = str_replace('\\', '/', $path);
+			}
+		}
+
 		$path = str_replace('//', '/', $path);
 
 		// Check if the path is just a slash.  If the server has openbase_dir restrictions in place calling is_dir on it will complain.
@@ -731,7 +746,7 @@ class IOHelper
 		if (static::isWritable($path, $suppressErrors))
 		{
 			// We haven't cached file lock information yet and this is not a noFileLock request.
-			if (($useFileLock = craft()->fileCache->get('useWriteFileLock')) === false && !$noFileLock)
+			if (($useFileLock = craft()->cache->get('useWriteFileLock')) === false && !$noFileLock)
 			{
 				// For file systems that don't support file locking... LOOKING AT YOU NFS!!!
 				set_error_handler(array(new IOHelper(), 'handleError'));
@@ -746,7 +761,7 @@ class IOHelper
 
 						// Cache the file lock info to use LOCK_EX for 2 months.
 						Craft::log('Successfully wrote to file at '.$path.' using LOCK_EX. Saving in cache.', LogLevel::Info, true);
-						craft()->fileCache->set('useWriteFileLock', 'yes', 5184000);
+						craft()->cache->set('useWriteFileLock', 'yes', 5184000);
 						return true;
 					}
 					else
@@ -757,7 +772,7 @@ class IOHelper
 						{
 							// Cache the file lock info to not use LOCK_EX for 2 months.
 							Craft::log('Successfully wrote to file at '.$path.' without LOCK_EX. Saving in cache.', LogLevel::Info, true);
-							craft()->fileCache->set('useWriteFileLock', 'no', 5184000);
+							craft()->cache->set('useWriteFileLock', 'no', 5184000);
 							return true;
 						}
 					}
@@ -773,7 +788,7 @@ class IOHelper
 					{
 						// Cache the file lock info to not use LOCK_EX for 2 months.
 						Craft::log('Successfully wrote to file at '.$path.' without LOCK_EX. Saving in cache.', LogLevel::Info, true);
-						craft()->fileCache->set('useWriteFileLock', 'no', 5184000);
+						craft()->cache->set('useWriteFileLock', 'no', 5184000);
 						return true;
 					}
 				}
@@ -1170,21 +1185,28 @@ class IOHelper
 		{
 			$folderContents = static::getFolderContents($path, true, null, true, $suppressErrors);
 
-			foreach ($folderContents as $item)
+			if ($folderContents)
 			{
-				$item = static::normalizePathSeparators($item);
+				foreach ($folderContents as $item)
+				{
+					$item = static::normalizePathSeparators($item);
 
-				if (static::fileExists($item, $suppressErrors))
-				{
-					static::deleteFile($item, $suppressErrors);
+					if (static::fileExists($item, $suppressErrors))
+					{
+						static::deleteFile($item, $suppressErrors);
+					}
+					elseif (static::folderExists($item, $suppressErrors))
+					{
+						static::deleteFolder($item, $suppressErrors);
+					}
 				}
-				elseif (static::folderExists($item, $suppressErrors))
-				{
-					static::deleteFolder($item, $suppressErrors);
-				}
+
+				return true;
 			}
-
-			return true;
+			else
+			{
+				Craft::log('Tried to read the folder contents of '.$path.', but could not.', LogLevel::Error);
+			}
 		}
 		else
 		{
@@ -1306,7 +1328,15 @@ class IOHelper
 	 */
 	public static function getAllowedFileExtensions()
 	{
-		return  ArrayHelper::stringToArray(craft()->config->get('allowedFileExtensions'));
+		$allowedFileExtensions = ArrayHelper::stringToArray(craft()->config->get('allowedFileExtensions'));
+
+		if (($extraExtensions = craft()->config->get('extraAllowedFileExtensions')) !== '')
+		{
+			$extraExtensions = ArrayHelper::stringToArray($extraExtensions);
+			$allowedFileExtensions = array_merge($allowedFileExtensions, $extraExtensions);
+		}
+
+		return  $allowedFileExtensions;
 	}
 
 	/**
@@ -1330,24 +1360,23 @@ class IOHelper
 	public static function getFileKinds()
 	{
 		return array(
-			'access'      => array('adp','accdb','mdb','accde','accdt','accdr'),
-			'audio'       => array('3gp','aac','act','aif','aiff','aifc','alac','amr','au','dct','dss','dvf','flac','gsm','iklax','ivs','m4a','m4p','mmf','mp3','mpc','msv','oga','ogg','opus','ra','tta','vox','wav','wma','wv'),
-			'excel'       => array('xls', 'xlsx','xlsm','xltx','xltm'),
-			'flash'       => array('fla','flv','swf','swt','swc'),
-			'html'        => array('html','htm'),
-			'illustrator' => array('ai'),
-			'image'       => array('jfif','jp2','jpx','jpg','jpeg','jpe','tiff','tif','png','gif','bmp','webp','ppm','pgm','pnm','pfm','pam','svg'),
-			'javascript'  => array('js'),
-			'json'        => array('json'),
-			'pdf'         => array('pdf'),
-			'photoshop'   => array('psd','psb'),
-			'php'         => array('php'),
-			'powerpoint'  => array('ppt','pptx','pps','pptm','potx'),
-			'text'        => array('txt','text'),
-			'video'       => array('avchd','asf','asx','avi','flv','fla','mov','m4v','mng','mpeg','mpg','m1s','mp2v','m2v','m2s','mp4','mkv','qt','flv','mp4','ogg','ogv','rm','wmv'),
-			'word'        => array('doc','docx','dot','docm','dotm'),
-			'xml'         => array('xml'),
-
+			'access'      => array('label' => Craft::t('Access'),      'extensions' => array('adp','accdb','mdb','accde','accdt','accdr')),
+			'audio'       => array('label' => Craft::t('Audio'),       'extensions' => array('3gp','aac','act','aif','aiff','aifc','alac','amr','au','dct','dss','dvf','flac','gsm','iklax','ivs','m4a','m4p','mmf','mp3','mpc','msv','oga','ogg','opus','ra','tta','vox','wav','wma','wv')),
+			'excel'       => array('label' => Craft::t('Excel'),       'extensions' => array('xls', 'xlsx','xlsm','xltx','xltm')),
+			'flash'       => array('label' => Craft::t('Flash'),       'extensions' => array('fla','flv','swf','swt','swc')),
+			'html'        => array('label' => Craft::t('HTML'),        'extensions' => array('html','htm')),
+			'illustrator' => array('label' => Craft::t('Illustrator'), 'extensions' => array('ai')),
+			'image'       => array('label' => Craft::t('Image'),       'extensions' => array('jfif','jp2','jpx','jpg','jpeg','jpe','tiff','tif','png','gif','bmp','webp','ppm','pgm','pnm','pfm','pam','svg')),
+			'javascript'  => array('label' => Craft::t('Javascript'),  'extensions' => array('js')),
+			'json'        => array('label' => Craft::t('JSON'),        'extensions' => array('json')),
+			'pdf'         => array('label' => Craft::t('PDF'),         'extensions' => array('pdf')),
+			'photoshop'   => array('label' => Craft::t('Photoshop'),   'extensions' => array('psd','psb')),
+			'php'         => array('label' => Craft::t('PHP'),         'extensions' => array('php')),
+			'powerpoint'  => array('label' => Craft::t('PowerPoint'),  'extensions' => array('ppt','pptx','pps','pptm','potx')),
+			'text'        => array('label' => Craft::t('Text'),        'extensions' => array('txt','text')),
+			'video'       => array('label' => Craft::t('Video'),       'extensions' => array('avchd','asf','asx','avi','flv','fla','mov','m4v','mng','mpeg','mpg','m1s','mp2v','m2v','m2s','mp4','mkv','qt','flv','mp4','ogg','ogv','rm','wmv','webm')),
+			'word'        => array('label' => Craft::t('Word'),        'extensions' => array('doc','docx','dot','docm','dotm')),
+			'xml'         => array('label' => Craft::t('XML'),         'extensions' => array('xml')),
 		);
 	}
 
@@ -1360,12 +1389,12 @@ class IOHelper
 	 */
 	public static function getFileKind($extension)
 	{
-		$extension = mb_strtolower($extension);
+		$extension = StringHelper::toLowerCase($extension);
 		$fileKinds = static::getFileKinds();
 
-		foreach ($fileKinds as $kind => $extensions)
+		foreach ($fileKinds as $kind => $info)
 		{
-			if (in_array($extension, $extensions))
+			if (in_array($extension, $info['extensions']))
 			{
 				return $kind;
 			}
@@ -1378,7 +1407,7 @@ class IOHelper
 	 * Makes sure a folder exists. If it does not - creates one with write permissions
 	 *
 	 * @static
-	 * @param       $folderPath     The path to the folder.
+	 * @param  string $folderPath The path to the folder.
 	 * @param  bool $suppressErrors Whether to suppress any PHP Notices/Warnings/Errors (usually permissions related).
 	 * @return void
 	 */

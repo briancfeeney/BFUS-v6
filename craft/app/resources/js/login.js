@@ -10,8 +10,8 @@
 
 (function($) {
 
-var LoginForm = Garnish.Base.extend({
-
+var LoginForm = Garnish.Base.extend(
+{
 	$form: null,
 	$loginNameInput: null,
 	$loginFields: null,
@@ -24,6 +24,7 @@ var LoginForm = Garnish.Base.extend({
 	$spinner: null,
 	$error: null,
 
+	passwordInputInterval: null,
 	forgotPassword: false,
 	loading: false,
 
@@ -44,12 +45,12 @@ var LoginForm = Garnish.Base.extend({
 			onToggleInput: $.proxy(function($newPasswordInput) {
 				this.removeListener(this.$passwordInput, 'textchange');
 				this.$passwordInput = $newPasswordInput;
-				this.addListener(this.$passwordInput, 'textchange', 'onInputChange');
+				this.addListener(this.$passwordInput, 'textchange', 'validate');
 			}, this)
 		});
 
-		this.addListener(this.$loginNameInput, 'textchange', 'onInputChange');
-		this.addListener(this.$passwordInput, 'textchange', 'onInputChange');
+		this.addListener(this.$loginNameInput, 'textchange', 'validate');
+		this.addListener(this.$passwordInput, 'textchange', 'validate');
 		this.addListener(this.$forgotPasswordLink, 'click', 'onForgetPassword');
 		this.addListener(this.$form, 'submit', 'onSubmit');
 
@@ -83,6 +84,11 @@ var LoginForm = Garnish.Base.extend({
 				this.removeListener(Garnish.$doc, 'mouseup');
 			});
 		});
+
+		// Manually validate the inputs every 250ms since some browsers don't fire events when autofill is used
+		// http://stackoverflow.com/questions/11708092/detecting-browser-autofill
+		this.passwordInputInterval = setInterval($.proxy(this, 'validate'), 250);
+
 		this.addListener(this.$sslIcon, 'click', function() {
 			this.$submitBtn.click();
 		});
@@ -102,11 +108,6 @@ var LoginForm = Garnish.Base.extend({
 			this.$submitBtn.disable();
 			return false;
 		}
-	},
-
-	onInputChange: function()
-	{
-		this.validate();
 	},
 
 	onSubmit: function(event)
@@ -142,8 +143,8 @@ var LoginForm = Garnish.Base.extend({
 			loginName: this.$loginNameInput.val()
 		};
 
-		Craft.postActionRequest('users/forgotpassword', data, $.proxy(function(response, textStatus) {
-
+		Craft.postActionRequest('users/forgotpassword', data, $.proxy(function(response, textStatus)
+		{
 			if (textStatus == 'success')
 			{
 				if (response.success)
@@ -169,8 +170,8 @@ var LoginForm = Garnish.Base.extend({
 			rememberMe: (this.$rememberMeCheckbox.prop('checked') ? 'y' : '')
 		};
 
-		Craft.postActionRequest('users/login', data, $.proxy(function(response, textStatus) {
-
+		Craft.postActionRequest('users/login', data, $.proxy(function(response, textStatus)
+		{
 			if (textStatus == 'success')
 			{
 				if (response.success)
@@ -242,11 +243,11 @@ var LoginForm = Garnish.Base.extend({
 });
 
 
-var MessageSentModal = Garnish.Modal.extend({
-
+var MessageSentModal = Garnish.Modal.extend(
+{
 	init: function()
 	{
-		var $container = $('<div class="pane email-sent">'+Craft.t('Check your email for instructions to reset your password.')+'</div>')
+		var $container = $('<div class="modal fitted email-sent"><div class="body">'+Craft.t('Check your email for instructions to reset your password.')+'</div></div>')
 			.appendTo(Garnish.$bod);
 
 		this.base($container);
@@ -255,7 +256,6 @@ var MessageSentModal = Garnish.Modal.extend({
 	hide: function()
 	{
 	}
-
 });
 
 

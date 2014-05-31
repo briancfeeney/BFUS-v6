@@ -15,9 +15,12 @@
 
 	<div class="workTop topBar" style="background: #{{ entry.color }};">
 
-		<h4>{% if entry.type == 'webDesign' %}<a href="/work#web">Web Design</a>{% endif %}</h4>
-		<h4>{% if entry.type == 'printDesign' %}<a href="/work#print">Print Design</a>{% endif %}</h4>
+		<!--
+		<h4>{% if entry.type == 'webDesign' %}<a href="/work">Web Design</a>{% endif %}</h4>
+		<h4>{% if entry.type == 'printDesign' %}<a href="/work">Print Design</a>{% endif %}</h4>
+		-->
 	
+		<h4><a href="/work">{{ entry.postDate.format('F Y') }}</a></h4>
 		<h1>{{ entry.title }}</h1>
 		
 	</div>

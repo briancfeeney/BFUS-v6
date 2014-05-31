@@ -1,0 +1,5 @@
+/*
+ Copyright (c) 2014, Pixel & Tonic, Inc.
+ @license   http://buildwithcraft.com/license Craft License Agreement
+ @link      http://buildwithcraft.com
+*/(function(e){function t(t){"undefined"!=typeof t.html&&(e(".user-photo").replaceWith(t.html),t=e(".user-photo>.current-photo").css("background-image").replace(/^url\(/,"").replace(/\)$/,""),e("#account-menu").find("img").attr("src",t),n())}function n(){r.uploadButton=e(".user-photo-controls .upload-photo");r.deleteButton=e(".user-photo-controls .delete-photo");new Craft.ImageUpload(r)}var r={postParameters:{userId:e(".user-photo").attr("data-user")},modalClass:"profile-image-modal",uploadAction:"users/uploadUserPhoto",deleteMessage:Craft.t("Are you sure you want to delete this photo?"),deleteAction:"users/deleteUserPhoto",cropAction:"users/cropUserPhoto",areaToolOptions:{aspectRatio:"1:1",initialRectangle:{mode:"auto"}},onImageSave:function(e){t(e)},onImageDelete:function(e){t(e)}};e("input[name=userId]").val()&&n()})(jQuery);

@@ -117,7 +117,7 @@ class ArrayHelper
 		}
 		else if (is_string($str))
 		{
-			return array_merge(array_filter(array_map('trim', explode(',', $str))));
+			return array_merge(array_filter(array_map('trim', preg_split('/(?<!\\\),/', $str))));
 		}
 		else
 		{
@@ -155,6 +155,28 @@ class ArrayHelper
 	public static function filterEmptyStringsFromArray($arr)
 	{
 		return array_filter($arr, array('\Craft\ArrayHelper', '_isNotAnEmptyString'));
+	}
+
+	/**
+	 * Returns the first value in a given array.
+	 *
+	 * @static
+	 * @param array $arr
+	 * @return mixed|null
+	 */
+	public function getFirstValue($arr)
+	{
+		if (count($arr))
+		{
+			if (isset($arr[0]))
+			{
+				return $arr[0];
+			}
+			else
+			{
+				return $arr[array_shift(array_keys($arr))];
+			}
+		}
 	}
 
 	/**

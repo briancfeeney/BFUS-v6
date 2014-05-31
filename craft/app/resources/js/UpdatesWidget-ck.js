@@ -1,0 +1,9 @@
+/**
+ * Craft by Pixel & Tonic
+ *
+ * @package   Craft
+ * @author    Pixel & Tonic, Inc.
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://buildwithcraft.com/license Craft License Agreement
+ * @link      http://buildwithcraft.com
+ */(function(e){Craft.UpdatesWidget=Garnish.Base.extend({$widget:null,$body:null,$btn:null,checking:!1,init:function(t,n){this.$widget=e("#widget"+t);this.$body=this.$widget.find(".body:first");this.initBtn();if(!n){this.lookLikeWereChecking();Craft.cp.on("checkForUpdates",e.proxy(function(e){this.showUpdateInfo(e.updateInfo)},this))}},initBtn:function(){this.$btn=this.$body.find(".btn:first");this.addListener(this.$btn,"click",e.proxy(this,"checkForUpdates"))},lookLikeWereChecking:function(){this.checking=!0;this.$widget.addClass("loading");this.$btn.addClass("disabled")},dontLookLikeWereChecking:function(){this.checking=!1;this.$widget.removeClass("loading")},checkForUpdates:function(t){if(this.checking)return;this.lookLikeWereChecking();var n={forceRefresh:!0};Craft.postActionRequest("app/checkForUpdates",n,e.proxy(this,"showUpdateInfo"))},showUpdateInfo:function(e){this.dontLookLikeWereChecking();if(e.total){if(e.total==1)var t=Craft.t("One update available!");else var t=Craft.t("{total} updates available!",{total:e.total});this.$body.html('<p class="centeralign">'+t+' <a class="go" href="'+Craft.getUrl("updates")+'">'+Craft.t("Go to Updates")+"</a>"+"</p>")}else{this.$body.html('<p class="centeralign">'+Craft.t("Congrats! You’re up-to-date.")+"</p>"+'<p class="centeralign"><a class="btn" data-icon="refresh">'+Craft.t("Check again")+"</a></p>");this.initBtn()}Craft.cp.displayUpdateInfo(e)}})})(jQuery);

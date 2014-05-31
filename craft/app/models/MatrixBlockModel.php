@@ -26,11 +26,73 @@ class MatrixBlockModel extends BaseElementModel
 	protected function defineAttributes()
 	{
 		return array_merge(parent::defineAttributes(), array(
-			'fieldId'   => AttributeType::Number,
-			'ownerId'   => AttributeType::Number,
-			'typeId'    => AttributeType::Number,
-			'sortOrder' => AttributeType::Number
+			'fieldId'     => AttributeType::Number,
+			'ownerId'     => AttributeType::Number,
+			'ownerLocale' => AttributeType::Locale,
+			'typeId'      => AttributeType::Number,
+			'sortOrder'   => AttributeType::Number,
+
+			'collapsed'   => AttributeType::Bool,
 		));
+	}
+
+	/**
+	 * Returns the field layout used by this element.
+	 *
+	 * @return FieldLayoutModel|null
+	 */
+	public function getFieldLayout()
+	{
+		$blockType = $this->getType();
+
+		if ($blockType)
+		{
+			return $blockType->getFieldLayout();
+		}
+	}
+
+	/**
+	 * Returns the locale IDs this element is available in.
+	 *
+	 * @return array
+	 */
+	public function getLocales()
+	{
+		// If the Matrix field is translatable, than each individual block is tied to a single locale, and thus aren't translatable.
+		// Otherwise all blocks belong to all locales, and their content is translatable.
+
+		if ($this->ownerLocale)
+		{
+			return array($this->ownerLocale);
+		}
+		else
+		{
+			$owner = $this->getOwner();
+
+			if ($owner)
+			{
+				// Just send back an array of locale IDs -- don't pass along enabledByDefault configs
+				$localeIds = array();
+
+				foreach ($owner->getLocales() as $localeId => $localeInfo)
+				{
+					if (is_numeric($localeId) && is_string($localeInfo))
+					{
+						$localeIds[] = $localeInfo;
+					}
+					else
+					{
+						$localeIds[] = $localeId;
+					}
+				}
+
+				return $localeIds;
+			}
+			else
+			{
+				return array(craft()->i18n->getPrimarySiteLocaleId());
+			}
+		}
 	}
 
 	/**
@@ -55,7 +117,7 @@ class MatrixBlockModel extends BaseElementModel
 	{
 		if (!isset($this->_owner) && $this->ownerId)
 		{
-			$this->_owner = craft()->elements->getElementById($this->ownerId);
+			$this->_owner = craft()->elements->getElementById($this->ownerId, null, $this->locale);
 
 			if (!$this->_owner)
 			{
@@ -70,14 +132,23 @@ class MatrixBlockModel extends BaseElementModel
 	}
 
 	/**
+	 * Sets the owner
+	 *
+	 * @param BaseElementModel
+	 */
+	public function setOwner(BaseElementModel $owner)
+	{
+		$this->_owner = $owner;
+	}
+
+	/**
 	 * Returns the name of the table this element's content is stored in.
 	 *
 	 * @return string
 	 */
 	public function getContentTable()
 	{
-		$matrixField = craft()->fields->getFieldById($this->fieldId);
-		return craft()->matrix->getContentTableName($matrixField);
+		return craft()->matrix->getContentTableName($this->_getField());
 	}
 
 	/**
@@ -99,5 +170,16 @@ class MatrixBlockModel extends BaseElementModel
 	public function getFieldContext()
 	{
 		return 'matrixBlockType:'.$this->typeId;
+	}
+
+	/**
+	 * Returns the Matrix field.
+	 *
+	 * @access private
+	 * @return FieldModel
+	 */
+	private function _getField()
+	{
+		return craft()->fields->getFieldById($this->fieldId);
 	}
 }

@@ -11,7 +11,7 @@ namespace Craft;
  * @link      http://buildwithcraft.com
  */
 
-craft()->requirePackage(CraftPackage::PublishPro);
+craft()->requireEdition(Craft::Client);
 
 /**
  *
@@ -56,7 +56,11 @@ class EntryDraftModel extends BaseEntryRevisionModel
 
 		// Initialize the draft
 		$draft = parent::populateModel($attributes);
-		$draft->getContent()->title = $title;
+
+		if ($title)
+		{
+			$draft->getContent()->title = $title;
+		}
 
 		if ($fieldContent)
 		{

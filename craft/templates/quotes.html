@@ -1,0 +1,25 @@
+{#
+ # Quotes index template
+ # ---------------
+ #}
+
+{% extends "_layout" %}
+
+{% block content %}
+
+<div class="main">
+	
+	<article>
+		<h2>QUOTES</h2>
+	</article>
+	
+	{% for entry in craft.entries.section('quotes').find() %}
+	<article>
+		{{ entry.body }}
+		<h5>{{ entry.quoteAttribution }}</h5>
+	</article>
+	{% endfor %}
+
+</div>
+
+{% endblock %}

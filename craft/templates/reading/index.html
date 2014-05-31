@@ -1,0 +1,55 @@
+{#
+ # Photos index template
+ # -------------------
+ #}
+
+{% extends "_layout" %}
+{% set title = "Reading" %}
+
+{% block content %}
+
+<div class="main">
+	<h4 id="page-title"><a href="/reading">Reading</a></h4>
+	
+	<section id="index">
+		
+		{% for entry in craft.entries.section('reading').find() %}
+		<article class="books">
+			<section class="cover">
+				<div class="bookCover">
+					{% for image in entry.bookCover %}
+					<a href="{{ entry.url }}">
+						<img src="{{ image.getUrl() }}">
+					</a>
+					{% endfor %}
+				</div>
+			</section>
+		</article>
+		{% endfor %}
+
+		<article class="books">
+			<section class="cover">
+				<div class="bookCover">
+					<img src="/public/books/Fouc_reader vintage_cvr.jpg">
+				</div>
+			</section>
+		</article>
+		<article class="books">
+			<section class="cover">
+				<div class="bookCover">
+					<img src="/public/books/norman-TDOET.jpg">
+				</div>
+			</section>
+		</article>
+		<article class="books">
+			<section class="cover">
+				<div class="bookCover">
+					<img src="/public/books/zen-in-english-lit-blyth.jpg">
+				</div>
+			</section>
+		</article>
+	</section>
+</div>
+
+
+{% endblock %}

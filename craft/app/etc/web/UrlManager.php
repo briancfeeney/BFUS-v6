@@ -217,70 +217,17 @@ class UrlManager extends \CUrlManager
 
 			if (craft()->isInstalled() && craft()->request->isSiteRequest())
 			{
-				$query = craft()->db->createCommand()
-					->select('elements.id, elements.type')
-					->from('elements elements')
-					->join('elements_i18n elements_i18n', 'elements_i18n.elementId = elements.id');
+				$element = craft()->elements->getElementByUri($path, craft()->language, true);
 
-				$conditions = array('and', 'elements_i18n.uri = :path', 'elements.enabled = 1', 'elements.archived = 0');
-				$params = array();
-
-				if (!$path)
+				if ($element)
 				{
-					$params[':path'] = '__home__';
-				}
-				else
-				{
-					$params[':path'] = $path;
-				}
+					$elementType = craft()->elements->getElementType($element->getElementType());
+					$route = $elementType->routeRequestForMatchedElement($element);
 
-				$localeIds = array_unique(array_merge(
-					array(craft()->language),
-					craft()->i18n->getSiteLocaleIds()
-				));
-
-				if (count($localeIds) == 1)
-				{
-					$conditions[] = 'elements_i18n.locale = :locale';
-					$params[':locale'] = $localeIds[0];
-				}
-				else
-				{
-					$quotedLocales = array();
-					$localeOrder = array();
-
-					foreach ($localeIds as $localeId)
+					if ($route)
 					{
-						$quotedLocale = craft()->db->quoteValue($localeId);
-						$quotedLocales[] = $quotedLocale;
-						$localeOrder[] = "(elements_i18n.locale = {$quotedLocale}) DESC";
-					}
-
-					$conditions[] = "elements_i18n.locale IN (".implode(', ', $quotedLocales).')';
-					$query->order($localeOrder);
-				}
-
-				$query->where($conditions, $params);
-
-				$row = $query->queryRow();
-
-				if ($row)
-				{
-					$elementCriteria = craft()->elements->getCriteria($row['type']);
-					$elementCriteria->id = $row['id'];
-
-					$element = $elementCriteria->first();
-
-					if ($element)
-					{
-						$elementType = $elementCriteria->getElementType();
-						$route = $elementType->routeRequestForMatchedElement($element);
-
-						if ($route)
-						{
-							$this->_matchedElement = $element;
-							$this->_matchedElementRoute = $route;
-						}
+						$this->_matchedElement = $element;
+						$this->_matchedElementRoute = $route;
 					}
 				}
 			}
@@ -300,20 +247,16 @@ class UrlManager extends \CUrlManager
 	{
 		if (craft()->request->isCpRequest())
 		{
-			// Merge in any package-specific routes for packages that are actually installed
-			if (isset($this->cpRoutes['pkgRoutes']))
+			// Merge in any edition-specific routes
+			for ($i = 1; $i <= craft()->getEdition(); $i++)
 			{
-				// Merge in the package routes
-				foreach ($this->cpRoutes['pkgRoutes'] as $packageName => $packageRoutes)
+				if (isset($this->cpRoutes['editionRoutes'][$i]))
 				{
-					if (craft()->hasPackage($packageName))
-					{
-						$this->cpRoutes = array_merge($this->cpRoutes, $packageRoutes);
-					}
+					$this->cpRoutes = array_merge($this->cpRoutes, $this->cpRoutes['editionRoutes'][$i]);
 				}
-
-				unset($this->cpRoutes['pkgRoutes']);
 			}
+
+			unset($this->cpRoutes['editionRoutes']);
 
 			if (($route = $this->_matchUrlRoutes($path, $this->cpRoutes)) !== false)
 			{
@@ -334,9 +277,16 @@ class UrlManager extends \CUrlManager
 		else
 		{
 			// Check the user-defined routes
-			$siteRoutes = craft()->routes->getAllRoutes();
+			$configFileRoutes = craft()->routes->getConfigFileRoutes();
 
-			if (($route = $this->_matchUrlRoutes($path, $siteRoutes)) !== false)
+			if (($route = $this->_matchUrlRoutes($path, $configFileRoutes)) !== false)
+			{
+				return $route;
+			}
+
+			$dbRoutes = craft()->routes->getDbRoutes();
+
+			if (($route = $this->_matchUrlRoutes($path, $dbRoutes)) !== false)
 			{
 				return $route;
 			}
@@ -395,7 +345,7 @@ class UrlManager extends \CUrlManager
 	}
 
 	/**
-	 * Returns whether the current path is "public" (no segments that start with underscores).
+	 * Returns whether the current path is "public" (no segments that start with the privateTemplateTrigger).
 	 *
 	 * @access private
 	 * @return bool
@@ -404,9 +354,12 @@ class UrlManager extends \CUrlManager
 	{
 		if (!craft()->request->isAjaxRequest())
 		{
+			$trigger = craft()->config->get('privateTemplateTrigger');
+			$length = strlen($trigger);
+
 			foreach (craft()->request->getSegments() as $requestPathSeg)
 			{
-				if (isset($requestPathSeg[0]) && $requestPathSeg[0] == '_')
+				if (strncmp($requestPathSeg, $trigger, $length) === 0)
 				{
 					return false;
 				}

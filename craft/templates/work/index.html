@@ -10,39 +10,58 @@
 
 <div class="workFlex">
 	
-	<section class="workIntro">
+	<!-- <section class="workIntro">
 		{{ workIndex.body }}
 	</section>
 	<section class="workDescription">
 		<p>I'm currently employed as the web designer for the Brooklyn Museum, but that doesn't mean I don't have time for building other stuff. I love working on small projects with big aspirations, helping everyone reach their full potential.</p>
-	</section>
+	</section> -->
 
 	<section id="theWork">
+		<!-- <div id="workIntro">
+			<div class="workList">
+				<h5>Design,<br>
+					Develepment,<br>
+					Illustration,<br>
+					Etc.</h5>
+			</div>
+			<div class="workDesc">
+				<p>I make websites, mostly. Sometimes I design for print. The Brooklyn Museum employs me during the day, but by night I wander Brooklyn, looking for things to make.</p>
+			</div>
+		</div> -->
 		
 		<div id="design">
 		    <ul>
 		{% set allEntries = craft.entries.section('work').limit(null) %}
 		{% for date, entries in allEntries | group("postDate|date('Y')") %}
 		        {% for entry in entries %}
-		            <a href="{{ entry.url() }}">
-						<li class="{{ entry.section }}" style="background: #{{ entry.color }};">
+		            
+						<li class="{{ entry.type }}" style="background: #{{ entry.color }};">
 							<div class="visuals">
+								<a href="{{ entry.url() }}">
 								{% for image in entry.portfolioImages.limit(1) %}
-									<div class="workImage" style="background:url({{ image.getUrl() }});"></div>
+									{% if entry.type == 'webDesign' %}
+										<div class="workImage" style="background:url({{ image.getUrl() }});"></div>
+									{% else %}
+										<img src="{{ image.getUrl() }}">
+									{% endif %}
 								{% endfor %}
+								</a>
 							</div>
 							<div class="workMeta">
 								<h6>{{ entry.type.name }}</h6>
-								<h1>{{ entry.title }}</h1>
+								<!-- <h4>{{ entry.postDate.format('F Y') }}</h4> -->
+								<a href="{{ entry.url() }}">
+									<h1>{{ entry.title }}</h1>
+								</a>
 							</div>
 						</li>
-					</a>
 		        {% endfor %}
 		{% endfor %}
 		    </ul>
 		</div>
 		
-		<div id="dev" class="workType">
+		<div id="dev">
 			<h2>Front-End Development</h2>
 			{% if workIndex.frontEndDev | length %}
 				{% for project in workIndex.frontEndDev %}

@@ -1,0 +1,75 @@
+{#
+ # Photos index template
+ # -------------------
+ #}
+
+{% extends "_layout" %}
+{% set title = "Reading" %}
+
+{% block content %}
+
+<div class="main">
+	<h4 id="page-title"><a href="/reading">Reading</a></h4>
+	<article class="books">
+		<section class="cover">
+			<div class="bookCover">
+				<img src="/public/books/berger-selected-essays.jpg">
+			</div>
+			<div class="meta list-unstyled">
+				<h1>Selected Essays</h1>
+				<h2>John Berger</h2>
+				<a href="http://www.amazon.com/Selected-Essays-John-Berger/dp/0375713182/ref=sr_1_1?ie=UTF8&qid=1400426000&sr=8-1&keywords=john+berger+selected+essays" class="purchase">Purchase</a>
+				<!-- <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit.</p> -->
+			</div>
+		</section>
+		<section class="quotesNotes">
+			<aside>
+				<div class="quotes">
+					<h5>Quotes</h5>
+				</div>
+				<div class="notes">
+					<h5>Notes</h5>
+				</div>
+			</aside>
+			<aside>
+				<div class="quotes">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<h6>p. 8</h6>
+				</div>
+				<div class="notes">
+					<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium <a href="#">doloremque laudantium</a>, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+				</div>
+			</aside>
+			<aside>
+				<div class="quotes">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<h6>p. 17</h6>
+				</div>
+				<div class="notes">
+					<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+				</div>
+			</aside>
+			<aside>
+				<div class="quotes">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<h6>p. 8</h6>
+				</div>
+				<div class="notes">
+					<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+				</div>
+			</aside>
+			<aside>
+				<div class="quotes">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<h6>p. 17</h6>
+				</div>
+				<div class="notes">
+					
+				</div>
+			</aside>
+		</section>
+	</article>
+</div>
+
+
+{% endblock %}

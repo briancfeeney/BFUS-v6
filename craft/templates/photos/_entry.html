@@ -23,7 +23,7 @@
 	{% if entry.photo|length %}
 		<article class="single">
 			{% for image in entry.photo %}
-				<a href="/photos"><img src="{{ image.getUrl() }}"></a>
+				<img src="{{ image.getUrl() }}">
 			{% endfor %}
 		</article>
 	{% endif %}

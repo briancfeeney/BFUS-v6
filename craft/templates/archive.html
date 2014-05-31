@@ -8,8 +8,10 @@
 {% block content %}
 
 <div class="archive">
+		
+		<h4>Archive</h4>
 
-	{% set allEntries = craft.entries.section('writing,work,photos').limit(null) %}
+	{% set allEntries = craft.entries.section('writing,work,photos,reading').limit(null) %}
 	{% for date, entries in allEntries | group("postDate|date('Y')") %}
 	    <h5>{{ date }}</h5>
 	    <ul>
@@ -24,6 +26,9 @@
 						{% endif %}
 						{% if entry.section == 'Work' %}
 							<div data-icon="b" class="icon"></div>
+						{% endif %}
+						{% if entry.section == 'Reading' %}
+							<div data-icon="z" class="icon"></div>
 						{% endif %}
 						<div class="archive-info">
 							<h6>{{ entry.type.name }}</h6>
