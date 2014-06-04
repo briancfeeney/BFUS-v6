@@ -30,19 +30,11 @@
 
 <body id="{{ craft.request.firstSegment }}">
 
-	<main class="mainFlex">
-		<header class="columnFlex">
+	<main>
+		<header>
 			<nav>
 				<ul>
 					<li id="title"><a href="{{ siteUrl }}">{{ siteName }}</a></li>
-					<button id="showLeftPush" class="navbar-toggle">
-						<span class="sr-only">Toggle navigation</span>
-					    <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-					</button>
-				</ul>
-				<ul class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
 					<li><a href="{{ url('writing') }}" {% if craft.request.firstSegment == 'writing' %}class="active"{% endif %}>Writing</a></li>
 					<li><a href="{{ url('photos') }}" {% if craft.request.firstSegment == 'photos' %}class="active"{% endif %}>Photos</a></li>
 					<li><a href="{{ url('reading') }}" {% if craft.request.firstSegment == 'reading' %}class="active"{% endif %}>Reading</a></li>
@@ -51,10 +43,14 @@
 					<li><a href="{{ url('quotes') }}" {% if craft.request.firstSegment == 'quotes' %}class="active"{% endif %}>Quotes</a></li>
 					<li><a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>About</a></li>
 				</ul>
+				<button id="showLeftPush" class="navbar-toggle">
+					<span class="sr-only">Toggle navigation</span>
+				    <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+				</button>
 			</nav>
-			<footer>
-				<p>© Brian Feeney / <a href="{{ siteUrl }}/feeney.rss">RSS</a> / <a href="/archive">Archive</a></p>
-			</footer>
+
 		</header>
 		
 			{% block content %}
@@ -64,9 +60,9 @@
 
 	</main>
 
-	<!-- <footer>
-		<p>© Brian Feeney / <a href="#">RSS</a> / <a href="/archive">Archive</a></p>
-	</footer> -->
+	<footer>
+		<p>© Brian Feeney / <a href="{{ siteUrl }}/feeney.rss">RSS</a> / <a href="/archive">Archive</a></p>
+	</footer>
 	
 	
 	<script src="../public/js/jquery.flexslider-min.js"></script>
