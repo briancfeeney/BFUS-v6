@@ -17,8 +17,8 @@
 	<title>{% if title is defined %}{{ title }} - {% endif %}{{ siteName }}</title>
 	<link rel="home" href="{{ siteUrl }}" />
 	
-	<link rel="stylesheet" type="text/css" href="../public/css/feeney.css" />
-	<!-- <link rel="stylesheet" type="text/css" href="../public/css/feeney-test.css" /> -->
+	<!-- <link rel="stylesheet" type="text/css" href="../public/css/feeney.css" /> -->
+	<link rel="stylesheet" type="text/css" href="../public/css/friendly.css" /> 
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="../public/js/modernizr.custom.44783.js"></script>
@@ -30,19 +30,10 @@
 
 <body id="{{ craft.request.firstSegment }}">
 
-	<main class="mainFlex">
-		<header class="columnFlex">
+		<header>
 			<nav>
 				<ul>
 					<li id="title"><a href="{{ siteUrl }}">{{ siteName }}</a></li>
-					<button id="showLeftPush" class="navbar-toggle">
-						<span class="sr-only">Toggle navigation</span>
-					    <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-					</button>
-				</ul>
-				<ul class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
 					<li><a href="{{ url('writing') }}" {% if craft.request.firstSegment == 'writing' %}class="active"{% endif %}>Writing</a></li>
 					<li><a href="{{ url('photos') }}" {% if craft.request.firstSegment == 'photos' %}class="active"{% endif %}>Photos</a></li>
 					<li><a href="{{ url('reading') }}" {% if craft.request.firstSegment == 'reading' %}class="active"{% endif %}>Reading</a></li>
@@ -53,9 +44,18 @@
 					<li><a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>About</a></li>
 				</ul>
 			</nav>
-			<footer>
-				<p>© Brian Feeney / <a href="{{ siteUrl }}/feeney.rss">RSS</a> / <a href="/archive">Archive</a></p>
-			</footer>
+			<ul id="social-links">
+				<li><a href="http://twitter.com/#!/bfeeney"><div data-icon="f" class="icon-social-twitter"></div></a></li>
+				<li><a href="http://dribbble.com/bfeeney"><div data-icon="r" class="icon-social-dribble"></div></a></li>
+				<li><a href="http://instagram.com/brianfeeney/"><div data-icon="l" class="icon-social-instagram"></div></a></li>
+				<!-- <li><a href="http://www.facebook.com/bcfeeney"><div data-icon="o" class="icon-social-facebook"></div></a></li> -->
+				<li><a href="http://briancfeeney.tumblr.com"><div data-icon="g" class="icon-social-tumblr"></div></a></li>
+				<li><a href="http://pinterest.com/brianfeeney/"><div data-icon="i" class="icon-social-pinterest"></div></a></li>
+				<li><a href="http://www.rdio.com/people/brianfeeney/"><div data-icon="j" class="icon-social-rdio"></div></a></li>
+				<!-- <li><a href="http://www.flickr.com/photos/briancf/"><div data-icon="m" class="icon-social-flickr"></div></a></li> -->
+				<li><a href="https://github.com/briancfeeney"><div data-icon="n" class="icon-social-github"></div></a></li>
+				<li><a href="http://last.fm/user/bfeeney"><div data-icon="k" class="icon-social-lastfm"></div></a></li>
+			</ul>
 		</header>
 		
 			{% block content %}
@@ -66,7 +66,7 @@
 	</main>
 
 	<!-- <footer>
-		<p>© Brian Feeney / <a href="#">RSS</a> / <a href="/archive">Archive</a></p>
+		<p>© Brian Feeney / <a href="{{ siteUrl }}/feeney.rss">RSS</a> / <a href="/archive">Archive</a></p>
 	</footer> -->
 	
 	
