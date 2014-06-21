@@ -201,7 +201,7 @@ class AssetTransformsService extends BaseApplicationComponent
 		{
 			$transform = $this->normalizeTransform($transform);
 			$quality = $transform->quality ? $transform->quality : craft()->config->get('defaultImageQuality');
-			$transformLocation = $this->_getTransformLocation($transform);
+			$transformLocation = $this->_getTransformFolderName($transform);
 
 			$timeModified = $sourceType->getTimeTransformModified($fileModel, $transformLocation);
 
@@ -209,27 +209,32 @@ class AssetTransformsService extends BaseApplicationComponent
 			// or if the transform dimensions have changed since it was last created
 			if (!$timeModified || $timeModified < $fileModel->dateModified || $timeModified < $transform->dimensionChangeTime)
 			{
-				$targetFile = AssetsHelper::getTempFilePath(IOHelper::getExtension($fileModel->filename));
+				$image = craft()->images->loadImage($imageSource);
+				$image->setQuality($quality);
+
 				switch ($transform->mode)
 				{
 					case 'fit':
 					{
-						craft()->images->loadImage($imageSource)->scaleToFit($transform->width, $transform->height)->setQuality($quality)->saveAs($targetFile);
+						$image->scaleToFit($transform->width, $transform->height);
 						break;
 					}
 
 					case 'stretch':
 					{
-						craft()->images->loadImage($imageSource)->resize($transform->width, $transform->height)->setQuality($quality)->saveAs($targetFile);
+						$image->resize($transform->width, $transform->height);
 						break;
 					}
 
 					default:
 					{
-						craft()->images->loadImage($imageSource)->scaleAndCrop($transform->width, $transform->height, true, $transform->position)->setQuality($quality)->saveAs($targetFile);
+						$image->scaleAndCrop($transform->width, $transform->height, true, $transform->position);
 						break;
 					}
 				}
+
+				$targetFile = AssetsHelper::getTempFilePath(IOHelper::getExtension($fileModel->filename));
+				$image->saveAs($targetFile);
 
 				clearstatcache(true, $targetFile);
 				$sourceType->putImageTransform($fileModel, $transformLocation, $targetFile);
@@ -252,7 +257,7 @@ class AssetTransformsService extends BaseApplicationComponent
 	public function getTransformIndex(AssetFileModel $file, $transform)
 	{
 		$transform = $this->normalizeTransform($transform);
-		$transformLocation = $this->_getTransformLocation($transform);
+		$transformLocation = $this->_getTransformFolderName($transform);
 
 		// Check if an entry exists already
 		$entry =  craft()->db->createCommand()
@@ -295,6 +300,81 @@ class AssetTransformsService extends BaseApplicationComponent
 		return $this->storeTransformIndexData(new AssetTransformIndexModel($data));
 	}
 
+	/**
+	 * Get a transform URL by the transform index model.
+	 *
+	 * @param AssetTransformIndexModel $transformIndexModel
+	 * @return string
+	 * @throws Exception
+	 */
+	public function ensureTransformUrlByIndexModel(AssetTransformIndexModel $transformIndexModel)
+	{
+		if (!$transformIndexModel)
+		{
+			throw new Exception(Craft::t('No asset image transform exists with that ID.'));
+		}
+
+		// Make sure we're not in the middle of working on this transform from a separate request
+		if ($transformIndexModel->inProgress)
+		{
+			for ($safety = 0; $safety < 100; $safety++)
+			{
+				// Wait a second!
+				sleep(1);
+				ini_set('max_execution_time', 120);
+
+				$transformIndexModel = craft()->assetTransforms->getTransformIndexModelById($transformIndexModel->id);
+
+				// Is it being worked on right now?
+				if ($transformIndexModel->inProgress)
+				{
+					// Make sure it hasn't been working for more than 30 seconds. Otherwise give up on the other request.
+					$time = new DateTime();
+
+					if ($time->getTimestamp() - $transformIndexModel->dateUpdated->getTimestamp() < 30)
+					{
+						continue;
+					}
+					else
+					{
+						$transformIndexModel->dateUpdated = new DateTime();
+						craft()->assetTransforms->storeTransformIndexData($transformIndexModel);
+						break;
+					}
+				}
+				else
+				{
+					// Must be done now!
+					break;
+				}
+			}
+		}
+
+		if (!$transformIndexModel->fileExists)
+		{
+			$transformIndexModel->inProgress = 1;
+			craft()->assetTransforms->storeTransformIndexData($transformIndexModel);
+
+			$result = craft()->assetTransforms->generateTransform($transformIndexModel);
+
+			if ($result)
+			{
+				$transformIndexModel->inProgress = 0;
+				$transformIndexModel->fileExists = 1;
+				craft()->assetTransforms->storeTransformIndexData($transformIndexModel);
+			}
+			else
+			{
+				// No source file. Throw a 404.
+				$transformIndexModel->inProgress = 0;
+				craft()->assetTransforms->storeTransformIndexData($transformIndexModel);
+				throw new Exception(Craft::t("The requested image could not be found!"));
+			}
+
+		}
+
+		return $this->getUrlforTransformByIndexId($transformIndexModel->id);
+	}
 
 	/**
 	 * Index a transform.
@@ -315,11 +395,11 @@ class AssetTransformsService extends BaseApplicationComponent
 			);
 			$data['quality'] = isset($matches['quality']) ? $matches['quality'] : null;
 
-			$parameters = $this->normalizeTransform($data);
+			$transform = $this->normalizeTransform($data);
 		}
 		else
 		{
-			$parameters = $this->normalizeTransform(mb_substr($transformIndexData->location, 1));
+			$transform = $this->normalizeTransform(mb_substr($transformIndexData->location, 1));
 		}
 
 		$sourceType = craft()->assetSources->getSourceTypeById($transformIndexData->sourceId);
@@ -331,7 +411,7 @@ class AssetTransformsService extends BaseApplicationComponent
 
 		if ($existingFileTimeModified && $existingFileTimeModified >= $file->dateModified)
 		{
-			if (!$parameters->isNamedTransform() || ($parameters->isNamedTransform() && $existingFileTimeModified >= $parameters->dimensionChangeTime))
+			if (!$transform->isNamedTransform() || ($transform->isNamedTransform() && $existingFileTimeModified >= $transform->dimensionChangeTime))
 			{
 				// We have a satisfactory match - let's call it a day.
 				return true;
@@ -339,16 +419,15 @@ class AssetTransformsService extends BaseApplicationComponent
 		}
 
 		// For named transforms we can look for exact size matches
-		if ($parameters->isNamedTransform())
+		if ($transform->isNamedTransform())
 		{
-			$alternateLocation = '_'.($parameters->width ? $parameters->width : 'AUTO').'x'.($parameters->height ? $parameters->height : '
-				').'_'.$parameters->mode.($parameters->quality ? '_'.$parameters->quality : '');
-
 			// Look for a physical file first
+			$alternateLocation = $this->_getUnnamedTransformFolderName($transform);
 			$existingFileTimeModified = $sourceType->getTimeTransformModified($file, $alternateLocation);
+
 			if ($existingFileTimeModified && $existingFileTimeModified >= $file->dateModified)
 			{
-				if (!$parameters->isNamedTransform() || ($parameters->isNamedTransform() && $existingFileTimeModified >= $parameters->dimensionChangeTime))
+				if (!$transform->isNamedTransform() || ($transform->isNamedTransform() && $existingFileTimeModified >= $transform->dimensionChangeTime))
 				{
 					// We have a satisfactory match and the record has been inserted already.
 					// Now copy the file to the new home
@@ -360,7 +439,7 @@ class AssetTransformsService extends BaseApplicationComponent
 		}
 
 		// Just create it.
-		return $this->updateTransforms($file, $parameters);
+		return $this->updateTransforms($file, $transform);
 	}
 
 	/**
@@ -371,7 +450,7 @@ class AssetTransformsService extends BaseApplicationComponent
 	 */
 	public function getTransformSubpath($transform)
 	{
-		return $this->_getTransformLocation($this->normalizeTransform($transform)).'/';
+		return $this->_getTransformFolderName($this->normalizeTransform($transform)).'/';
 	}
 
 	/**
@@ -606,18 +685,46 @@ class AssetTransformsService extends BaseApplicationComponent
 	}
 
 	/**
-	 * Get a trasnform's location folder.
+	 * Returns a trasnform's folder name.
 	 *
 	 * @param AssetTransformModel $transform
 	 * @return string
 	 */
-	private function _getTransformLocation(AssetTransformModel $transform)
+	private function _getTransformFolderName(AssetTransformModel $transform)
 	{
-		return $transform->isNamedTransform() ? '_'.$transform->handle :
-					'_'.($transform->width ? $transform->width : 'AUTO').'x'.($transform->height ? $transform->height : 'AUTO').
-					'_'.($transform->mode).
-					'_'.($transform->position).
-					($transform->quality ? '_' . $transform->quality : '');
+		if ($transform->isNamedTransform())
+		{
+			return $this->_getNamedTransformFolderName($transform);
+		}
+		else
+		{
+			return $this->_getUnnamedTransformFolderName($transform);
+		}
+	}
+
+	/**
+	 * Returns a named transform's folder name.
+	 *
+	 * @param AssetTransformModel $transform
+	 * @return string
+	 */
+	private function _getNamedTransformFolderName(AssetTransformModel $transform)
+	{
+		return '_'.$transform->handle;
+	}
+
+	/**
+	 * Returns an unnamed transform's folder name.
+	 *
+	 * @param AssetTransformModel $transform
+	 * @return string
+	 */
+	private function _getUnnamedTransformFolderName(AssetTransformModel $transform)
+	{
+		return '_'.($transform->width ? $transform->width : 'AUTO').'x'.($transform->height ? $transform->height : 'AUTO') .
+		       '_'.($transform->mode) .
+		       '_'.($transform->position) .
+		       ($transform->quality ? '_'.$transform->quality : '');
 	}
 
 	/**

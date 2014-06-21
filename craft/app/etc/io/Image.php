@@ -29,13 +29,28 @@ class Image
 
 	function __construct()
 	{
-		if (craft()->images->isGd())
+		$extension = mb_strtolower(craft()->config->get('imageDriver'));
+
+		// If it's explicitly set, take their word for it.
+		if ($extension === 'gd')
 		{
 			$this->_instance = new \Imagine\Gd\Imagine();
 		}
-		else
+		else if ($extension === 'imagick')
 		{
 			$this->_instance = new \Imagine\Imagick\Imagine();
+		}
+		else
+		{
+			// Let's try to auto-detect.
+			if (craft()->images->isGd())
+			{
+				$this->_instance = new \Imagine\Gd\Imagine();
+			}
+			else
+			{
+				$this->_instance = new \Imagine\Imagick\Imagine();
+			}
 		}
 
 		$this->_quality = craft()->config->get('defaultImageQuality');
@@ -440,7 +455,10 @@ class Image
 
 			case 'png':
 			{
-				return array('quality' => $quality, 'flatten' => false);
+				// Valid PNG quality settings are 0-9, so normalize since we're calculating based on 0-200.
+				$percentage = ($quality * 100) / 200;
+				$normalizedQuality = round(($percentage / 100) * 9);
+				return array('quality' => $normalizedQuality, 'flatten' => false);
 			}
 
 			default:

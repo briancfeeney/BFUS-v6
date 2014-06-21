@@ -9,7 +9,7 @@
 
 @white: 				#fff;
 @black:					#000;
-@chalk:					rgb(246,244,231);
+@chalk:					rgb(246,245,236);
 @coal:					rgb(35,38,43);
 @dust:					rgb(205,204,192);
 @stone:					mix(@chalk, @coal, 50%);
@@ -56,51 +56,59 @@
 //## Font, line-height, and color for body text, headings, and more.
 
 .chaparral {
-	font-family: chaparral-pro-1, chaparral-pro-2, georgia;
+	font-family: "chaparral-pro", georgia;
 	font-weight: 400;
 }
+.chaparralL {
+	font-family: "chaparral-pro", georgia;
+	font-weight: 300;
+}
+
+.proximaL {
+	font-family: "proxima-nova";
+	font-weight: 300;
+	font-style: normal;
+}
+.proximaR {
+	font-family: "proxima-nova";
+	font-weight: 400;
+	font-style: normal;
+}
+.proximaSB {
+	font-family: "proxima-nova";
+	font-weight: 600;
+	font-style: normal;
+}
+
+.proximaSC {
+	font-family: "proxima-nova-sc-osf";
+	font-weight: 600;
+	font-style: normal;
+}
+.proximaSCEB {
+	font-family: "proxima-nova-sc-osf";
+	font-weight: 800;
+	font-style: normal;
+}
+
+
 
 .proximaT {
 	font-family: "proxima-nova-1", "proxima-nova-2";
 	font-weight: 100;
 	font-style: normal;
 }
-
-.proximaL {
-	font-family: "proxima-nova-1", "proxima-nova-2";
-	font-weight: 300;
-	font-style: normal;
-}
-
-.proximaR {
-	font-family: "proxima-nova-1", "proxima-nova-2";
-	font-weight: 400;
-	font-style: normal;
-}
-
-.proximaSB {
-	font-family: "proxima-nova-1", "proxima-nova-2";
-	font-weight: 600;
-	font-style: normal;
-}
-
 .proximaC {
 	font-family: "proxima-nova-alt-ext-cond-1", "proxima-nova-alt-ext-cond-2";
 	font-weight: 400;
 	font-style: normal;
 }
-
-.proximaSC {
-	font-family: "proxima-nova-sc-osf-1", "proxima-nova-sc-osf-2";
-	font-weight: 600;
-	font-style: normal;
-}
-
 .mono {
 	font-family: "mono45-headline",sans-serif;
 	font-style: normal;
 	font-weight: 500;
 }
+
 
 @font-family-sans-serif:  "proxima-nova-1", "Helvetica Neue", Helvetica, Arial, sans-serif;
 @font-family-serif:       chaparral-pro-1, Georgia, "Times New Roman", Times, serif;

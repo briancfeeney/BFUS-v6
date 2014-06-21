@@ -55,6 +55,7 @@ namespace Craft;
  * @property TasksService                $tasks                The tasks service
  * @property TemplateCacheService        $templateCache        The template cache service
  * @property TemplatesService            $templates            The template service
+ * @property TokensService               $tokens               The tokens service
  * @property UpdatesService              $updates              The updates service
  * @property UserGroupsService           $userGroups           The user groups service
  * @property UserPermissionsService      $userPermissions      The user permission service
@@ -97,15 +98,16 @@ class WebApp extends \CWebApplication
 			Craft::import($alias);
 		}
 
-		// So we can try to translate Yii framework strings
-		craft()->coreMessages->attachEventHandler('onMissingTranslation', array('Craft\LocalizationHelper', 'findMissingTranslation'));
+		// Attach our Craft app behavior.
+		$this->attachBehavior('AppBehavior', new AppBehavior());
 
-		// Initialize HttpRequestService and LogRouter right away
+		// Initialize Cache, HttpRequestService and LogRouter right away (order is important)
+		$this->getComponent('cache');
 		$this->getComponent('request');
 		$this->getComponent('log');
 
-		// Attach our Craft app behavior.
-		$this->attachBehavior('AppBehavior', new AppBehavior());
+		// So we can try to translate Yii framework strings
+		craft()->coreMessages->attachEventHandler('onMissingTranslation', array('Craft\LocalizationHelper', 'findMissingTranslation'));
 
 		// Set our own custom runtime path.
 		$this->setRuntimePath($this->path->getRuntimePath());
@@ -159,7 +161,13 @@ class WebApp extends \CWebApplication
 		{
 			if ($this->request->isCpRequest())
 			{
-				throw new HttpException(200, Craft::t('Craft does not support backtracking to this version.'));
+				$version = craft()->getVersion();
+				$build = craft()->getBuild();
+				$url = "http://download.buildwithcraft.com/craft/{$version}/{$version}.{$build}/Craft-{$version}.{$build}.zip";
+
+				throw new HttpException(200, Craft::t('Craft does not support backtracking to this version. Please upload Craft {url} or later.', array(
+					'url' => '<a href="'.$url.'">build '.$build.'</a>',
+				)));
 			}
 			else
 			{
@@ -222,7 +230,7 @@ class WebApp extends \CWebApplication
 			}
 
 			// If this is a non-login, non-validate, non-setPassword CP request, make sure the user has access to the CP
-			if ($this->request->isCpRequest() && !($this->request->isActionRequest() && $this->_isValidActionRequest()))
+			if ($this->request->isCpRequest() && !($this->request->isActionRequest() && $this->_isSpecialCaseActionRequest()))
 			{
 				// Make sure the user has access to the CP
 				$this->userSession->requireLogin();
@@ -859,7 +867,7 @@ class WebApp extends \CWebApplication
 	/**
 	 * @return bool
 	 */
-	private function _isValidActionRequest()
+	private function _isSpecialCaseActionRequest()
 	{
 		if (
 			$this->request->getActionSegments() == array('users', 'login') ||
@@ -927,8 +935,11 @@ class WebApp extends \CWebApplication
 			{
 				if ($this->updates->isBreakpointUpdateNeeded())
 				{
-					// Load the breakpoint update template
-					$this->runController('templates/breakpointUpdateNotification');
+					throw new HttpException(200, Craft::t('You need to be on at least Craft {url} before you can manually update to Craft {targetVersion} build {targetBuild}.', array(
+						'url'           => '<a href="'.CRAFT_MIN_BUILD_URL.'">build '.CRAFT_MIN_BUILD_REQUIRED.'</a>',
+						'targetVersion' => CRAFT_VERSION,
+						'targetBuild'   => CRAFT_BUILD
+					)));
 				}
 				else
 				{

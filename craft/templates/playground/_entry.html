@@ -17,4 +17,25 @@
 
 {% block content %}
 
+<div class="playFlex single">
+
+	<div id="playgroundTitle">
+		<h2>Playground</h2>
+	</div>
+	
+	<section id="main">
+		<article>
+		{% for image in entry.playgroundImages %}
+			{% if entry.playgroundImages|length > 1 %}
+				<a href="{{ entry.url() }}" class="images"><img src="{{ image.getUrl() }}"></a>
+			{% else %}
+				<a href="{{ entry.url() }}"><img src="{{ image.getUrl() }}"></a>
+			{% endif %}
+		{% endfor %}
+		</article>
+		<p>{{ entry.body }}</p>
+	</section>
+	
+</div>
+
 {% endblock %}

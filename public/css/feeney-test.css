@@ -1,35 +1,44 @@
 .chaparral {
-  font-family: chaparral-pro-1, chaparral-pro-2, georgia;
+  font-family: "chaparral-pro", georgia;
   font-weight: 400;
+}
+.chaparralL {
+  font-family: "chaparral-pro", georgia;
+  font-weight: 300;
+}
+.proximaL {
+  font-family: "proxima-nova";
+  font-weight: 300;
+  font-style: normal;
+}
+.proximaR {
+  font-family: "proxima-nova";
+  font-weight: 400;
+  font-style: normal;
+}
+.proximaSB {
+  font-family: "proxima-nova";
+  font-weight: 600;
+  font-style: normal;
+}
+.proximaSC {
+  font-family: "proxima-nova-sc-osf";
+  font-weight: 600;
+  font-style: normal;
+}
+.proximaSCEB {
+  font-family: "proxima-nova-sc-osf";
+  font-weight: 800;
+  font-style: normal;
 }
 .proximaT {
   font-family: "proxima-nova-1", "proxima-nova-2";
   font-weight: 100;
   font-style: normal;
 }
-.proximaL {
-  font-family: "proxima-nova-1", "proxima-nova-2";
-  font-weight: 300;
-  font-style: normal;
-}
-.proximaR {
-  font-family: "proxima-nova-1", "proxima-nova-2";
-  font-weight: 400;
-  font-style: normal;
-}
-.proximaSB {
-  font-family: "proxima-nova-1", "proxima-nova-2";
-  font-weight: 600;
-  font-style: normal;
-}
 .proximaC {
   font-family: "proxima-nova-alt-ext-cond-1", "proxima-nova-alt-ext-cond-2";
   font-weight: 400;
-  font-style: normal;
-}
-.proximaSC {
-  font-family: "proxima-nova-sc-osf-1", "proxima-nova-sc-osf-2";
-  font-weight: 600;
   font-style: normal;
 }
 .mono {
@@ -853,7 +862,7 @@ body {
   font-size: 16px;
   line-height: 1.42857143;
   color: #23262b;
-  background-color: #f6f4e7;
+  background-color: #f6f5ec;
 }
 input,
 button,
@@ -894,7 +903,7 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.42857143;
-  background-color: #f6f4e7;
+  background-color: #f6f5ec;
   border: 1px solid #dddddd;
   border-radius: 0px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -2403,7 +2412,7 @@ select[multiple].input-lg {
 }
 .btn:hover,
 .btn:focus {
-  color: #f6f4e7;
+  color: #f6f5ec;
   text-decoration: none;
 }
 .btn:active,
@@ -2424,7 +2433,7 @@ fieldset[disabled] .btn {
   box-shadow: none;
 }
 .btn-default {
-  color: #f6f4e7;
+  color: #f6f5ec;
   background-color: #23262b;
   border-color: #cccccc;
 }
@@ -2433,7 +2442,7 @@ fieldset[disabled] .btn {
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-  color: #f6f4e7;
+  color: #f6f5ec;
   background-color: #0c0d0f;
   border-color: #adadad;
 }
@@ -2462,7 +2471,7 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-default .badge {
   color: #23262b;
-  background-color: #f6f4e7;
+  background-color: #f6f5ec;
 }
 .btn-primary {
   color: #ffffff;
@@ -3618,7 +3627,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   display: block;
   width: 22px;
   height: 2px;
-  background-color: #f6f4e7;
+  background-color: #f6f5ec;
 }
 .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
@@ -3639,7 +3648,8 @@ body {
   .cbp-spmenu {
     background: #cdccc0;
     position: fixed;
-    border-top: 3.75em solid #23262b;
+    overflow-x: scroll;
+    margin-top: 3.75em;
   }
   .cbp-spmenu h3 {
     padding: 20px;
@@ -3682,6 +3692,7 @@ body {
   }
   .cbp-spmenu-left.cbp-spmenu-open {
     left: 0px;
+    width: 100%;
   }
   .cbp-spmenu-right.cbp-spmenu-open {
     right: 0px;
@@ -3706,8 +3717,8 @@ body {
     left: 0;
   }
   .cbp-spmenu-push-toright {
-    left: 240px;
-    position: absolute;
+    left: 0px;
+    position: fixed;
   }
   .cbp-spmenu-push-toleft {
     left: -240px;
@@ -3728,20 +3739,20 @@ h1 {
   margin: 1em 0 .5em;
 }
 h2 {
-  font-family: "proxima-nova-1", "proxima-nova-2";
+  font-family: "proxima-nova";
   font-weight: 600;
   font-style: normal;
   text-transform: uppercase;
 }
 h4 {
-  color: #f6f4e7;
+  color: #f6f5ec;
   margin-top: 1.1em;
   font-size: 1em;
   line-height: 1.3em;
   padding: 1.25em 20px;
 }
 h5 {
-  font-family: "proxima-nova-1", "proxima-nova-2";
+  font-family: "proxima-nova";
   font-weight: 600;
   font-style: normal;
   text-transform: uppercase;
@@ -3750,7 +3761,7 @@ h5 {
   margin-top: 10px;
 }
 h6 {
-  font-family: "proxima-nova-1", "proxima-nova-2";
+  font-family: "proxima-nova";
   font-weight: 600;
   font-style: normal;
   text-transform: uppercase;
@@ -3764,7 +3775,7 @@ a:hover {
   text-decoration: none;
 }
 p {
-  font-family: chaparral-pro-1, chaparral-pro-2, georgia;
+  font-family: "chaparral-pro", georgia;
   font-weight: 400;
   font-size: 1.1em;
   max-width: 40em;
@@ -3804,7 +3815,7 @@ blockquote:before {
   transform: translate(-30px, 30px);
 }
 blockquote p {
-  font-family: "proxima-nova-1", "proxima-nova-2";
+  font-family: "proxima-nova";
   font-weight: 400;
   font-style: normal;
   line-height: 1.5em;
@@ -3814,7 +3825,7 @@ blockquote h6 {
   text-align: right;
 }
 .btn {
-  color: #f6f4e7;
+  color: #f6f5ec;
   margin: 20px auto;
   display: inline-block;
 }
@@ -3871,7 +3882,7 @@ main > header nav ul {
   padding: 0;
 }
 main > header nav ul li {
-  font-family: "proxima-nova-1", "proxima-nova-2";
+  font-family: "proxima-nova";
   font-weight: 600;
   font-style: normal;
 }
@@ -3887,7 +3898,7 @@ main > header nav ul li a {
   /* 60px */
 }
 #bigbang h2 {
-  color: #f6f4e7;
+  color: #f6f5ec;
   text-transform: uppercase;
   font-size: 7.3em;
   letter-spacing: 4px;
@@ -3895,7 +3906,7 @@ main > header nav ul li a {
   margin-bottom: 3.5rem;
 }
 #bigbang p {
-  color: #f6f4e7;
+  color: #f6f5ec;
   font-weight: 100;
   max-width: 21em;
   font-size: 3.4em;
@@ -3927,7 +3938,7 @@ main > header nav ul li a {
 /* -------------------------------------------------------------------------------- */
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
-  color: #f6f4e7;
+  color: #f6f5ec;
   font-size: 3em;
 }
 .paging.prev {
@@ -3947,7 +3958,7 @@ main > header nav ul li a {
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 5px solid #f6f4e7;
+  border-top: 5px solid #f6f5ec;
 }
 /* -------------------------------------------------------------------------------- */
 .aboutFlex {
@@ -3978,12 +3989,12 @@ main > header nav ul li a {
   min-width: 14em;
 }
 #writing-index .subjectTitle {
-  font-family: "proxima-nova-sc-osf-1", "proxima-nova-sc-osf-2";
+  font-family: "proxima-nova-sc-osf";
   font-weight: 600;
   font-style: normal;
 }
 #writing-index ul li a {
-  font-family: "proxima-nova-1", "proxima-nova-2";
+  font-family: "proxima-nova";
   font-weight: 300;
   font-style: normal;
   display: block;
@@ -3992,7 +4003,7 @@ main > header nav ul li a {
   max-width: 40em;
 }
 #writing-main article footer strong {
-  font-family: chaparral-pro-1, chaparral-pro-2, georgia;
+  font-family: "chaparral-pro", georgia;
   font-weight: 400;
 }
 /* -------------------------------------------------------------------------------- */
@@ -4040,7 +4051,7 @@ main > header nav ul li a {
 }
 #design ul li.webDesign .visuals:before {
   content: ". . .";
-  color: #f6f4e7;
+  color: #f6f5ec;
   font-size: 6em;
   line-height: 1em;
   position: absolute;
@@ -4137,7 +4148,7 @@ main > header nav ul li a {
 #playgroundTitle h2 {
   margin: 0;
   padding: 40px;
-  color: #f6f4e7;
+  color: #f6f5ec;
 }
 /* -------------------------------------------------------------------------------- */
 #reading #index {
@@ -4189,7 +4200,7 @@ main > header nav ul li a {
 }
 #reading aside .notes p {
   font-size: .9em;
-  font-family: "proxima-nova-1", "proxima-nova-2";
+  font-family: "proxima-nova";
   font-weight: 400;
   font-style: normal;
 }
@@ -4220,13 +4231,13 @@ main > header nav ul li a {
 /* -------------------------------------------------------------------------------- */
 #archive {
   background: #23262b;
-  color: #f6f4e7;
+  color: #f6f5ec;
 }
 #archive .archive {
   width: 100%;
 }
 #archive .archive a {
-  color: #f6f4e7;
+  color: #f6f5ec;
 }
 #archive .archive h1 {
   margin: 0;
@@ -4238,7 +4249,7 @@ main > header nav ul li a {
 #archive .archive h5 {
   margin: 1.25em 0 0;
   padding: 0 1.25em .75em 2.5em;
-  color: #8d8d89;
+  color: #8d8e8c;
   border-bottom: 1px solid #383b3e;
 }
 #archive .archive ul {
@@ -4252,11 +4263,11 @@ main > header nav ul li a {
   border-bottom: 1px solid #383b3e;
 }
 #archive .archive ul li:hover {
-  background-color: #2e3034;
+  background-color: #2e3035;
 }
 #archive .archive ul li .icon {
   font-size: 2em;
-  color: #8d8d89;
+  color: #8d8e8c;
   margin: auto 1.25em auto .75em;
   width: 1em;
 }
@@ -4267,7 +4278,7 @@ main > header nav ul li a {
 }
 #archive .archive ul li small {
   margin-left: 5px;
-  font-family: "proxima-nova-1", "proxima-nova-2";
+  font-family: "proxima-nova";
   font-weight: 600;
   font-style: normal;
   font-size: .4em;
@@ -4355,7 +4366,7 @@ main > header nav ul li a {
 #brooklynMuseum section ul li {
   padding: 30px 20px;
   background-color: #00aeef;
-  color: #f6f4e7;
+  color: #f6f5ec;
   font-size: 1.3em;
   margin-bottom: 2px;
 }
@@ -4377,7 +4388,7 @@ main > header nav ul li a {
 #brooklynMuseum section .flexslider.open {
   height: auto;
   margin: 40px auto 40px;
-  border: 10px solid #f6f4e7;
+  border: 10px solid #f6f5ec;
   max-height: 1000px;
   transition: all 0.3s ease-in;
 }
@@ -4389,7 +4400,7 @@ main > header nav ul li a {
   margin-top: 20px;
 }
 #brooklynMuseum section .flexslider .flex-control-nav li a {
-  background: #f6f4e7;
+  background: #f6f5ec;
   opacity: .6;
 }
 #brooklynMuseum section .flexslider .flex-control-nav li a.flex-active {
@@ -4403,7 +4414,7 @@ header footer {
 header footer p {
   text-align: center;
   margin: 40px 10px 20px;
-  font-family: "proxima-nova-1", "proxima-nova-2";
+  font-family: "proxima-nova";
   font-weight: 400;
   font-style: normal;
   font-size: .8em;

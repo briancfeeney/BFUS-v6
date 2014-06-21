@@ -56,6 +56,7 @@ class ResourcesService extends BaseApplicationComponent
 	 * Resolves a resource path to the actual file system path, or returns false if the resource cannot be found.
 	 *
 	 * @param string $path
+	 * @throws HttpException
 	 * @return string
 	 */
 	public function getResourcePath($path)
@@ -212,6 +213,21 @@ class ResourcesService extends BaseApplicationComponent
 				case 'logo':
 				{
 					return craft()->path->getStoragePath().implode('/', $segs);
+				}
+
+				case 'transforms':
+				{
+					try
+					{
+						$transformIndexModel = craft()->assetTransforms->getTransformIndexModelById((int) $segs[1]);
+						$url = craft()->assetTransforms->ensureTransformUrlByIndexModel($transformIndexModel);
+					}
+					catch (Exception $exception)
+					{
+						throw new HttpException(404, $exception->getMessage());
+					}
+					craft()->request->redirect($url, true, 302);
+					craft()->end();
 				}
 			}
 		}

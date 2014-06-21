@@ -78,26 +78,41 @@ class UrlManager extends \CUrlManager
 			'variables' => array()
 		);
 
-		$path = $request->getPath();
+		// Is there a token in the URL?
+		$token = craft()->request->getToken();
 
-		// Is this an element request?
-		$matchedElementRoute = $this->_getMatchedElementRoute($path);
-
-		if ($matchedElementRoute)
+		if ($token)
 		{
-			$this->_setRoute($matchedElementRoute);
+			$tokenRoute = craft()->tokens->getTokenRoute($token);
+
+			if ($tokenRoute)
+			{
+				$this->_setRoute($tokenRoute);
+			}
 		}
 		else
 		{
-			// Does it look like they're trying to access a public template path?
-			if ($this->_isPublicTemplatePath())
-			{
-				// Default to that, then
-				$this->_setRoute($path);
-			}
+			$path = $request->getPath();
 
-			// Finally see if there's a URL route that matches
-			$this->_setRoute($this->_getMatchedUrlRoute($path));
+			// Is this an element request?
+			$matchedElementRoute = $this->_getMatchedElementRoute($path);
+
+			if ($matchedElementRoute)
+			{
+				$this->_setRoute($matchedElementRoute);
+			}
+			else
+			{
+				// Does it look like they're trying to access a public template path?
+				if ($this->_isPublicTemplatePath())
+				{
+					// Default to that, then
+					$this->_setRoute($path);
+				}
+
+				// Finally see if there's a URL route that matches
+				$this->_setRoute($this->_getMatchedUrlRoute($path));
+			}
 		}
 
 		// Did we come up with something?
@@ -263,16 +278,7 @@ class UrlManager extends \CUrlManager
 				return $route;
 			}
 
-			// As a last ditch to match routes, check to see if any plugins have routes registered that will match.
-			$pluginCpRoutes = craft()->plugins->call('registerCpRoutes');
-
-			foreach ($pluginCpRoutes as $pluginRoutes)
-			{
-				if (($route = $this->_matchUrlRoutes($path, $pluginRoutes)) !== false)
-				{
-					return $route;
-				}
-			}
+			$pluginHook = 'registerCpRoutes';
 		}
 		else
 		{
@@ -287,6 +293,19 @@ class UrlManager extends \CUrlManager
 			$dbRoutes = craft()->routes->getDbRoutes();
 
 			if (($route = $this->_matchUrlRoutes($path, $dbRoutes)) !== false)
+			{
+				return $route;
+			}
+
+			$pluginHook = 'registerSiteRoutes';
+		}
+
+		// Maybe a plugin has a registered route that matches?
+		$allPluginRoutes = craft()->plugins->call($pluginHook);
+
+		foreach ($allPluginRoutes as $pluginRoutes)
+		{
+			if (($route = $this->_matchUrlRoutes($path, $pluginRoutes)) !== false)
 			{
 				return $route;
 			}

@@ -520,7 +520,7 @@ class RackspaceAssetSourceType extends BaseAssetSourceType
 		$originatingSourceType = craft()->assetSources->getSourceTypeById($file->sourceId);
 		$originatingSettings = $originatingSourceType->getSettings();
 
-		$sourceUri = $this->_prepareRequestURI($originatingSettings->container, $originatingSettings->subfolder.$sourceFolder->path.$file);
+		$sourceUri = $this->_prepareRequestURI($originatingSettings->container, $originatingSettings->subfolder.$sourceFolder->path.$file->filename);
 		$targetUri = $this->_prepareRequestURI($this->getSettings()->container, $newServerPath);
 
 		$this->_copyFile($sourceUri, $targetUri);
@@ -754,7 +754,7 @@ class RackspaceAssetSourceType extends BaseAssetSourceType
 		$response = static::_doRequest($targetUrl, 'POST', $headers, array(), $payload);
 		$body = json_decode(substr($response, strpos($response, '{')));
 
-		if (!$body)
+		if (empty($body->access))
 		{
 			throw new Exception(Craft::t("Wrong credentials supplied for Rackspace access!"));
 		}
@@ -1062,7 +1062,7 @@ class RackspaceAssetSourceType extends BaseAssetSourceType
 	 */
 	private static function _logUnexpectedResponse($response)
 	{
-		Craft::log("RACKSPACE: Received unexpected response: " . $response);
+		Craft::log('RACKSPACE: Received unexpected response: '.$response, LogLevel::Error);
 	}
 
 	/**

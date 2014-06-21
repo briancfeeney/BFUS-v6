@@ -64,7 +64,7 @@ class AssetElementType extends BaseElementType
 	 */
 	public function getSources($context = null)
 	{
-		if (in_array($context, array('modal', 'index')))
+		if ($context == 'index')
 		{
 			$sourceIds = craft()->assetSources->getViewableSourceIds();
 		}
@@ -87,13 +87,13 @@ class AssetElementType extends BaseElementType
 	 */
 	public function getSource($key, $context = null)
 	{
-		if (preg_match('/folder:(\d+)/', $key, $matches))
+		if (preg_match('/folder:(\d+)(:single)?/', $key, $matches))
 		{
 			$folder = craft()->assets->getFolderById($matches[1]);
 
 			if ($folder)
 			{
-				return $this->_assembleSourceInfoForFolder($folder, true);
+				return $this->_assembleSourceInfoForFolder($folder, empty($matches[2]));
 			}
 		}
 
@@ -272,13 +272,23 @@ class AssetElementType extends BaseElementType
 	{
 		$html = craft()->templates->renderMacro('_includes/forms', 'textField', array(
 			array(
+				'label'     => Craft::t('Filename'),
+				'id'        => 'filename',
+				'name'      => 'filename',
+				'value'     => $element->filename,
+				'errors'    => $element->getErrors('filename'),
+				'first'     => true,
+				'required'  => true
+			)
+		));
+
+		$html .= craft()->templates->renderMacro('_includes/forms', 'textField', array(
+			array(
 				'label'     => Craft::t('Title'),
 				'id'        => 'title',
 				'name'      => 'title',
 				'value'     => $element->title,
 				'errors'    => $element->getErrors('title'),
-				'first'     => true,
-				'autofocus' => true,
 				'required'  => true
 			)
 		));
@@ -286,6 +296,59 @@ class AssetElementType extends BaseElementType
 		$html .= parent::getEditorHtml($element);
 
 		return $html;
+	}
+
+	/**
+	 * Save the filename.
+	 *
+	 * @param BaseElementModel $element
+	 * @param array $params
+	 * @return bool
+	 */
+	public function saveElement(BaseElementModel $element, $params)
+	{
+		// Is the filename changing?
+		if (!empty($params['filename']) && $params['filename'] != $element->filename)
+		{
+			// Validate the content before we do anything drastic
+			if (!craft()->content->validateContent($element))
+			{
+				return false;
+			}
+
+			$oldFilename = $element->filename;
+			$newFilename = $params['filename'];
+
+			// Rename the file
+			$response = craft()->assets->renameFile($element, $newFilename);
+
+			// Did it work?
+			if ($response->isConflict())
+			{
+				$element->addError('filename', $response->getDataItem('prompt')->message);
+				return false;
+			}
+
+			if ($response->isError())
+			{
+				$element->addError('filename', $response->errorMessage);
+				return false;
+			}
+		}
+		else
+		{
+			$newFilename = null;
+		}
+
+		$success = parent::saveElement($element, $params);
+
+		if (!$success && $newFilename)
+		{
+			// Better rename it back
+			craft()->assets->renameFile($element, $oldFilename);
+		}
+
+		return $success;
 	}
 
 	/**
@@ -322,6 +385,7 @@ class AssetElementType extends BaseElementType
 			'label'     => ($folder->parentId ? $folder->name : Craft::t($folder->name)),
 			'hasThumbs' => true,
 			'criteria'  => array('folderId' => $folder->id),
+			'data'      => array('upload' => is_null($folder->sourceId) ? true : (int) craft()->assets->canUserPerformAction($folder->id, 'uploadToAssetSource'))
 		);
 
 		if ($includeNestedFolders)

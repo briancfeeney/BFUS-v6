@@ -42,13 +42,6 @@ class AssetsFieldType extends BaseElementFieldType
 	private $_failedFiles = array();
 
 	/**
-	 * Allowed extension list.
-	 *
-	 * @var null
-	 */
-	static $_allowedExtensions = array();
-
-	/**
 	 * Returns the label for the "Add" button.
 	 *
 	 * @access protected
@@ -85,7 +78,17 @@ class AssetsFieldType extends BaseElementFieldType
 	 */
 	public function getSettingsHtml()
 	{
+		// Create a list of folder options for the main Source setting, and source options for the upload location settings.
+		$folderOptions = array();
 		$sourceOptions = array();
+
+		foreach ($this->getElementType()->getSources() as $key => $source)
+		{
+			if (!isset($source['heading']))
+			{
+				$folderOptions[] = array('label' => $source['label'], 'value' => $key);
+			}
+		}
 
 		foreach (craft()->assetSources->getAllSources() as $source)
 		{
@@ -100,6 +103,7 @@ class AssetsFieldType extends BaseElementFieldType
 		}
 
 		return craft()->templates->render('_components/fieldtypes/Assets/settings', array(
+			'folderOptions'     => $folderOptions,
 			'sourceOptions'     => $sourceOptions,
 			'targetLocaleField' => $this->getTargetLocaleFieldHtml(),
 			'settings'          => $this->getSettings(),
@@ -292,7 +296,7 @@ class AssetsFieldType extends BaseElementFieldType
 				else
 				{
 					$targetFolder = reset($sources);
-					list ($bogus, $targetFolderId) = explode(":", $targetFolder);
+					list ($bogus, $targetFolderId) = explode(':', $targetFolder);
 				}
 			}
 		}
@@ -314,7 +318,7 @@ class AssetsFieldType extends BaseElementFieldType
 
 		if ($settings->useSingleFolder)
 		{
-			$folderPath = 'folder:'.$this->_determineUploadFolderId($settings);
+			$folderPath = 'folder:'.$this->_determineUploadFolderId($settings).':single';
 
 			return array($folderPath);
 		}
@@ -326,16 +330,15 @@ class AssetsFieldType extends BaseElementFieldType
 		{
 			foreach ($settings->sources as $source)
 			{
-				if (is_numeric($source))
+				if (strncmp($source, 'folder:', 7) === 0)
 				{
-					$folder = craft()->assets->findFolder(array(
-						'sourceId' => $source,
-						'parentId' => ':empty:'
-					));
-
-					$sources[] = 'folder:'.$folder->id;
+					$sources[] = $source;
 				}
 			}
+		}
+		else if ($settings->sources == '*')
+		{
+			$sources = '*';
 		}
 
 		return $sources;
@@ -379,7 +382,7 @@ class AssetsFieldType extends BaseElementFieldType
 		// Do we have the folder?
 		if (empty($folder))
 		{
-			throw new Exception (Craft::t("Cannot find the target folder."));
+			throw new Exception (Craft::t('Cannot find the target folder.'));
 		}
 
 		// Prepare the path by parsing tokens and normalizing slashes.
@@ -400,8 +403,16 @@ class AssetsFieldType extends BaseElementFieldType
 		}
 
 		// Let's see if the folder already exists.
-		$folderCriteria = array('sourceId' => $sourceId, 'path' => $folder->path . $subpath);
-		$existingFolder = craft()->assets->findFolder($folderCriteria);
+		if (empty($subpath))
+		{
+			$existingFolder = $folder;
+		}
+		else
+		{
+			$folderCriteria = array('sourceId' => $sourceId, 'path' => $folder->path . $subpath);
+			$existingFolder = craft()->assets->findFolder($folderCriteria);
+		}
+
 
 		// No dice, go over each folder in the path and create it if it's missing.
 		if (!$existingFolder)
@@ -480,20 +491,15 @@ class AssetsFieldType extends BaseElementFieldType
 			return array();
 		}
 
-		// Cache in case several fields use the same settings.
-		$key = implode("|", $allowedKinds);
-		if (empty(static::$_allowedExtensions[$key]))
-		{
-			static::$_allowedExtensions[$key] = array();
-			$allKinds = IOHelper::getFileKinds();
-			foreach ($allowedKinds as $allowedKind)
-			{
-				static::$_allowedExtensions[$key] += $allKinds[$allowedKind]['extensions'];
-			}
+		$extensions = array();
+		$allKinds = IOHelper::getFileKinds();
 
+		foreach ($allowedKinds as $allowedKind)
+		{
+			$extensions = array_merge($extensions, $allKinds[$allowedKind]['extensions']);
 		}
 
-		return static::$_allowedExtensions[$key];
+		return $extensions;
 	}
 
 	/**
@@ -505,10 +511,21 @@ class AssetsFieldType extends BaseElementFieldType
 	 */
 	private function _determineUploadFolderId($settings)
 	{
-		// If there's no dynamic tags in the subpath, or if the element has already been saved, we con use the real folder
-		if (!empty($this->element->id) || strpos($settings->singleUploadLocationSubpath, '{') === false)
+		// If there's no dynamic tags in the set path, or if the element has already been saved, we con use the real folder
+		if (!empty($this->element->id)
+			|| (!empty($settings->useSingleFolder) && strpos($settings->singleUploadLocationSubpath, '{') === false)
+			|| (empty($settings->useSingleFolder) && strpos($settings->defaultUploadLocationSubpath, '{') === false)
+		)
 		{
-			$folderId = $this->_resolveSourcePathToFolderId($settings->singleUploadLocationSource, $settings->singleUploadLocationSubpath);
+			// Use the appropriate settings for folder determination
+			if (empty($settings->useSingleFolder))
+			{
+				$folderId = $this->_resolveSourcePathToFolderId($settings->defaultUploadLocationSource, $settings->defaultUploadLocationSubpath);
+			}
+			else
+			{
+				$folderId = $this->_resolveSourcePathToFolderId($settings->singleUploadLocationSource, $settings->singleUploadLocationSubpath);
+			}
 		}
 		else
 		{

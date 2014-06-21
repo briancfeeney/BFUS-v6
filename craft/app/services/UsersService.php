@@ -19,9 +19,9 @@ class UsersService extends BaseApplicationComponent
 	private $_usersById;
 
 	/**
-	 * Gets a user by their ID.
+	 * Gets a user by their ID in the database.  Returns null if one can’t be found.
 	 *
-	 * @param $userId
+	 * @param $userId The user’s ID in the database.
 	 * @return UserModel|null
 	 */
 	public function getUserById($userId)
@@ -44,9 +44,9 @@ class UsersService extends BaseApplicationComponent
 	}
 
 	/**
-	 * Gets a user by their username or email.
+	 * Gets a user by their username or email.  Returns null if one can’t be found.
 	 *
-	 * @param string $usernameOrEmail
+	 * @param string $usernameOrEmail The username or email address to search for.
 	 * @return UserModel|null
 	 */
 	public function getUserByUsernameOrEmail($usernameOrEmail)
@@ -60,56 +60,83 @@ class UsersService extends BaseApplicationComponent
 		{
 			return UserModel::populateModel($userRecord);
 		}
+
+		return null;
 	}
 
 	/**
-	 * Gets a user by a verification code and their uid.
+	 * Returns a user by their UID in the database.  Returns null if one can’t be found.
 	 *
-	 * @param        $code
-	 * @param        $uid
+	 * @param $uid The UID to search for.
 	 * @return UserModel|null
 	 */
-	public function getUserByVerificationCodeAndUid($code, $uid)
+	public function getUserByUid($uid)
 	{
 		$userRecord = UserRecord::model()->findByAttributes(array(
 			'uid' => $uid
 		));
 
-		if ($userRecord && $userRecord->verificationCodeIssuedDate)
+		if ($userRecord)
 		{
-			$user = UserModel::populateModel($userRecord);
-
-			// Fire an 'onBeforeVerifyUser' event
-			$this->onBeforeVerifyUser(new Event($this, array(
-				'user' => $user
-			)));
-
-			$minCodeIssueDate = DateTimeHelper::currentUTCDateTime();
-			$duration = new DateInterval(craft()->config->get('verificationCodeDuration'));
-			$minCodeIssueDate->sub($duration);
-
-			if (
-				$userRecord->verificationCodeIssuedDate > $minCodeIssueDate &&
-				craft()->security->checkPassword($code, $userRecord->verificationCode)
-			)
-			{
-				return $user;
-			}
-			else
-			{
-				Craft::log('Found a user with UID:'.$uid.', but the verification code given: '.$code.' has either expired or does not match the hash in the database.', LogLevel::Warning);
-			}
-		}
-		else
-		{
-			Craft::log('Could not find a user with UID:'.$uid.'.', LogLevel::Warning);
+			return UserModel::populateModel($userRecord);
 		}
 
 		return null;
 	}
 
 	/**
-	 * Returns the "Client" account if they're running Craft Client.
+	 * Checks to see if a verification code is valid for the given user.  First it checks if the code has expired
+	 * past the “verificationCodeDuration” config setting. If it is still valid then, the checks the validity of the
+	 * contents of the code. If both of those are true, it will return true, otherwise, false.
+	 *
+	 * @param UserModel $user The user to check the code for.
+	 * @param           $code The verification code to check for.
+	 * @return bool
+	 */
+	public function isVerificationCodeValidForUser(UserModel $user, $code)
+	{
+		$valid = false;
+		$userRecord = $this->_getUserRecordById($user->id);
+
+		if ($userRecord)
+		{
+			$minCodeIssueDate = DateTimeHelper::currentUTCDateTime();
+			$duration = new DateInterval(craft()->config->get('verificationCodeDuration'));
+			$minCodeIssueDate->sub($duration);
+
+			$valid = $userRecord->verificationCodeIssuedDate > $minCodeIssueDate;
+
+			if (!$valid)
+			{
+				// It's expired, go ahead and remove it from the record so if they click the link again, it'll throw an Exception.
+				$userRecord = $this->_getUserRecordById($user->id);
+				$userRecord->verificationCodeIssuedDate = null;
+				$userRecord->verificationCode = null;
+				$userRecord->save();
+			}
+			else
+			{
+				if (craft()->security->checkPassword($code, $userRecord->verificationCode))
+				{
+					$valid = true;
+				}
+				else
+				{
+					$valid = false;
+					Craft::log('The verification code ('.$code.') given for userId: '.$user->id.' does not match the hash in the database.', LogLevel::Warning);
+				}
+			}
+		}
+		else
+		{
+			Craft::log('Could not find a user with id:'.$user->id.'.', LogLevel::Warning);
+		}
+
+		return $valid;
+	}
+
+	/**
+	 * Returns the "Client" account if they're running Craft Client. Returns null if one is not found.
 	 *
 	 * @return UserModel|null
 	 */
@@ -124,11 +151,11 @@ class UsersService extends BaseApplicationComponent
 	}
 
 	/**
-	 * Saves a user, or registers a new one.
+	 * Saves an existing user, or registers a new one.
 	 *
-	 * @param  UserModel $user
+	 * @param  UserModel $user The user to save.
 	 * @throws \Exception
-	 * @return bool
+	 * @return bool true or false, depending on if the save was successful or not.
 	 */
 	public function saveUser(UserModel $user)
 	{
@@ -255,6 +282,11 @@ class UsersService extends BaseApplicationComponent
 						}
 					}
 
+					if ($transaction !== null)
+					{
+						$transaction->commit();
+					}
+
 					// Fire an 'onSaveUser' event
 					$this->onSaveUser(new Event($this, array(
 						'user'      => $user,
@@ -267,11 +299,6 @@ class UsersService extends BaseApplicationComponent
 						$this->onSaveProfile(new Event($this, array(
 							'user' => $user
 						)));
-					}
-
-					if ($transaction !== null)
-					{
-						$transaction->commit();
 					}
 
 					return true;
@@ -317,7 +344,11 @@ class UsersService extends BaseApplicationComponent
 	}
 
 	/**
-	 * Sends an activation email
+	 * Sends a new account activation email for a user, regardless of their status.  A new verification code will
+	 * generated for the user overwriting any existing one.
+	 *
+	 * @param UserModel $user The user to send the activation email to.
+	 * @return bool
 	 */
 	public function sendActivationEmail(UserModel $user)
 	{
@@ -341,13 +372,14 @@ class UsersService extends BaseApplicationComponent
 	 */
 	public function saveUserPhoto($fileName, Image $image, UserModel $user)
 	{
-		$userPhotoFolder = craft()->path->getUserPhotosPath().$user->username.'/';
+		$userName = IOHelper::cleanFilename($user->username);
+		$userPhotoFolder = craft()->path->getUserPhotosPath().$userName.'/';
 		$targetFolder = $userPhotoFolder.'original/';
 
 		IOHelper::ensureFolderExists($userPhotoFolder);
 		IOHelper::ensureFolderExists($targetFolder);
 
-		$targetPath = $targetFolder . $fileName;
+		$targetPath = $targetFolder.$fileName;
 
 		$result = $image->saveAs($targetPath);
 
@@ -518,6 +550,12 @@ class UsersService extends BaseApplicationComponent
 		if ($user->unverifiedEmail)
 		{
 			$userRecord->email = $user->unverifiedEmail;
+
+			if (craft()->config->get('useEmailAsUsername'))
+			{
+				$userRecord->username = $user->unverifiedEmail;
+			}
+
 			$userRecord->unverifiedEmail = null;
 		}
 
@@ -802,6 +840,33 @@ class UsersService extends BaseApplicationComponent
 		}
 
 		return false;
+	}
+
+	/**
+	 * If the purgePendingUsersDuration config setting has a valid duration, this method will delete any users in a pending
+	 * state that as past the duration.
+	 */
+	public function purgeExpiredPendingUsers()
+	{
+		if (($duration = craft()->config->get('purgePendingUsersDuration')) !== false)
+		{
+			$interval = new DateInterval($duration);
+			$expire = DateTimeHelper::currentUTCDateTime();
+			$pastTimeStamp = $expire->sub($interval)->getTimestamp();
+			$pastTime = DateTimeHelper::formatTimeForDb($pastTimeStamp);
+
+			$ids = craft()->db->createCommand()->select('id')
+				->from('users')
+				->where('status = :status AND verificationCodeIssuedDate < :pastTime', array('status' => 'pending', 'pastTime' => $pastTime))
+				->queryColumn();
+
+			$affectedRows = craft()->db->createCommand()->delete('elements', array('in', 'id', $ids));
+
+			if ($affectedRows > 0)
+			{
+				Craft::log('Just deleted '.$affectedRows.' pending users from the users table, because the were more than '.$duration.' old', LogLevel::Info, true);
+			}
+		}
 	}
 
 	// Events

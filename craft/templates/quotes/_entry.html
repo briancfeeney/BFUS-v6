@@ -1,0 +1,18 @@
+{#
+ # Quotes entry template
+ # -------------------
+ #}
+
+{% extends "_layout" %}
+{% set title = "Quotes" %}
+
+{% block content %}
+
+<div class="main single">
+	<article>
+		{{ entry.body }}
+		<h5><a href="{{ entry.url }}">{{ entry.quoteAttribution }}</h5></a>
+	</article>
+</div>
+
+{% endblock %}

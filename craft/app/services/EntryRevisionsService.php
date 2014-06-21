@@ -44,9 +44,12 @@ class EntryRevisionsService extends BaseApplicationComponent
 	 * @param int $entryId
 	 * @param int $offset
 	 * @return EntryDraftModel|null
+	 * @deprecated Deprecated in 2.1
 	 */
 	public function getDraftByOffset($entryId, $offset = 0)
 	{
+		craft()->deprecator->log('EntryRevisionsService::getDraftByOffset()', 'EntryRevisionsService::getDraftByOffset() has been deprecated.');
+
 		$draftRecord = EntryDraftRecord::model()->find(array(
 			'condition' => 'entryId = :entryId AND locale = :locale',
 			'params' => array(':entryId' => $entryId, ':locale' => craft()->i18n->getPrimarySiteLocale()),
@@ -79,6 +82,7 @@ class EntryRevisionsService extends BaseApplicationComponent
 			->select('*')
 			->from('entrydrafts')
 			->where(array('and', 'entryId = :entryId', 'locale = :locale'), array(':entryId' => $entryId, ':locale' => $localeId))
+			->order('name asc')
 			->queryAll();
 
 		foreach ($results as $result)
@@ -131,7 +135,25 @@ class EntryRevisionsService extends BaseApplicationComponent
 	public function saveDraft(EntryDraftModel $draft)
 	{
 		$draftRecord = $this->_getDraftRecord($draft);
+
+		if (!$draft->name && $draft->id)
+		{
+			// Get the total number of exsiting drafts for this entry/locale
+			$totalDrafts = craft()->db->createCommand()
+				->from('entrydrafts')
+				->where(
+					array('and', 'entryId = :entryId', 'locale = :locale'),
+					array(':entryId' => $draft->id, ':locale' => $draft->locale)
+				)
+				->count('id');
+
+			$draft->name = Craft::t('Draft {num}', array('num' => $totalDrafts + 1));
+		}
+
+		$draftRecord->name = $draft->name;
+		$draftRecord->notes = $draft->revisionNotes;
 		$draftRecord->data = $this->_getRevisionData($draft);
+
 		$isNewDraft = !$draft->draftId;
 
 		if ($draftRecord->save())
@@ -164,6 +186,12 @@ class EntryRevisionsService extends BaseApplicationComponent
 		if ($draft->getSection()->type == SectionType::Single)
 		{
 			$draft->getContent()->title = $draft->getSection()->name;
+		}
+
+		// Set the version notes
+		if (!$draft->revisionNotes)
+		{
+			$draft->revisionNotes = Craft::t('Published draft “{name}”.', array('name' => $draft->name));
 		}
 
 		if (craft()->entries->saveEntry($draft))
@@ -260,9 +288,12 @@ class EntryRevisionsService extends BaseApplicationComponent
 	 * @param int $entryId
 	 * @param int $offset
 	 * @return EntryVersionModel|null
+	 * @deprecated Deprecated in 2.1
 	 */
 	public function getVersionByOffset($entryId, $offset = 0)
 	{
+		craft()->deprecator->log('EntryRevisionsService::getVersionByOffset()', 'EntryRevisionsService::getVersionByOffset() has been deprecated.');
+
 		$versionRecord = EntryVersionRecord::model()->findByAttributes(array(
 			'entryId' => $entryId,
 			'locale'  => craft()->i18n->getPrimarySiteLocale(),
@@ -295,6 +326,8 @@ class EntryRevisionsService extends BaseApplicationComponent
 			->select('*')
 			->from('entryversions')
 			->where(array('and', 'entryId = :entryId', 'locale = :locale'), array(':entryId' => $entryId, ':locale' => $localeId))
+			->order('dateCreated desc')
+			->offset(1)
 			->limit($limit)
 			->queryAll();
 
@@ -319,14 +352,61 @@ class EntryRevisionsService extends BaseApplicationComponent
 	 */
 	public function saveVersion(EntryModel $entry)
 	{
+		// Get the total number of exsiting versions for this entry/locale
+		$totalVersions = craft()->db->createCommand()
+			->from('entryversions')
+			->where(
+				array('and', 'entryId = :entryId', 'locale = :locale'),
+				array(':entryId' => $entry->id, ':locale' => $entry->locale)
+			)
+			->count('id');
+
 		$versionRecord = new EntryVersionRecord();
 		$versionRecord->entryId = $entry->id;
 		$versionRecord->sectionId = $entry->sectionId;
 		$versionRecord->creatorId = craft()->userSession->getUser() ? craft()->userSession->getUser()->id : $entry->authorId;
 		$versionRecord->locale = $entry->locale;
+		$versionRecord->num = $totalVersions + 1;
 		$versionRecord->data = $this->_getRevisionData($entry);
+		$versionRecord->notes = $entry->revisionNotes;
 		return $versionRecord->save();
 	}
+
+	/**
+	 * Reverts an entry to a version.
+	 *
+	 * @param EntryVersionModel $version
+	 * @return bool
+	 */
+	public function revertEntryToVersion(EntryVersionModel $version)
+	{
+		// If this is a single, we'll have to set the title manually
+		if ($version->getSection()->type == SectionType::Single)
+		{
+			$version->getContent()->title = $version->getSection()->name;
+		}
+
+		// Set the version notes
+		$version->revisionNotes = Craft::t('Reverted version {num}.', array('num' => $version->num));
+
+		if (craft()->entries->saveEntry($version))
+		{
+			// Fire an 'onRevertEntryToVersion' event
+			$this->onRevertEntryToVersion(new Event($this, array(
+				'version' => $version,
+			)));
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	// -------------------------------------------
+	//  Events
+	// -------------------------------------------
 
 	/**
 	 * Fires an 'onSaveDraft' event.
@@ -366,6 +446,16 @@ class EntryRevisionsService extends BaseApplicationComponent
 	public function onAfterDeleteDraft(Event $event)
 	{
 		$this->raiseEvent('onAfterDeleteDraft', $event);
+	}
+
+	/**
+	 * Fires an 'onRevertEntryToVersion' event.
+	 *
+	 * @param Event $event
+	 */
+	public function onRevertEntryToVersion(Event $event)
+	{
+		$this->raiseEvent('onRevertEntryToVersion', $event);
 	}
 
 	/**

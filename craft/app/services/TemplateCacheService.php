@@ -375,7 +375,7 @@ class TemplateCacheService extends BaseApplicationComponent
 		}
 
 		$affectedRows = craft()->db->createCommand()->delete(static::$_templateCachesTable,
-			array('expiryDate <= :now'),
+			'expiryDate <= :now',
 			array('now' => DateTimeHelper::currentTimeForDb())
 		);
 
@@ -383,7 +383,7 @@ class TemplateCacheService extends BaseApplicationComponent
 		craft()->cache->set('lastTemplateCacheCleanupDate', DateTimeHelper::currentTimeStamp(), static::$_lastCleanupDateCacheDuration);
 		$this->_deletedExpiredCaches = true;
 
-		return $affectedRows;
+		return (bool) $affectedRows;
 	}
 
 	/**

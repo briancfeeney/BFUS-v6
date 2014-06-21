@@ -1,35 +1,44 @@
 .chaparral {
-  font-family: chaparral-pro-1, chaparral-pro-2, georgia;
+  font-family: "chaparral-pro", georgia;
   font-weight: 400;
+}
+.chaparralL {
+  font-family: "chaparral-pro", georgia;
+  font-weight: 300;
+}
+.proximaL {
+  font-family: "proxima-nova";
+  font-weight: 300;
+  font-style: normal;
+}
+.proximaR {
+  font-family: "proxima-nova";
+  font-weight: 400;
+  font-style: normal;
+}
+.proximaSB {
+  font-family: "proxima-nova";
+  font-weight: 600;
+  font-style: normal;
+}
+.proximaSC {
+  font-family: "proxima-nova-sc-osf";
+  font-weight: 600;
+  font-style: normal;
+}
+.proximaSCEB {
+  font-family: "proxima-nova-sc-osf";
+  font-weight: 800;
+  font-style: normal;
 }
 .proximaT {
   font-family: "proxima-nova-1", "proxima-nova-2";
   font-weight: 100;
   font-style: normal;
 }
-.proximaL {
-  font-family: "proxima-nova-1", "proxima-nova-2";
-  font-weight: 300;
-  font-style: normal;
-}
-.proximaR {
-  font-family: "proxima-nova-1", "proxima-nova-2";
-  font-weight: 400;
-  font-style: normal;
-}
-.proximaSB {
-  font-family: "proxima-nova-1", "proxima-nova-2";
-  font-weight: 600;
-  font-style: normal;
-}
 .proximaC {
   font-family: "proxima-nova-alt-ext-cond-1", "proxima-nova-alt-ext-cond-2";
   font-weight: 400;
-  font-style: normal;
-}
-.proximaSC {
-  font-family: "proxima-nova-sc-osf-1", "proxima-nova-sc-osf-2";
-  font-weight: 600;
   font-style: normal;
 }
 .mono {

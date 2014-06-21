@@ -43,8 +43,8 @@ class InstallController extends BaseController
 		$server = craft()->request->getServerName();
 		$words = preg_split('/[\-_\.]+/', $server);
 		array_pop($words);
-		$vars['siteName'] = implode(' ', array_map('ucfirst', $words));
-		$vars['siteUrl'] = 'http://'.$server;
+		$vars['defaultSiteName'] = implode(' ', array_map('ucfirst', $words));
+		$vars['defaultSiteUrl'] = 'http://'.$server;
 
 		$this->renderTemplate('_special/install', $vars);
 	}
@@ -58,7 +58,13 @@ class InstallController extends BaseController
 		$this->requireAjaxRequest();
 
 		$accountSettings = new AccountSettingsModel();
-		$accountSettings->username = craft()->request->getPost('username');
+		$username = craft()->request->getPost('username');
+		if (!$username)
+		{
+			$username = craft()->request->getPost('email');
+		}
+
+		$accountSettings->username = $username;
 		$accountSettings->email = craft()->request->getPost('email');
 		$accountSettings->password = craft()->request->getPost('password');
 
@@ -107,7 +113,14 @@ class InstallController extends BaseController
 		$this->requireAjaxRequest();
 
 		// Run the installer
-		$inputs['username']   = craft()->request->getPost('username');
+		$username = craft()->request->getPost('username');
+
+		if (!$username)
+		{
+			$username = craft()->request->getPost('email');
+		}
+
+		$inputs['username']   = $username;
 		$inputs['email']      = craft()->request->getPost('email');
 		$inputs['password']   = craft()->request->getPost('password');
 		$inputs['siteName']   = craft()->request->getPost('siteName');

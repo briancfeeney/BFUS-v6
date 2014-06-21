@@ -1,0 +1,37 @@
+{#
+ # Quotes index template
+ # ---------------
+ #}
+
+{% extends "_layout" %}
+
+{% block content %}
+
+<div class="main">
+	
+	<article>
+		<h2>QUOTES</h2>
+	</article>
+	
+	{% paginate craft.entries.section('quotes').limit(19) as entries %}
+	{% for entry in entries %}
+	<article>
+		{{ entry.body }}
+		<h5><a href="{{ entry.url }}">{{ entry.quoteAttribution }}</h5></a>
+	</article>
+	{% endfor %}
+
+	<div class="quotesNav">
+	    {% if paginate.nextUrl %}
+	        <a href="{{ paginate.nextUrl }}" class="paging prev">Older</a>
+	    {% endif %}
+		{% if paginate.prevUrl %}
+	        <a href="{{ paginate.prevUrl }}" class="paging next">Newer</a>
+	    {% endif %}
+
+		{% endpaginate %}
+	</div>
+
+</div>
+
+{% endblock %}

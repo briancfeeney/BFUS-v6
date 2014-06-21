@@ -1519,6 +1519,7 @@ Garnish.ContextMenu = Garnish.Base.extend({
 			if (option == '-')
 			{
 				// Create a new <ul>
+				$('<hr/>').appendTo(this.$menu);
 				$ul = $('<ul/>').appendTo(this.$menu);
 			}
 			else
@@ -2328,6 +2329,11 @@ Garnish.EscManager = Garnish.Base.extend({
 			}
 
 			func.call(handler.obj, ev);
+
+			if (typeof handler.obj.trigger == 'function')
+			{
+				handler.obj.trigger('escape');
+			}
 		}
 	}
 
@@ -2689,7 +2695,7 @@ Garnish.LightSwitch = Garnish.Base.extend({
 		this.$innerContainer.stop().animate({marginLeft: 0}, 'fast');
 		this.$input.val(Garnish.Y_AXIS);
 		this.on = true;
-		this.settings.onChange();
+		this.onChange();
 
 		this.$toggleTarget.show();
 		this.$toggleTarget.height('auto');
@@ -2705,7 +2711,7 @@ Garnish.LightSwitch = Garnish.Base.extend({
 		this.$innerContainer.stop().animate({marginLeft: Garnish.LightSwitch.offMargin}, 'fast');
 		this.$input.val('');
 		this.on = false;
-		this.settings.onChange();
+		this.onChange();
 
 		this.$toggleTarget.stop().animate({height: 0}, 'fast');
 	},
@@ -2720,6 +2726,13 @@ Garnish.LightSwitch = Garnish.Base.extend({
 		{
 			this.turnOff();
 		}
+	},
+
+	onChange: function()
+	{
+		this.trigger('change');
+		this.settings.onChange();
+		this.$outerContainer.trigger('change');
 	},
 
 	_onMouseDown: function()
@@ -3000,15 +3013,21 @@ Garnish.MenuBtn = Garnish.Base.extend({
 		// Is this already a menu button?
 		if (this.$btn.data('menubtn'))
 		{
+			// Grab the old MenuBtn's menu container
+			var $menu = this.$btn.data('menubtn').menu.$container;
+
 			Garnish.log('Double-instantiating a menu button on an element');
 			this.$btn.data('menubtn').destroy();
+		}
+		else
+		{
+			var $menu = this.$btn.next('.menu').detach();
 		}
 
 		this.$btn.data('menubtn', this);
 
 		this.setSettings(settings, Garnish.MenuBtn.defaults);
 
-		var $menu = this.$btn.next('.menu').detach();
 		this.menu = new Garnish.Menu($menu, {
 			attachToElement: this.$btn,
 			onOptionSelect: $.proxy(this, 'onOptionSelect')

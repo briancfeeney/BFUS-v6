@@ -106,6 +106,8 @@ class PluginsService extends BaseApplicationComponent
 
 					if ($plugin)
 					{
+						$this->_autoloadPluginClasses($plugin);
+
 						// Clean it up a bit
 						$row['settings'] = JsonHelper::decode($row['settings']);
 						$row['installDate'] = DateTime::createFromString($row['installDate']);
@@ -121,8 +123,6 @@ class PluginsService extends BaseApplicationComponent
 
 						$plugin->isInstalled = true;
 						$plugin->isEnabled = true;
-
-						$this->_autoloadPluginClasses($plugin);
 					}
 				}
 
@@ -349,6 +349,8 @@ class PluginsService extends BaseApplicationComponent
 			throw new Exception(Craft::t('“{plugin}” is already installed.', array('plugin' => $plugin->getName())));
 		}
 
+		$plugin->onBeforeInstall();
+
 		$transaction = craft()->db->getCurrentTransaction() === null ? craft()->db->beginTransaction() : null;
 		try
 		{
@@ -493,17 +495,26 @@ class PluginsService extends BaseApplicationComponent
 	 */
 	public function savePluginSettings(BasePlugin $plugin, $settings)
 	{
-		// Give the plugin a chance to modify the settings
-		$settings = $plugin->prepSettings($settings);
-		$settings = JsonHelper::encode($settings);
+		// Give the plugin a chance to prep the settings from post
+		$preppedSettings = $plugin->prepSettings($settings);
 
-		$affectedRows = craft()->db->createCommand()->update('plugins', array(
-			'settings' => $settings
-		), array(
-			'class' => $plugin->getClassHandle()
-		));
+		// Set the prepped settings on the plugin
+		$plugin->setSettings($preppedSettings);
 
-		return (bool) $affectedRows;
+		// Validate them, now that it's a model
+		if ($plugin->getSettings()->validate())
+		{
+			// JSON-encode them and save the plugin row
+			$settings = JsonHelper::encode($plugin->getSettings()->getAttributes());
+
+			$affectedRows = craft()->db->createCommand()->update('plugins', array(
+				'settings' => $settings
+			), array(
+				'class' => $plugin->getClassHandle()
+			));
+
+			return (bool) $affectedRows;
+		}
 	}
 
 	/**

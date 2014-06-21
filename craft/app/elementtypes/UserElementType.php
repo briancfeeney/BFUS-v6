@@ -112,14 +112,31 @@ class UserElementType extends BaseElementType
 	 */
 	public function defineTableAttributes($source = null)
 	{
-		return array(
-			'username'      => Craft::t('Username'),
-			'firstName'     => Craft::t('First Name'),
-			'lastName'      => Craft::t('Last Name'),
-			'email'         => Craft::t('Email'),
-			'dateCreated'   => Craft::t('Join Date'),
-			'lastLoginDate' => Craft::t('Last Login'),
-		);
+		if (craft()->config->get('useEmailAsUsername'))
+		{
+			$attributes = array(
+				'email'         => Craft::t('Email'),
+				'firstName'     => Craft::t('First Name'),
+				'lastName'      => Craft::t('Last Name'),
+				'dateCreated'   => Craft::t('Join Date'),
+				'lastLoginDate' => Craft::t('Last Login'),
+			);
+		}
+		else
+		{
+			$attributes = array(
+				'username'      => Craft::t('Username'),
+				'firstName'     => Craft::t('First Name'),
+				'lastName'      => Craft::t('Last Name'),
+				'email'         => Craft::t('Email'),
+				'dateCreated'   => Craft::t('Join Date'),
+				'lastLoginDate' => Craft::t('Last Login'),
+			);
+		}
+
+		return $attributes;
+
+		return $attributes;
 	}
 
 	/**
@@ -184,7 +201,7 @@ class UserElementType extends BaseElementType
 			'group'          => AttributeType::Mixed,
 			'groupId'        => AttributeType::Number,
 			'lastName'       => AttributeType::String,
-			'lastLoginDate'  => AttributeType::DateTime,
+			'lastLoginDate'  => AttributeType::Mixed,
 			'order'          => array(AttributeType::String, 'default' => 'username asc'),
 			'preferredLocale'=> AttributeType::String,
 			'status'         => array(AttributeType::Enum, 'values' => array(UserStatus::Active, UserStatus::Locked, UserStatus::Suspended, UserStatus::Pending, UserStatus::Archived), 'default' => UserStatus::Active),
@@ -229,34 +246,93 @@ class UserElementType extends BaseElementType
 
 		if ($criteria->can)
 		{
-			$query->leftJoin('userpermissions_users opt1_userpermissions_users', 'opt1_userpermissions_users.userId = users.id');
-			$query->leftJoin('userpermissions opt1_userpermissions', 'opt1_userpermissions.id = opt1_userpermissions_users.permissionId');
+			// Get the actual permission ID
+			if (is_numeric($criteria->can))
+			{
+				$permissionId = $criteria->can;
+			}
+			else
+			{
+				$permissionId = craft()->db->createCommand()
+					->select('id')
+					->from('userpermissions')
+					->where('name = :name', array(':name' => strtolower($criteria->can)))
+					->queryScalar();
 
-			$query->leftJoin('usergroups_users opt2_usergroups_users', 'opt2_usergroups_users.userId = users.id');
-			$query->leftJoin('userpermissions_usergroups opt2_userpermissions_usergroups', 'opt2_userpermissions_usergroups.groupId = opt2_usergroups_users.groupId');
-			$query->leftJoin('userpermissions opt2_userpermissions', 'opt2_userpermissions.id = opt2_userpermissions_usergroups.permissionId');
+				if (!$permissionId)
+				{
+					return false;
+				}
+			}
 
-			$query->andWhere(array('or',
-				'users.admin = 1',
-				'users.client = 1',
-				'opt1_userpermissions.name = :permission',
-				'opt2_userpermissions.name = :permission',
-			), array(
-				':permission' => $criteria->can
-			));
+			$permittedUserIds = array();
+
+			// Get the user groups that have that permission
+			$permittedGroupIds = craft()->db->createCommand()
+				->select('groupId')
+				->from('userpermissions_usergroups')
+				->where('permissionId = :permissionId', array(':permissionId' => $permissionId))
+				->queryColumn();
+
+			if ($permittedGroupIds)
+			{
+				$permittedUserIds = $this->_getUserIdsByGroupIds($permittedGroupIds);
+			}
+
+			// Get the users that have that permission directly
+			$permittedUserIds = array_merge(
+				$permittedUserIds,
+				craft()->db->createCommand()
+					->select('userId')
+					->from('userpermissions_users')
+					->where('permissionId = :permissionId', array(':permissionId' => $permissionId))
+					->queryColumn()
+			);
+
+			if ($permittedUserIds)
+			{
+				$permissionConditions = array('or', 'users.admin = 1', DbHelper::parseParam('elements.id', $permittedUserIds, $query->params));
+			}
+			else
+			{
+				$permissionConditions = 'users.admin = 1';
+			}
+
+			$query->andWhere($permissionConditions);
 		}
 
 		if ($criteria->groupId)
 		{
-			$query->join('usergroups_users usergroups_users', 'usergroups_users.userId = users.id');
-			$query->andWhere(DbHelper::parseParam('usergroups_users.groupId', $criteria->groupId, $query->params));
+			$userIds = $this->_getUserIdsByGroupIds($criteria->groupId);
+
+			if (!$userIds)
+			{
+				return false;
+			}
+
+			// TODO: MySQL specific. Manually building the string because DbHelper::parseParam() chokes with large arrays.
+			$query->andWhere('elements.id IN ('.implode(',', $userIds).')');
 		}
 
 		if ($criteria->group)
 		{
-			$query->join('usergroups_users usergroups_users', 'usergroups_users.userId = users.id');
-			$query->join('usergroups usergroups', 'usergroups.id = usergroups_users.groupId');
-			$query->andWhere(DbHelper::parseParam('usergroups.handle', $criteria->group, $query->params));
+			// Get the actual group ID(s)
+			$groupIdsQuery = craft()->db->createCommand()
+				->select('id')
+				->from('usergroups');
+
+			$groupIdsQuery->where(DbHelper::parseParam('handle', $criteria->group, $groupIdsQuery->params));
+			$groupIds = $groupIdsQuery->queryColumn();
+
+			$userIds = $this->_getUserIdsByGroupIds($groupIds);
+
+			if (!$userIds)
+			{
+				return false;
+			}
+
+			// TODO: MySQL specific. Manually building the string because DbHelper::parseParam() chokes with large arrays.
+			$query->andWhere('elements.id IN ('.implode(',', $userIds).')');
 		}
 
 		if ($criteria->username)
@@ -283,6 +359,11 @@ class UserElementType extends BaseElementType
 		{
 			$query->andWhere(DbHelper::parseParam('users.preferredLocale', $criteria->preferredLocale, $query->params));
 		}
+
+		if ($criteria->lastLoginDate)
+		{
+			$query->andWhere(DbHelper::parseDateParam('users.lastLoginDate', $criteria->lastLoginDate, $query->params));
+		}
 	}
 
 	/**
@@ -294,5 +375,20 @@ class UserElementType extends BaseElementType
 	public function populateElementModel($row)
 	{
 		return UserModel::populateModel($row);
+	}
+
+	/**
+	 * @param $groupIds
+	 * @return array
+	 */
+	private function _getUserIdsByGroupIds($groupIds)
+	{
+		$query = craft()->db->createCommand()
+			->select('userId')
+			->from('usergroups_users');
+
+		$query->where(DbHelper::parseParam('groupId', $groupIds, $query->params));
+
+		return $query->queryColumn();
 	}
 }

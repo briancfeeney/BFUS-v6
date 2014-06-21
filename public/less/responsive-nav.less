@@ -58,7 +58,8 @@
 	.cbp-spmenu {
 	    background: @dust;
 	    position: fixed;
-		border-top: 3.75em solid @coal;
+		overflow-x: scroll;
+		margin-top: 3.75em;
 	}
  
 	.cbp-spmenu h3 {
@@ -112,6 +113,7 @@
  
 	.cbp-spmenu-left.cbp-spmenu-open {
 	    left: 0px;
+		width: 100%;
 	}
  
 	.cbp-spmenu-right.cbp-spmenu-open {
@@ -145,8 +147,8 @@
 	}
  
 	.cbp-spmenu-push-toright {
-	    left: 240px;
-		position: absolute;
+	    left: 0px;
+		position: fixed;
 	}
  
 	.cbp-spmenu-push-toleft {

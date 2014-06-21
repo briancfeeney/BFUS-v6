@@ -36,7 +36,8 @@ class EntryModel extends BaseElementModel
 			'expiryDate' => AttributeType::DateTime,
 
 			// Just used for saving entries
-			'parentId'   => AttributeType::Number,
+			'parentId'      => AttributeType::Number,
+			'revisionNotes' => AttributeType::String,
 		));
 	}
 
@@ -202,7 +203,13 @@ class EntryModel extends BaseElementModel
 	 */
 	public function isEditable()
 	{
-		return craft()->userSession->checkPermission('publishEntries:'.$this->sectionId);
+		return (
+			craft()->userSession->checkPermission('publishEntries:'.$this->sectionId) && (
+				$this->authorId == craft()->userSession->getUser()->id ||
+				craft()->userSession->checkPermission('publishPeerEntries:'.$this->sectionId) ||
+				$this->getSection()->type == SectionType::Single
+			)
+		);
 	}
 
 	/**

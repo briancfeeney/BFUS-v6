@@ -167,9 +167,14 @@ class EntriesService extends BaseApplicationComponent
 					}
 
 					// Save a new version
-					if (craft()->getEdition() >= Craft::Client)
+					if (craft()->getEdition() >= Craft::Client && $section->enableVersioning)
 					{
 						craft()->entryRevisions->saveVersion($entry);
+					}
+
+					if ($transaction !== null)
+					{
+						$transaction->commit();
 					}
 
 					// Fire an 'onSaveEntry' event
@@ -177,11 +182,6 @@ class EntriesService extends BaseApplicationComponent
 						'entry'      => $entry,
 						'isNewEntry' => $isNewEntry
 					)));
-
-					if ($transaction !== null)
-					{
-						$transaction->commit();
-					}
 
 					return true;
 				}

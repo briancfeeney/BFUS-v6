@@ -89,7 +89,7 @@ class DashboardController extends BaseController
 		{
 			if (isset($item['date']))
 			{
-				$item['date'] = $item['date']->w3cDate();
+				$item['date'] = $item['date']->localeDate();
 			}
 			else
 			{

@@ -232,7 +232,8 @@ class MatrixFieldType extends BaseFieldType
 			'id' => $id,
 			'name' => $name,
 			'blockTypes' => $settings->getBlockTypes(),
-			'blocks' => $value
+			'blocks' => $value,
+			'static' => false
 		));
 	}
 
@@ -446,6 +447,33 @@ class MatrixFieldType extends BaseFieldType
 	public function onAfterElementSave()
 	{
 		craft()->matrix->saveField($this);
+	}
+
+	/**
+	 * Returns static HTML for the field's value.
+	 *
+	 * @param mixed $value
+	 * @return string
+	 */
+	public function getStaticHtml($value)
+	{
+		if ($value)
+		{
+			$settings = $this->getSettings();
+			$id = StringHelper::randomString();
+
+			return craft()->templates->render('_components/fieldtypes/Matrix/input', array(
+				'id' => $id,
+				'name' => $id,
+				'blockTypes' => $settings->getBlockTypes(),
+				'blocks' => $value,
+				'static' => true
+			));
+		}
+		else
+		{
+			return '<p class="light">'.Craft::t('No blocks.').'</p>';
+		}
 	}
 
 	/**

@@ -54,8 +54,8 @@ class GlobalSetElementType extends BaseElementType
 	public function defineCriteriaAttributes()
 	{
 		return array(
+			'handle' => AttributeType::Mixed,
 			'order' => array(AttributeType::String, 'default' => 'name'),
-			'setId' => AttributeType::Number,
 		);
 	}
 
@@ -71,6 +71,11 @@ class GlobalSetElementType extends BaseElementType
 		$query
 			->addSelect('globalsets.name, globalsets.handle, globalsets.fieldLayoutId')
 			->join('globalsets globalsets', 'globalsets.id = elements.id');
+
+		if ($criteria->handle)
+		{
+			$query->andWhere(DbHelper::parseParam('globalsets.handle', $criteria->handle, $query->params));
+		}
 	}
 
 	/**

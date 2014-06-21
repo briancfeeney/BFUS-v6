@@ -169,7 +169,20 @@ class ElementsService extends BaseApplicationComponent
 				$elementIds = $this->_getElementIdsFromQuery($query);
 				$scoredSearchResults = ($criteria->order == 'score');
 				$filteredElementIds = craft()->search->filterElementIdsByQuery($elementIds, $criteria->search, $scoredSearchResults);
+
+				// No results?
+				if (!$filteredElementIds)
+				{
+					return array();
+				}
+
 				$query->andWhere(array('in', 'elements.id', $filteredElementIds));
+
+				if ($scoredSearchResults)
+				{
+					// Order the elements in the exact order that SearchService returned them in
+					$query->order(craft()->db->getSchema()->orderByColumnValues('elements.id', $filteredElementIds));
+				}
 			}
 
 			if ($justIds)
@@ -190,26 +203,18 @@ class ElementsService extends BaseApplicationComponent
 			}
 			else if ($criteria->order && $criteria->order != 'score')
 			{
-				$orderColumns = ArrayHelper::stringToArray($criteria->order);
+				$order = $criteria->order;
 
-				if ($fieldColumns)
+				if (is_array($fieldColumns))
 				{
-					foreach ($orderColumns as $i => $orderColumn)
+					// Add the field column prefixes
+					foreach ($fieldColumns as $column)
 					{
-						// Is this column for a custom field?
-						foreach ($fieldColumns as $column)
-						{
-							if (preg_match('/^'.$column['handle'].'\b(.*)$/', $orderColumn, $matches))
-							{
-								// Use the field column name instead
-								$orderColumns[$i] = $column['column'].$matches[1];
-								// Don't break from the loop though because there could be more than one column that uses this handle!
-							}
-						}
+						$order = preg_replace('/\b'.$column['handle'].'\b/', $column['column'].'$1', $order);
 					}
 				}
 
-				$query->order(implode(', ', $orderColumns));
+				$query->order($order);
 			}
 
 			if ($criteria->offset)
@@ -226,18 +231,6 @@ class ElementsService extends BaseApplicationComponent
 
 			if ($results)
 			{
-				if ($criteria->search && $scoredSearchResults)
-				{
-					$searchPositions = array();
-
-					foreach ($results as $result)
-					{
-						$searchPositions[] = array_search($result['id'], $filteredElementIds);
-					}
-
-					array_multisort($searchPositions, $results);
-				}
-
 				if ($justIds)
 				{
 					foreach ($results as $result)
@@ -424,7 +417,8 @@ class ElementsService extends BaseApplicationComponent
 
 		// Basic element params
 
-		if ($criteria->id === false || $criteria->id === 0 || $criteria->id === '0')
+		// If the 'id' parameter is set to any empty value besides `null`, don't return anything
+		if ($criteria->id !== null && empty($criteria->id))
 		{
 			return false;
 		}
@@ -503,6 +497,11 @@ class ElementsService extends BaseApplicationComponent
 		if ($criteria->dateUpdated)
 		{
 			$query->andWhere(DbHelper::parseDateParam('elements.dateUpdated', $criteria->dateUpdated, $query->params));
+		}
+
+		if ($elementType->hasTitles() && $criteria->title)
+		{
+			$query->andWhere(DbHelper::parseParam('content.title', $criteria->title, $query->params));
 		}
 
 		// i18n params

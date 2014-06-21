@@ -159,7 +159,12 @@ class GlobalsService extends BaseApplicationComponent
 	 */
 	public function getSetById($globalSetId, $localeId = null)
 	{
-		if (!$localeId || $localeId == craft()->language)
+		if (!$localeId)
+		{
+			$localeId = craft()->language;
+		}
+
+		if ($localeId == craft()->language)
 		{
 			if (!isset($this->_allGlobalSets))
 			{
@@ -174,6 +179,41 @@ class GlobalsService extends BaseApplicationComponent
 		else
 		{
 			return craft()->elements->getElementById($globalSetId, ElementType::GlobalSet, $localeId);
+		}
+	}
+
+	/**
+	 * Returns a global set by its handle.
+	 *
+	 * @param int $globalSetHandle
+	 * @param string|null $localeId
+	 * @return GlobalSetModel|null
+	 */
+	public function getSetByHandle($globalSetHandle, $localeId = null)
+	{
+		if (!$localeId)
+		{
+			$localeId = craft()->language;
+		}
+
+		if ($localeId == craft()->language)
+		{
+			$globalSets = $this->getAllSets();
+
+			foreach ($globalSets as $globalSet)
+			{
+				if ($globalSet->handle == $globalSetHandle)
+				{
+					return $globalSet;
+				}
+			}
+		}
+		else
+		{
+			$criteria = craft()->elements->getCriteria(ElementType::GlobalSet);
+			$criteria->locale = $localeId;
+			$criteria->handle = $globalSetHandle;
+			return $criteria->first();
 		}
 	}
 

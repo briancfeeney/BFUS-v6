@@ -13,6 +13,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/books\/designing-for-people.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 496346,
+		"inputAbbreviatedPath": "\/books\/designing-for-people.jpg",
+		"outputAbbreviatedPath": "\/books\/designing-for-people.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/books\/Fouc_reader vintage_cvr.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -622,8 +633,8 @@
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
 		"relativeURLS": 0,
-		"shouldRunAutoprefixer": 1,
-		"shouldRunBless": 0,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 1,
 		"strictImports": 0,
 		"strictMath": 0,
 		"strictUnits": 0
@@ -1879,6 +1890,820 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/_MediumImages\/20140324-161825.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 427759,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/20140324-161825.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/20140324-161825.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/andy-sherwani-2010-11-25.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 416500,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/andy-sherwani-2010-11-25.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/andy-sherwani-2010-11-25.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/at-the-movies-20120307.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 277808,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/at-the-movies-20120307.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/at-the-movies-20120307.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/bbg-2014-04-21.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 427998,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/bbg-2014-04-21.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/bbg-2014-04-21.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/birds-of-india-2010-11-26.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 451900,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/birds-of-india-2010-11-26.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/birds-of-india-2010-11-26.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/BK-piers-20120506.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 226031,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/BK-piers-20120506.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/BK-piers-20120506.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/bkm-stairwell-window.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 426910,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/bkm-stairwell-window.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/bkm-stairwell-window.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/bkm-trees.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 218319,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/bkm-trees.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/bkm-trees.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/boiled-water-2010-11-26.jpeg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 331402,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/boiled-water-2010-11-26.jpeg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/boiled-water-2010-11-26.jpeg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/boomboxes-20120327.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 530340,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/boomboxes-20120327.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/boomboxes-20120327.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/bride-n.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 311966,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/bride-n.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/bride-n.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/brooklyn-backyard-2011-10-31.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 310969,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/brooklyn-backyard-2011-10-31.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/brooklyn-backyard-2011-10-31.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/brooklyn-dawn-20120225.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 417408,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/brooklyn-dawn-20120225.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/brooklyn-dawn-20120225.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/brooklyn-fall-2011-10-23.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 534805,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/brooklyn-fall-2011-10-23.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/brooklyn-fall-2011-10-23.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/brooklyn-horizon-20120503.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 387010,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/brooklyn-horizon-20120503.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/brooklyn-horizon-20120503.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/captain-rob-DSC_7995.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.55631e+06,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/captain-rob-DSC_7995.png",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/captain-rob-DSC_7995.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/car-lot-2006-12-09.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 299193,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/car-lot-2006-12-09.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/car-lot-2006-12-09.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/carousel-20111114.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 426852,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/carousel-20111114.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/carousel-20111114.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/central-park-jungle-20120430.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 565472,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/central-park-jungle-20120430.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/central-park-jungle-20120430.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/chelsea-tree-20130609.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 304006,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/chelsea-tree-20130609.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/chelsea-tree-20130609.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/cherry-blossoms-20120322.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 424605,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/cherry-blossoms-20120322.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/cherry-blossoms-20120322.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/cherry-blossoms.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 576813,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/cherry-blossoms.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/cherry-blossoms.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/construction-on-chambers.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 501821,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/construction-on-chambers.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/construction-on-chambers.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/cups-2011-10-23.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 472507,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/cups-2011-10-23.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/cups-2011-10-23.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/dinner-talk.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 258447,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/dinner-talk.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/dinner-talk.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/downtown-squares-20120508.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 651432,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/downtown-squares-20120508.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/downtown-squares-20120508.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/drew-piano.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 346188,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/drew-piano.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/drew-piano.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/dumbo-paste-ups-2011-11-12.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 332855,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/dumbo-paste-ups-2011-11-12.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/dumbo-paste-ups-2011-11-12.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/empty-3-train.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 411095,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/empty-3-train.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/empty-3-train.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/fence-at-sunset-2005-08-15.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 361169,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/fence-at-sunset-2005-08-15.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/fence-at-sunset-2005-08-15.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/five-borough-20120506.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 413819,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/five-borough-20120506.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/five-borough-20120506.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/flag-man.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 249387,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/flag-man.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/flag-man.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/flatbush-ave-20120308.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 421968,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/flatbush-ave-20120308.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/flatbush-ave-20120308.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/flourescence.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 341783,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/flourescence.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/flourescence.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/Floyds-20120313.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 428996,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/Floyds-20120313.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/Floyds-20120313.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/golden-tree-20120403.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 854663,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/golden-tree-20120403.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/golden-tree-20120403.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/grays-and-browns-20130607.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 425647,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/grays-and-browns-20130607.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/grays-and-browns-20130607.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/green-2006-06-24.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 416221,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/green-2006-06-24.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/green-2006-06-24.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/greens-20120505.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 602614,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/greens-20120505.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/greens-20120505.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/greenwood-view-2011-11-11.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 265054,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/greenwood-view-2011-11-11.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/greenwood-view-2011-11-11.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/hanks-20120506.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 242757,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/hanks-20120506.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/hanks-20120506.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/hero-pigeon-20130607.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 271222,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/hero-pigeon-20130607.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/hero-pigeon-20130607.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/holding-down-the-shop-2010-11-26.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 459216,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/holding-down-the-shop-2010-11-26.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/holding-down-the-shop-2010-11-26.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/home-20120301.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 598448,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/home-20120301.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/home-20120301.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/housingworks-sale-20120501.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 904111,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/housingworks-sale-20120501.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/housingworks-sale-20120501.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/indian-cowboy-2010-11-25.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 366819,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/indian-cowboy-2010-11-25.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/indian-cowboy-2010-11-25.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/jeremy.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 431727,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/jeremy.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/jeremy.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/jolly-roger-2012-04-06.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 329893,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/jolly-roger-2012-04-06.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/jolly-roger-2012-04-06.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/kentile-floors-20120128.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 466446,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/kentile-floors-20120128.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/kentile-floors-20120128.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/krazy-20120311.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 435112,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/krazy-20120311.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/krazy-20120311.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/midtown-building-20120501.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 471563,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/midtown-building-20120501.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/midtown-building-20120501.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/mikey-on-a-horse-2010-11-25.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 662690,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/mikey-on-a-horse-2010-11-25.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/mikey-on-a-horse-2010-11-25.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/moped-sweaters-2010-11-26.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 346758,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/moped-sweaters-2010-11-26.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/moped-sweaters-2010-11-26.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/ollie-2007-04-08.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 497731,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/ollie-2007-04-08.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/ollie-2007-04-08.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/om-2010-11-27.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 310692,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/om-2010-11-27.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/om-2010-11-27.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/palms-20111125.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 551859,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/palms-20111125.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/palms-20111125.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/park-2007-06-21.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 727833,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/park-2007-06-21.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/park-2007-06-21.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/queens-20120406.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 556766,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/queens-20120406.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/queens-20120406.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/RedHook_StreetArt.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 350536,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/RedHook_StreetArt.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/RedHook_StreetArt.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/soda-2010-12-21.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 359196,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/soda-2010-12-21.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/soda-2010-12-21.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/sullivans-2005-08-07.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 218572,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/sullivans-2005-08-07.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/sullivans-2005-08-07.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/sunshine.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 741084,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/sunshine.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/sunshine.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/taj-mahal-2010-12-23.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 324340,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/taj-mahal-2010-12-23.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/taj-mahal-2010-12-23.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/the-americans-2004-29-08.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 192107,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/the-americans-2004-29-08.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/the-americans-2004-29-08.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/the-bk-bridge.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 329175,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/the-bk-bridge.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/the-bk-bridge.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/the-grooms-henna-2010-12-24.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 387815,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/the-grooms-henna-2010-12-24.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/the-grooms-henna-2010-12-24.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/this-side-up-20130607.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 289799,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/this-side-up-20130607.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/this-side-up-20130607.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/Tiki-2012-04-27.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 286357,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/Tiki-2012-04-27.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/Tiki-2012-04-27.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/tree-at-sunset-20130607.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 496187,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/tree-at-sunset-20130607.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/tree-at-sunset-20130607.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/usmnt-fans.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 235390,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/usmnt-fans.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/usmnt-fans.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/UWS-sunset-20120403.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 284712,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/UWS-sunset-20120403.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/UWS-sunset-20120403.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/wc-trophy.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 641799,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/wc-trophy.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/wc-trophy.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/we-are-watching-20111207.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 301866,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/we-are-watching-20111207.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/we-are-watching-20111207.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/will-2010-11-25.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 369507,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/will-2010-11-25.jpg",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/will-2010-11-25.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/andy-sherwani-2010-11-25.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -1886,6 +2711,17 @@
 		"initialSize": 878933,
 		"inputAbbreviatedPath": "\/photos\/andy-sherwani-2010-11-25.jpg",
 		"outputAbbreviatedPath": "\/photos\/andy-sherwani-2010-11-25.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/at-the-movies-20120307.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 561475,
+		"inputAbbreviatedPath": "\/photos\/at-the-movies-20120307.jpg",
+		"outputAbbreviatedPath": "\/photos\/at-the-movies-20120307.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -1908,6 +2744,17 @@
 		"initialSize": 865093,
 		"inputAbbreviatedPath": "\/photos\/birds-of-india-2010-11-26.jpg",
 		"outputAbbreviatedPath": "\/photos\/birds-of-india-2010-11-26.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/BK-piers-20120506.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.49246e+06,
+		"inputAbbreviatedPath": "\/photos\/BK-piers-20120506.jpg",
+		"outputAbbreviatedPath": "\/photos\/BK-piers-20120506.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -1945,6 +2792,28 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/boomboxes-20120327.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 441473,
+		"inputAbbreviatedPath": "\/photos\/boomboxes-20120327.jpg",
+		"outputAbbreviatedPath": "\/photos\/boomboxes-20120327.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/bride-n.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.5099e+06,
+		"inputAbbreviatedPath": "\/photos\/bride-n.JPG",
+		"outputAbbreviatedPath": "\/photos\/bride-n.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/brooklyn-backyard-2011-10-31.JPG": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -1952,6 +2821,17 @@
 		"initialSize": 1.11684e+06,
 		"inputAbbreviatedPath": "\/photos\/brooklyn-backyard-2011-10-31.JPG",
 		"outputAbbreviatedPath": "\/photos\/brooklyn-backyard-2011-10-31.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/brooklyn-dawn-20120225.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 638992,
+		"inputAbbreviatedPath": "\/photos\/brooklyn-dawn-20120225.jpg",
+		"outputAbbreviatedPath": "\/photos\/brooklyn-dawn-20120225.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -1967,6 +2847,28 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/brooklyn-horizon-20120503.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2.74542e+06,
+		"inputAbbreviatedPath": "\/photos\/brooklyn-horizon-20120503.jpg",
+		"outputAbbreviatedPath": "\/photos\/brooklyn-horizon-20120503.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/captain-rob-DSC_7995.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.18411e+06,
+		"inputAbbreviatedPath": "\/photos\/captain-rob-DSC_7995.png",
+		"outputAbbreviatedPath": "\/photos\/captain-rob-DSC_7995.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/car-lot-2006-12-09.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -1974,6 +2876,50 @@
 		"initialSize": 240173,
 		"inputAbbreviatedPath": "\/photos\/car-lot-2006-12-09.jpg",
 		"outputAbbreviatedPath": "\/photos\/car-lot-2006-12-09.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/carousel-20111114.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.14426e+06,
+		"inputAbbreviatedPath": "\/photos\/carousel-20111114.jpg",
+		"outputAbbreviatedPath": "\/photos\/carousel-20111114.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/central-park-jungle-20120430.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.02103e+06,
+		"inputAbbreviatedPath": "\/photos\/central-park-jungle-20120430.jpg",
+		"outputAbbreviatedPath": "\/photos\/central-park-jungle-20120430.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/chelsea-tree-20130609.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 261691,
+		"inputAbbreviatedPath": "\/photos\/chelsea-tree-20130609.jpg",
+		"outputAbbreviatedPath": "\/photos\/chelsea-tree-20130609.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/cherry-blossoms-20120322.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.09672e+06,
+		"inputAbbreviatedPath": "\/photos\/cherry-blossoms-20120322.jpg",
+		"outputAbbreviatedPath": "\/photos\/cherry-blossoms-20120322.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -1989,6 +2935,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/construction-on-chambers.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2.59981e+06,
+		"inputAbbreviatedPath": "\/photos\/construction-on-chambers.JPG",
+		"outputAbbreviatedPath": "\/photos\/construction-on-chambers.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/cups-2011-10-23.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -1996,6 +2953,39 @@
 		"initialSize": 450446,
 		"inputAbbreviatedPath": "\/photos\/cups-2011-10-23.jpg",
 		"outputAbbreviatedPath": "\/photos\/cups-2011-10-23.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/dinner-talk.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 598810,
+		"inputAbbreviatedPath": "\/photos\/dinner-talk.JPG",
+		"outputAbbreviatedPath": "\/photos\/dinner-talk.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/downtown-squares-20120508.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.07632e+06,
+		"inputAbbreviatedPath": "\/photos\/downtown-squares-20120508.jpg",
+		"outputAbbreviatedPath": "\/photos\/downtown-squares-20120508.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/drew-piano.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.32193e+06,
+		"inputAbbreviatedPath": "\/photos\/drew-piano.JPG",
+		"outputAbbreviatedPath": "\/photos\/drew-piano.JPG",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -2011,6 +3001,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/empty-3-train.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.71379e+06,
+		"inputAbbreviatedPath": "\/photos\/empty-3-train.JPG",
+		"outputAbbreviatedPath": "\/photos\/empty-3-train.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/fence-at-sunset-2005-08-15.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -2018,6 +3019,39 @@
 		"initialSize": 288422,
 		"inputAbbreviatedPath": "\/photos\/fence-at-sunset-2005-08-15.jpg",
 		"outputAbbreviatedPath": "\/photos\/fence-at-sunset-2005-08-15.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/five-borough-20120506.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.03235e+06,
+		"inputAbbreviatedPath": "\/photos\/five-borough-20120506.jpg",
+		"outputAbbreviatedPath": "\/photos\/five-borough-20120506.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/flag-man.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 384294,
+		"inputAbbreviatedPath": "\/photos\/flag-man.JPG",
+		"outputAbbreviatedPath": "\/photos\/flag-man.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/flatbush-ave-20120308.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 3.0592e+06,
+		"inputAbbreviatedPath": "\/photos\/flatbush-ave-20120308.jpg",
+		"outputAbbreviatedPath": "\/photos\/flatbush-ave-20120308.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -2033,6 +3067,39 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/Floyds-20120313.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 896599,
+		"inputAbbreviatedPath": "\/photos\/Floyds-20120313.jpg",
+		"outputAbbreviatedPath": "\/photos\/Floyds-20120313.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/golden-tree-20120403.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.52672e+06,
+		"inputAbbreviatedPath": "\/photos\/golden-tree-20120403.jpg",
+		"outputAbbreviatedPath": "\/photos\/golden-tree-20120403.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/grays-and-browns-20130607.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 409100,
+		"inputAbbreviatedPath": "\/photos\/grays-and-browns-20130607.jpg",
+		"outputAbbreviatedPath": "\/photos\/grays-and-browns-20130607.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/green-2006-06-24.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -2040,6 +3107,17 @@
 		"initialSize": 482807,
 		"inputAbbreviatedPath": "\/photos\/green-2006-06-24.jpg",
 		"outputAbbreviatedPath": "\/photos\/green-2006-06-24.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/greens-20120505.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2.0734e+06,
+		"inputAbbreviatedPath": "\/photos\/greens-20120505.jpg",
+		"outputAbbreviatedPath": "\/photos\/greens-20120505.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -2055,6 +3133,28 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/hanks-20120506.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2.41989e+06,
+		"inputAbbreviatedPath": "\/photos\/hanks-20120506.jpg",
+		"outputAbbreviatedPath": "\/photos\/hanks-20120506.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/hero-pigeon-20130607.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 236367,
+		"inputAbbreviatedPath": "\/photos\/hero-pigeon-20130607.jpg",
+		"outputAbbreviatedPath": "\/photos\/hero-pigeon-20130607.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/holding-down-the-shop-2010-11-26.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -2062,6 +3162,28 @@
 		"initialSize": 844816,
 		"inputAbbreviatedPath": "\/photos\/holding-down-the-shop-2010-11-26.jpg",
 		"outputAbbreviatedPath": "\/photos\/holding-down-the-shop-2010-11-26.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/home-20120301.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.48699e+06,
+		"inputAbbreviatedPath": "\/photos\/home-20120301.jpg",
+		"outputAbbreviatedPath": "\/photos\/home-20120301.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/housingworks-sale-20120501.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.62331e+06,
+		"inputAbbreviatedPath": "\/photos\/housingworks-sale-20120501.jpg",
+		"outputAbbreviatedPath": "\/photos\/housingworks-sale-20120501.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -2077,6 +3199,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/jeremy.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.00127e+06,
+		"inputAbbreviatedPath": "\/photos\/jeremy.JPG",
+		"outputAbbreviatedPath": "\/photos\/jeremy.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/jolly-roger-2012-04-06.JPG": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -2084,6 +3217,39 @@
 		"initialSize": 1.34817e+06,
 		"inputAbbreviatedPath": "\/photos\/jolly-roger-2012-04-06.JPG",
 		"outputAbbreviatedPath": "\/photos\/jolly-roger-2012-04-06.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/kentile-floors-20120128.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.27139e+06,
+		"inputAbbreviatedPath": "\/photos\/kentile-floors-20120128.jpg",
+		"outputAbbreviatedPath": "\/photos\/kentile-floors-20120128.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/krazy-20120311.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.20404e+06,
+		"inputAbbreviatedPath": "\/photos\/krazy-20120311.jpg",
+		"outputAbbreviatedPath": "\/photos\/krazy-20120311.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/midtown-building-20120501.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.42926e+06,
+		"inputAbbreviatedPath": "\/photos\/midtown-building-20120501.jpg",
+		"outputAbbreviatedPath": "\/photos\/midtown-building-20120501.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -2132,6 +3298,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/palms-20111125.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.31261e+06,
+		"inputAbbreviatedPath": "\/photos\/palms-20111125.jpg",
+		"outputAbbreviatedPath": "\/photos\/palms-20111125.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/park-2007-06-21.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -2139,6 +3316,28 @@
 		"initialSize": 228012,
 		"inputAbbreviatedPath": "\/photos\/park-2007-06-21.jpg",
 		"outputAbbreviatedPath": "\/photos\/park-2007-06-21.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/queens-20120406.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 938622,
+		"inputAbbreviatedPath": "\/photos\/queens-20120406.jpg",
+		"outputAbbreviatedPath": "\/photos\/queens-20120406.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/RedHook_StreetArt.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 631622,
+		"inputAbbreviatedPath": "\/photos\/RedHook_StreetArt.jpg",
+		"outputAbbreviatedPath": "\/photos\/RedHook_StreetArt.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -2198,6 +3397,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/the-bk-bridge.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.20913e+06,
+		"inputAbbreviatedPath": "\/photos\/the-bk-bridge.JPG",
+		"outputAbbreviatedPath": "\/photos\/the-bk-bridge.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/the-grooms-henna-2010-12-24.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -2205,6 +3415,17 @@
 		"initialSize": 689844,
 		"inputAbbreviatedPath": "\/photos\/the-grooms-henna-2010-12-24.jpg",
 		"outputAbbreviatedPath": "\/photos\/the-grooms-henna-2010-12-24.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/this-side-up-20130607.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 239405,
+		"inputAbbreviatedPath": "\/photos\/this-side-up-20130607.jpg",
+		"outputAbbreviatedPath": "\/photos\/this-side-up-20130607.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -2220,6 +3441,61 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/tree-at-sunset-20130607.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 493462,
+		"inputAbbreviatedPath": "\/photos\/tree-at-sunset-20130607.jpg",
+		"outputAbbreviatedPath": "\/photos\/tree-at-sunset-20130607.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/usmnt-fans.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 351358,
+		"inputAbbreviatedPath": "\/photos\/usmnt-fans.JPG",
+		"outputAbbreviatedPath": "\/photos\/usmnt-fans.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/UWS-sunset-20120403.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 155014,
+		"inputAbbreviatedPath": "\/photos\/UWS-sunset-20120403.jpg",
+		"outputAbbreviatedPath": "\/photos\/UWS-sunset-20120403.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/wc-trophy.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 728452,
+		"inputAbbreviatedPath": "\/photos\/wc-trophy.JPG",
+		"outputAbbreviatedPath": "\/photos\/wc-trophy.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/we-are-watching-20111207.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 688583,
+		"inputAbbreviatedPath": "\/photos\/we-are-watching-20111207.jpg",
+		"outputAbbreviatedPath": "\/photos\/we-are-watching-20111207.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/will-2010-11-25.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -2227,6 +3503,215 @@
 		"initialSize": 492119,
 		"inputAbbreviatedPath": "\/photos\/will-2010-11-25.jpg",
 		"outputAbbreviatedPath": "\/photos\/will-2010-11-25.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/1.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 23678,
+		"inputAbbreviatedPath": "\/playground\/1.png",
+		"outputAbbreviatedPath": "\/playground\/1.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/12-22-12.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 99698,
+		"inputAbbreviatedPath": "\/playground\/12-22-12.png",
+		"outputAbbreviatedPath": "\/playground\/12-22-12.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/2.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 9241,
+		"inputAbbreviatedPath": "\/playground\/2.png",
+		"outputAbbreviatedPath": "\/playground\/2.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/3.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 10239,
+		"inputAbbreviatedPath": "\/playground\/3.png",
+		"outputAbbreviatedPath": "\/playground\/3.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/4.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 30557,
+		"inputAbbreviatedPath": "\/playground\/4.png",
+		"outputAbbreviatedPath": "\/playground\/4.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/60sTriangle.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 119785,
+		"inputAbbreviatedPath": "\/playground\/60sTriangle.png",
+		"outputAbbreviatedPath": "\/playground\/60sTriangle.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/bad_day.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.2941e+06,
+		"inputAbbreviatedPath": "\/playground\/bad_day.png",
+		"outputAbbreviatedPath": "\/playground\/bad_day.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/batpilots.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 164831,
+		"inputAbbreviatedPath": "\/playground\/batpilots.png",
+		"outputAbbreviatedPath": "\/playground\/batpilots.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/beetlebum.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 948030,
+		"inputAbbreviatedPath": "\/playground\/beetlebum.jpg",
+		"outputAbbreviatedPath": "\/playground\/beetlebum.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/countrysadballadman.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 913412,
+		"inputAbbreviatedPath": "\/playground\/countrysadballadman.jpg",
+		"outputAbbreviatedPath": "\/playground\/countrysadballadman.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/high_cool.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.52052e+06,
+		"inputAbbreviatedPath": "\/playground\/high_cool.png",
+		"outputAbbreviatedPath": "\/playground\/high_cool.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/jarvis.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 195779,
+		"inputAbbreviatedPath": "\/playground\/jarvis.png",
+		"outputAbbreviatedPath": "\/playground\/jarvis.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/poster1.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 775427,
+		"inputAbbreviatedPath": "\/playground\/poster1.jpg",
+		"outputAbbreviatedPath": "\/playground\/poster1.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/poster2-624x964.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 103163,
+		"inputAbbreviatedPath": "\/playground\/poster2-624x964.jpg",
+		"outputAbbreviatedPath": "\/playground\/poster2-624x964.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/shes_so_high.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.64122e+06,
+		"inputAbbreviatedPath": "\/playground\/shes_so_high.png",
+		"outputAbbreviatedPath": "\/playground\/shes_so_high.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/slow_down.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 861646,
+		"inputAbbreviatedPath": "\/playground\/slow_down.png",
+		"outputAbbreviatedPath": "\/playground\/slow_down.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/song2.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 643645,
+		"inputAbbreviatedPath": "\/playground\/song2.jpg",
+		"outputAbbreviatedPath": "\/playground\/song2.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/theres_no_other_way.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.01923e+06,
+		"inputAbbreviatedPath": "\/playground\/theres_no_other_way.png",
+		"outputAbbreviatedPath": "\/playground\/theres_no_other_way.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/playground\/toucan.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 122883,
+		"inputAbbreviatedPath": "\/playground\/toucan.png",
+		"outputAbbreviatedPath": "\/playground\/toucan.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0

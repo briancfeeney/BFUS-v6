@@ -56,9 +56,24 @@ return array(
 	'allowedFileExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,htm,html,jpeg,jpg,mid,mov,mp3,mp4,m4a,m4v,mpc,mpeg,mpg,ods,odt,ogg,ogv,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,svg,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,webm,wma,wmv,xls,xlsx,zip',
 
 	/**
+	 * Whether or not to allow uppercase letters in the slug. Defaults to false.
+	 */
+	'allowUppercaseInSlug' => false,
+
+	/**
+	 * If set to true, will automatically log the user in after successful account activation.
+	 */
+	'autoLoginAfterAccountActivation' => false,
+
+	/**
 	 *  Whether Craft should backup the database when updating. This applies to both auto and manual updates.
 	 */
 	'backupDbOnUpdate' => true,
+
+	/**
+	 * Sets the base URL to the CP that Craft should use when generating CP-facing URLs. This will be determined automatically if left blank.
+	 */
+	'baseCpUrl' => null,
 
 	/**
 	 * The higher the cost value, the longer it takes to generate a password hash and to verify against it. Therefore, higher cost slows down a brute-force attack.
@@ -124,6 +139,13 @@ return array(
 	'defaultTemplateExtensions' => array('html', 'twig'),
 
 	/**
+	 * The default amount of time tokens can be used before expiring.
+	 *
+	 * @see http://www.php.net/manual/en/dateinterval.construct.php
+	 */
+	'defaultTokenDuration' => 'P1D',
+
+	/**
 	 * Determines whether the system is in Dev Mode or not.
 	 */
 	'devMode' => false,
@@ -154,7 +176,17 @@ return array(
 	'extraAllowedFileExtensions' => '',
 
 	/**
-	 *The template filenames Craft will look for within a directory to represent the directory’s “index” template when matching a template path to a file on the front end.
+	 * Should transforms be generated before loading the page.
+	 */
+	'generateTransformsBeforePageLoad' => false,
+
+	/**
+	 * By default Craft will auto-detect if Imagick is installed and fallback to GD if not. You can explicitly set either 'imagick' or 'gd' here to override that behavior..
+	 */
+	'imageDriver' => 'auto',
+
+	/**
+	 * The template filenames Craft will look for within a directory to represent the directory’s “index” template when matching a template path to a file on the front end.
 	 */
 	'indexTemplateFilenames' => array('index'),
 
@@ -164,6 +196,11 @@ return array(
 	 * @see http://www.php.net/manual/en/dateinterval.construct.php
 	 */
 	'invalidLoginWindowDuration' => 'PT1H',
+
+	/**
+	 * Whether the site is currently online or not. If set to false or true, will take precedence over what is set in Settings->General->System Status in the CP.
+	 */
+	'isSystemOn' => '',
 
 	/**
 	 * The URI Craft should use for user login.  Note that this only affects front-end site requests.
@@ -188,6 +225,11 @@ return array(
 	 * The number of invalid login attempts Craft will allow within the specified duration before the account gets locked.
 	 */
 	'maxInvalidLogins' => 5,
+
+	/**
+	 * The maximum upload file size allowed in bytes.
+	 */
+	'maxUploadFileSize' => 16777216,
 
 	/**
 	 * Whether generated URLs should omit 'index.php', e.g. http://domain.com/path
@@ -229,6 +271,13 @@ return array(
 	 * The template path segment prefix that should be used to identify "private" templates -- templates that aren't directly accessible via a matching URL.
 	 */
 	'privateTemplateTrigger' => '_',
+
+	/**
+	 * The amount of time to wait before Craft purges pending users from the system that have not activated. Set to false to disable this feature.
+	 *
+	 * @see http://www.php.net/manual/en/dateinterval.construct.php
+	 */
+	'purgePendingUsersDuration' => 'P3M',
 
 	/**
 	 * The amount of time Craft will remember a username and pre-populate it on the CP login page.
@@ -311,9 +360,19 @@ return array(
 	'translationDebugOutput' => false,
 
 	/**
+	 * The name of the 'token' query string parameter.
+	 */
+	'tokenParam' => 'token',
+
+	/**
 	 * Tells Craft whether to use compressed Javascript files whenever possible, to cut down on page load times.
 	 */
 	'useCompressedJs' => true,
+
+	/**
+	 * If set to true, Craft will use a user's email address in place of their username and remove username UI from the CP.
+	 */
+	'useEmailAsUsername' => false,
 
 	/**
 	 * Whether Craft should specify the path using PATH_INFO or as a query string parameter when generating URLs.

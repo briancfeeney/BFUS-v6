@@ -23,8 +23,8 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="../public/js/modernizr.custom.44783.js"></script>
 	
-	<script type="text/javascript" src="http://use.typekit.com/ppq8gss.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<script type="text/javascript" src="//use.typekit.net/ghk7wom.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
 </head>
 
@@ -49,6 +49,7 @@
 					<li><a href="{{ url('work') }}" {% if craft.request.firstSegment == 'work' %}class="active"{% endif %}>Work</a></li>
 					<li><a href="{{ url('playground') }}" {% if craft.request.firstSegment == 'playground' %}class="active"{% endif %}>Playground</a></li>
 					<li><a href="{{ url('quotes') }}" {% if craft.request.firstSegment == 'quotes' %}class="active"{% endif %}>Quotes</a></li>
+					<li><a href="{{ url('journal') }}" {% if craft.request.firstSegment == 'journal' %}class="active"{% endif %}>Journal</a></li>
 					<li><a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>About</a></li>
 				</ul>
 			</nav>

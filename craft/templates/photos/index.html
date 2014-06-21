@@ -11,27 +11,34 @@
 <div class="photosFlex">
 	<div class="galleryWrapper">
 		<section class="gallery">
-			{% paginate craft.entries.section('photos').limit(16) as entries %}
+			{% if craft.request.getPageNum() == '1' %}
+			<article>
+				<img src="/public/images/photos.gif">
+			</article>
+			{% endif %}
+			{% paginate craft.entries.section('photos').limit(30) as entries %}
 			{% for entry in entries %}
 				{% if entry.photo|length %}
 					<article>
 					{% for image in entry.photo %}
-						<a href="{{ entry.url() }}"><img src="{{ image.getUrl() }}"></a>
+						<a href="{{ entry.url() }}"><img src="{{ image.getUrl('mediumImages') }}"></a>
 					{% endfor %}
 					</article>
 				{% endif %}
 			{% endfor %}
 		</section>
-	</div>
-	<div class="photoNav">
-	    {% if paginate.nextUrl %}
-	        <a href="{{ paginate.nextUrl }}" class="paging prev">Older</a>
-	    {% endif %}
-		{% if paginate.prevUrl %}
-	        <a href="{{ paginate.prevUrl }}" class="paging next">Newer</a>
-	    {% endif %}
+		
+		<div class="photoNav">
+		    {% if paginate.nextUrl %}
+		        <a href="{{ paginate.nextUrl }}" class="paging prev">Older</a>
+		    {% endif %}
+			{% if paginate.prevUrl %}
+		        <a href="{{ paginate.prevUrl }}" class="paging next">Newer</a>
+		    {% endif %}
 
-		{% endpaginate %}
+			{% endpaginate %}
+		</div>
+		
 	</div>
 </div>
 	
