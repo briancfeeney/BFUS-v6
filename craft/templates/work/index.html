@@ -9,6 +9,7 @@
 {% block content %}
 
 <div class="workFlex">
+	<!-- <img src="./public/images/FeeneyDesignCo.png"> -->
 	
 	<!-- <section class="workIntro">
 		{{ workIndex.body }}
@@ -32,6 +33,13 @@
 		
 		<div id="design">
 		    <ul>
+				<li class="thebrooklynmuseum" style="background: rgb(0,174,239)">
+					<div class="workMeta">
+						<h6>Web Designer (staff)</h6>
+						<h6>January 2014 to Present</h6>
+						<h1>Brooklyn Museum</h1>
+					</div>
+				</li>
 		{% set allEntries = craft.entries.section('work').limit(null) %}
 		{% for date, entries in allEntries | group("postDate|date('Y')") %}
 		        {% for entry in entries %}
@@ -62,11 +70,11 @@
 		</div>
 		
 		<div id="dev">
-			<h2>Front-End Development</h2>
+			<h2><a href="http://familiar-studio.com">Familiar Studio</a> (2013)</h2>
 			{% if workIndex.frontEndDev | length %}
 				{% for project in workIndex.frontEndDev %}
 					<div class="project">
-						<h5>{{ project.employer }}</h5>
+						<h5>Front-End Development</h5>
 						<h1><a href="{{ project.siteWebAddress }}">{{ project.siteName }}</a><h1>
 					</div>
 				{% endfor %}

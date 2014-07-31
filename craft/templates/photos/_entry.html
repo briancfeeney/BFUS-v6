@@ -17,6 +17,24 @@
 
 {% block content %}
 
+{% if entry.photoGroup|length > 0 %}
+<div class="photosFlex">
+	<div class="topBar">
+		<h4>{{ entry.title }}</h4>
+	</div>
+	<div class="galleryWrapper">
+		<section class="gallery">
+			{% for image in entry.photoGroup %}
+				<article>
+					<a><img src="{{ image.getUrl('mediumImages') }}"></a>
+				</article>
+			{% endfor %}
+		</section>
+	</div>
+</div>
+
+{% else %}
+
 <div class="photosFlex">
 
 	<div class="photoWrapper">
@@ -30,5 +48,8 @@
 	</div>
 
 </div>
+
+{% endif %}
+
 
 {% endblock %}

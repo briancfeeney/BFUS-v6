@@ -33,12 +33,15 @@
 				{% endfor %}
 			{% endif %}
 		
-		<p>{{ entry.postDate.format('F Y') }}</p>
-		
 		{% if entry.websiteLink %}
 			<a href="{{ entry.websiteLink }}" class="btn" style="background: #{{ entry.color }};">Visit the Site</a>
 		{% endif %}
 			
+	</div>
+	
+	<div class="workBottom" style="background: #{{ entry.color }};">
+
+		
 	</div>
 	
 </div>

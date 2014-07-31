@@ -3615,9 +3615,9 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 .navbar-toggle {
   background-color: transparent;
-  border: 1px solid transparent;
+  border: none;
   margin: 0;
-  padding: 22px;
+  padding: 1.375em;
   float: none;
 }
 .navbar-toggle:focus {
@@ -3625,7 +3625,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 .navbar-toggle .icon-bar {
   display: block;
-  width: 22px;
+  width: 1.375em;
   height: 2px;
   background-color: #f6f5ec;
 }

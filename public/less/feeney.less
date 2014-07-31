@@ -14,10 +14,16 @@ body {
 	margin: 0;
 	.proximaR();
 }
+@media (max-width: @phone) {
+	body {
+		font-size: 14px;
+	}
+}
 
 h1 {
 	.chaparral();
-	font-size: 3em;
+	font-size: 2.95em;
+	line-height: 1.2em;
 }
 
 h2 {
@@ -239,11 +245,24 @@ main > header {
 #about {
 	.topBar {
 		background-color: @coal;
+		height: 3.75em;
+		@media (max-width: @tablet) {
+			height: auto;
+		}
+	}
+	.bottomBar {
+		height: 3.75em;
+		background-color: @lightblue;
 	}
 }
 
 .aboutFlex {
 	flex: 1;
+	@media (max-width: @phone) {
+		.mainFlex {
+			display: block;
+		}
+	}
 }
 
 #social-links {
@@ -253,7 +272,7 @@ main > header {
 	display: flex;
 	justify-content: flex-end;
 	li {
-		padding: .95em;;
+		padding: .91em;
 		margin: 0;
 		display: inline-block;
 		transition: all .2s linear;
@@ -269,7 +288,7 @@ main > header {
 			width: 14.285%;
 			text-align: center;
 			a {
-				font-size: .5em;
+				font-size: .45em;
 			}
 		}
 	}
@@ -458,6 +477,9 @@ main > header {
 
 #work {
 	color: @blue;
+	h1 {
+		.proximaSB();
+	}
 }
 
 .workFlex {
@@ -527,11 +549,16 @@ main > header {
 					align-content: flex-start;
 				}
 			}
-			@media (max-width: 1100px) {
+			@media (max-width: 1125px) {
 				display: block;
+				padding: 3em !important;
+				min-height: 0;
 				.visuals, .workMeta {
 					width: 100%;
 					display: block;
+				}
+				.workMeta {
+					padding: 1.5em 0 0;
 				}
 			}
 			&:nth-child(even) {
@@ -554,7 +581,7 @@ main > header {
 						font-size: 6em;
 						line-height: 1em;
 						position: absolute;
-						top: -88px;
+						top: -.92em;
 						letter-spacing: -13px;
 					}
 				}
@@ -572,6 +599,12 @@ main > header {
 		color: @blue;
 		margin: 0;
 		padding: 1.25em 1.25em 0;
+		a {
+		 	color: @blue;
+			&:hover {
+				color: @orange;
+			}
+		}
 	}
 	.project {
 		padding: 2.5em;
@@ -594,9 +627,9 @@ main > header {
 
 .workTop {
 	text-align: center;
+	padding: 0 2em;
 	h1 {
 		color: @chalk;
-		text-transform: uppercase;
 		padding: 1.5em 0 .5em;
 		font-size: 4em;
 	}
@@ -608,6 +641,7 @@ main > header {
 .workBody {
 	max-width: 50em;
 	margin: 20px auto 80px;
+	padding: 0 2em;
 	p {
 		max-width: 35em;
 		margin: 20px auto;
@@ -629,7 +663,9 @@ main > header {
 		}
 	}
 }
-
+.workBottom {
+	height: 5em;
+}
 
 /* -------------------------------------------------------------------------------- */
 // PHOTOS
@@ -644,16 +680,22 @@ main > header {
 		flex-direction: column;
 		flex-grow: 1;
 		flex: 1 100%;
+		@media (max-width: @tablet) {
+			display: block;
+		}
 		.photoNav {
 			display: flex;
 		}
 	}
 	.topBar {
-		background-color: @stone;
+		background-color: @orange;
 		width: 100%;
-		height: 3.75em;;
-		h4 {
-			margin-left: 1.25em;
+		text-align: center;
+		margin-bottom: 3.75em;
+		height: 3.75em;
+		img {
+			height: 3.75em;
+			width: 3.75em;
 		}
 	}
 	.galleryWrapper {
@@ -662,14 +704,21 @@ main > header {
 	.gallery {
 		margin-bottom: 1.25em;
 		article {
-			width: 49.9%;
+			max-width: 800px;
 			height: auto;
 			padding: .75em;
-			@media (max-width: 1100px) {
-				width: 100%;
+			margin: 0 auto 15em;
+			display: flex;
+			a {
+				margin: 0 auto;
 			}
-			@media (min-width: 1600px) {
-				width: 33.3%;
+			img {
+				max-height: 95vh;
+				width: auto;
+				max-width: 100%;
+			}
+			@media (max-width: @tablet) {
+				margin-bottom: 3em;
 			}
 		}
 	}
@@ -689,6 +738,7 @@ main > header {
 		img {
 			width: auto;
 			max-width: 100%;
+			max-height: 95vh;
 		}
 		@media (max-width: 750px) {
 			max-width: none;
@@ -791,20 +841,28 @@ main > header {
 		}
 	}
 	article {
-		margin: 0 2em;
+		margin: 0 2em 2em;
 		max-width: 80em;
 		display: flex;
 		flex-wrap: wrap;
-		.left {
+		.readingLeft {
 			flex: 1;
-			max-width: 12em;
-			flex-basis: 12em;
+			max-width: 22em;
+			min-width: 14em;
 			img {
 				width: 90%;
 			}
+			.purchase {
+				margin-top: 2em;
+				a {
+					border: none;
+					color: @green;
+					.proximaSB();
+				}
+			}
 		}
-		.right {
-			flex: 1;
+		.readingRight {
+			flex: 3;
 			max-width: 40em;
 			padding-top: 3em;
 			.body {
@@ -812,9 +870,17 @@ main > header {
 			}
 			aside {
 				display: flex;
+				align-items: baseline;
+				flex-wrap: wrap;
+				border-bottom: 1px solid @dust;
+				margin: 0 0 1em;
+				padding-bottom: 1em;
 				blockquote {
 					flex: 2;
 					margin-right: 2.5em;
+				}
+				h5 {
+					margin-bottom: 0;
 				}
 				h6 {
 					text-transform: lowercase;
@@ -824,6 +890,13 @@ main > header {
 				}
 			}
 		}
+		@media (max-width: 950px) {
+			flex-direction: column;
+		}
+	}
+	.bottomBar {
+		height: 3.75em;
+		background-color: @green;
 	}
 }
 	
@@ -885,6 +958,31 @@ main > header {
 
 */
 
+
+/* -------------------------------------------------------------------------------- */
+// JOURNAL
+
+#journal {
+	#main {
+		margin: 2.25em auto;
+		max-width: 42em;
+		padding: 0 1em;
+		article {
+			margin-bottom: 4em;
+			padding-bottom: 4em;
+			border-bottom: 1px solid @orange;
+			h1 {
+				a {
+					border: none;
+				}
+			}
+			h5 {
+				margin: .5em 0 1em;
+				color: @orange;
+			}
+		}
+	}
+}
 
 /* -------------------------------------------------------------------------------- */
 // QUOTES
@@ -1309,20 +1407,47 @@ main > header {
 	}
 }
 
+/* -------------------------------------------------------------------------------- */
+// 404
+
+#page404 {
+	width: 100%;
+	display: flex;
+	align-content: center;
+	flex: 1;
+	flex-direction: row;
+	.main {
+		align-self: center;
+		display: flex;
+		flex: 1;
+		align-items: center;
+		flex-direction: column;
+		h2 {
+			font-size: 10em;
+			@media (max-width: 1000px) {
+				font-size: 6em;
+			}
+			@media (max-width: @phone) {
+				font-size: 4em;
+			}
+		}
+	}
+}
 
 /* -------------------------------------------------------------------------------- */
 // FOOTER
 
-header footer {
+footer {
 	justify-content: center;
-	align-content: flex-end;
 	p {
 		text-align: center;
 		margin: 40px 10px 20px;
 		.proximaR();
 		font-size: .8em;
+		letter-spacing: 0;
 		a {
 			color: @coal;
+			display: inline;
 			&:hover {
 				color: @coal;
 				background-color: mix(@dust, @coal, 90%);
@@ -1331,6 +1456,12 @@ header footer {
 	}
 	@media (max-width: @tablet) {
 		display: none;
+	}
+	&#footer2 {
+		display: none;
+		@media (max-width: @tablet) {
+			display: block;
+		}
 	}
 }
 
@@ -1358,6 +1489,132 @@ header footer {
 			}
 			&:nth-child(5) {
 				background-color: @green;
+			}
+		}
+	}
+}
+
+
+/* -------------------------------------------------------------------------------- */
+// FEENEY DESIGN CO
+
+.workFlex {
+	display: flex;
+	flex: 1;
+	flex-direction:column;
+}
+
+#fdc {
+	header {
+		display: none;
+	}
+	#header {
+		min-height: 20vh;
+		background-color: @coal;
+		display: flex;
+		flex-direction: row;
+		.FDClogo {
+			flex: 2;
+			align-self: center;
+		}
+		.FDCinfo {
+			flex: 1;
+			color: @chalk;
+			align-self: center;
+			p {
+				margin: 0;
+				padding: 1em;
+				max-width: none;
+			}
+			a {
+				color: @chalk;
+				text-decoration: underline;
+				&:hover {
+					opacity: .7;
+				}
+			}
+		}
+		@media (max-width: 1000px) {
+			flex-direction: column;
+		}
+	}
+	ul {
+		list-style-type: none;
+		.list-unstyled();
+		display: flex;
+		flex-flow: row wrap;
+		margin: 0;
+		li {
+			width: 50%;
+			margin: 0;
+			display: flex;
+			align-items: center;
+			padding: 4em 0 4em 4em;
+			h1 {
+				font-size: 2.5em;
+				.proximaSB();
+			}
+			.visuals {
+				width: 45%;
+				.workImage {
+					width: 100%;
+					max-width: 750px;
+					height: 0;
+					margin: 0 auto;
+					padding-bottom: 100%;
+					background-size: cover !important;
+					background-repeat: no-repeat;
+				}
+			}
+			.workMeta {
+				width: 50%;
+				padding: 2.5em;
+				margin: 0 auto;
+				h1 {
+					color: @chalk;
+				}
+				h6 {
+					color: @chalk;
+					opacity: .66;
+					align-content: flex-start;
+				}
+			}
+			&.webDesign {
+				.visuals {
+					border: .75em solid @dust;
+					border-top-width: 2em;
+					position: relative;
+					&:before {
+						content: ". . .";
+						color: @chalk;
+						font-size: 6em;
+						line-height: 1em;
+						position: absolute;
+						top: -.92em;
+						letter-spacing: -13px;
+					}
+				}
+				.workImage {
+					padding-bottom: 62.5%;
+				}
+			}
+			@media (max-width: 1125px) {
+				display: block;
+				padding: 3em !important;
+				min-height: 0;
+				.visuals, .workMeta {
+					width: 100%;
+					display: block;
+				}
+				.workMeta {
+					padding: 1.5em 0 0;
+				}
+			}
+			@media (max-width: @tablet) {
+				width: 100%;
+			}
+			@media (min-width: 1500px) {
+				width: 33.3333%;
 			}
 		}
 	}

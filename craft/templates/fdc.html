@@ -1,0 +1,58 @@
+{#
+ # Work index template
+ # -------------------
+ #}
+
+{% extends "_layout" %}
+{% set title = "Work" %}
+
+{% block content %}
+
+<div class="workFlex">
+	
+	<section id="header">
+		<div class="FDClogo">
+			<img src="./public/images/FeeneyDesignCo.png">
+		</div>
+		<div class="FDCinfo">
+			<p>Design and development by brothers Matt and Brian Feeney. Print and web. New York City, Indianapolis, and everywhere else. <a href="#">Email us</a> for more info.</p>
+		</div>
+	</section>
+
+	<section id="theWork">		
+		<div>
+		    <ul>
+		{% set allEntries = craft.entries.section('work').limit(null) %}
+		{% for date, entries in allEntries | group("postDate|date('Y')") %}
+		        {% for entry in entries %}
+		            
+						<li class="{{ entry.type }}" style="background: #{{ entry.color }};">
+							<div class="visuals">
+								<a href="{{ entry.url() }}">
+								{% for image in entry.portfolioImages.limit(1) %}
+									{% if entry.type == 'webDesign' %}
+										<div class="workImage" style="background:url({{ image.getUrl() }});"></div>
+									{% else %}
+										<img src="{{ image.getUrl() }}">
+									{% endif %}
+								{% endfor %}
+								</a>
+							</div>
+							<div class="workMeta">
+								<h6>{{ entry.type.name }}</h6>
+								<!-- <h4>{{ entry.postDate.format('F Y') }}</h4> -->
+								<a href="{{ entry.url() }}">
+									<h1>{{ entry.title }}</h1>
+								</a>
+							</div>
+						</li>
+		        {% endfor %}
+		{% endfor %}
+		    </ul>
+		</div>
+		
+	</section>
+	
+</div>
+	
+{% endblock %}

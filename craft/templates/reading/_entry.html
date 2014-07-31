@@ -14,14 +14,15 @@
 	<h1>{{ entry.title }}</h1>
 	<article>
 		
-		<section class="left">
+		<section class="readingLeft">
 			<h5>{{ entry.readingAuthor }}</h5>
 			{% for image in entry.bookCover %}
 				<img src="{{ image.getUrl() }}">
 			{% endfor %}
+			<h6 class="purchase"><a href="{{ entry.purchaseLink }}">Purchase</a></h6>
 		</section>
 		
-		<section class="right">
+		<section class="readingRight">
 			{% if entry.body %}
 			<div class="body">
 				{{ entry.body }}
@@ -43,6 +44,8 @@
 		</section>
 		
 	</article>
+	
+	<div class="bottomBar"></div>
 </div>
 
 {% endblock %}

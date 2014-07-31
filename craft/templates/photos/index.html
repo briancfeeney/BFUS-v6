@@ -9,13 +9,11 @@
 {% block content %}
 
 <div class="photosFlex">
+	<div class="topBar">
+		<img src="/public/images/photos.gif">
+	</div>
 	<div class="galleryWrapper">
 		<section class="gallery">
-			{% if craft.request.getPageNum() == '1' %}
-			<article>
-				<img src="/public/images/photos.gif">
-			</article>
-			{% endif %}
 			{% paginate craft.entries.section('photos').limit(30) as entries %}
 			{% for entry in entries %}
 				{% if entry.photo|length %}
@@ -42,53 +40,6 @@
 	</div>
 </div>
 	
-	<script src="../public/js/jquery.masonry.min.js"></script>
-	<script>
-
-		var $container = $('.gallery');
-		// initialize Masonry after all images have loaded  
-		$container.imagesLoaded( function() {
-		  $container.masonry(	{
-			  itemSelector: 'article'
-			});
-		});
-		
-		$( window ).ready(function() {
-		  	var $container = $('.gallery');
-			// initialize
-			$container.masonry({
-			  itemSelector: 'article'
-			});
-		});
-
-		$( window ).resize(function() {
-		  	var $container = $('.gallery');
-			// initialize
-			$container.masonry({
-			  itemSelector: 'article'
-			});
-		});
-		
-		(function($) {
-
-		    var resizeTimer; // Set resizeTimer to empty so it resets on page load
-
-		    function resizeFunction() {
-		        // Stuff that should happen on resize
-		    };
-
-		    // On resize, run the function and reset the timeout
-		    // 250 is the delay in milliseconds. Change as you see fit.
-		    $(window).resize(function() {
-		        clearTimeout(resizeTimer);
-		        resizeTimer = setTimeout(resizeFunction, 250);
-		    });
-
-		    resizeFunction();
-
-		})(jQuery);
-
-	</script>
 
 
 {% endblock %}

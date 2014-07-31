@@ -35,6 +35,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/books\/Nicely-Said-Writing-for-the-Web-with-Style-and-Purpose.jpeg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 103722,
+		"inputAbbreviatedPath": "\/books\/Nicely-Said-Writing-for-the-Web-with-Style-and-Purpose.jpeg",
+		"outputAbbreviatedPath": "\/books\/Nicely-Said-Writing-for-the-Web-with-Style-and-Purpose.jpeg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/books\/norman-TDOET.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -111,6 +122,28 @@
 		"initialSize": 37367,
 		"inputAbbreviatedPath": "\/images\/BM-logo.png",
 		"outputAbbreviatedPath": "\/images\/BM-logo.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/FeeneyDesignCo.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 69959,
+		"inputAbbreviatedPath": "\/images\/FeeneyDesignCo.jpg",
+		"outputAbbreviatedPath": "\/images\/FeeneyDesignCo.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/images\/FeeneyDesignCo.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 17288,
+		"inputAbbreviatedPath": "\/images\/FeeneyDesignCo.png",
+		"outputAbbreviatedPath": "\/images\/FeeneyDesignCo.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -2202,7 +2235,7 @@
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 411095,
+		"initialSize": 676843,
 		"inputAbbreviatedPath": "\/photos\/_MediumImages\/empty-3-train.JPG",
 		"outputAbbreviatedPath": "\/photos\/_MediumImages\/empty-3-train.JPG",
 		"outputPathIsOutsideProject": 0,
@@ -2436,6 +2469,17 @@
 		"initialSize": 435112,
 		"inputAbbreviatedPath": "\/photos\/_MediumImages\/krazy-20120311.jpg",
 		"outputAbbreviatedPath": "\/photos\/_MediumImages\/krazy-20120311.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/_MediumImages\/kyaks-at-the-piers.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 314825,
+		"inputAbbreviatedPath": "\/photos\/_MediumImages\/kyaks-at-the-piers.JPG",
+		"outputAbbreviatedPath": "\/photos\/_MediumImages\/kyaks-at-the-piers.JPG",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -3001,11 +3045,22 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/egyptian-gallery.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 688687,
+		"inputAbbreviatedPath": "\/photos\/egyptian-gallery.JPG",
+		"outputAbbreviatedPath": "\/photos\/egyptian-gallery.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/empty-3-train.JPG": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 1.71379e+06,
+		"initialSize": 1.71567e+06,
 		"inputAbbreviatedPath": "\/photos\/empty-3-train.JPG",
 		"outputAbbreviatedPath": "\/photos\/empty-3-train.JPG",
 		"outputPathIsOutsideProject": 0,
@@ -3199,6 +3254,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/photos\/jennie-david.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.1887e+06,
+		"inputAbbreviatedPath": "\/photos\/jennie-david.JPG",
+		"outputAbbreviatedPath": "\/photos\/jennie-david.JPG",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/photos\/jeremy.JPG": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -3239,6 +3305,17 @@
 		"initialSize": 1.20404e+06,
 		"inputAbbreviatedPath": "\/photos\/krazy-20120311.jpg",
 		"outputAbbreviatedPath": "\/photos\/krazy-20120311.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/kyaks-at-the-piers.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.44791e+06,
+		"inputAbbreviatedPath": "\/photos\/kyaks-at-the-piers.JPG",
+		"outputAbbreviatedPath": "\/photos\/kyaks-at-the-piers.JPG",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -3327,6 +3404,17 @@
 		"initialSize": 938622,
 		"inputAbbreviatedPath": "\/photos\/queens-20120406.jpg",
 		"outputAbbreviatedPath": "\/photos\/queens-20120406.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/photos\/red-dress.JPG": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.1757e+06,
+		"inputAbbreviatedPath": "\/photos\/red-dress.JPG",
+		"outputAbbreviatedPath": "\/photos\/red-dress.JPG",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -3767,6 +3855,17 @@
 		"initialSize": 177465,
 		"inputAbbreviatedPath": "\/portfolio\/allriversandoceans_full.jpg",
 		"outputAbbreviatedPath": "\/portfolio\/allriversandoceans_full.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/portfolio\/denizen-homepage.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.774e+06,
+		"inputAbbreviatedPath": "\/portfolio\/denizen-homepage.png",
+		"outputAbbreviatedPath": "\/portfolio\/denizen-homepage.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
