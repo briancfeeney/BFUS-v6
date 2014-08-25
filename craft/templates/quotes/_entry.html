@@ -13,11 +13,11 @@
 		{{ entry.body }}
 		<h5>{{ entry.quoteAttribution }}</h5>
 	</article>
-	<button>
+	<!-- <button>
 		{% for entry in craft.entries.section('quotes').order('RAND()').limit(1) %}
 			<a href="{{ entry.url }}">Random</a>
 		{% endfor %}
-	</button>
+	</button> -->
 </div>
 
 {% endblock %}

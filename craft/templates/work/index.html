@@ -34,6 +34,9 @@
 		<div id="design">
 		    <ul>
 				<li class="thebrooklynmuseum" style="background: rgb(0,174,239)">
+					<div class="visuals">
+						<img src="/public/images/bkm-logo-white.png">
+					</div>
 					<div class="workMeta">
 						<h6>Web Designer (staff)</h6>
 						<h6>January 2014 to Present</h6>
@@ -66,9 +69,24 @@
 						</li>
 		        {% endfor %}
 		{% endfor %}
+				<li class="familiarStudio" style="background: rgb(212,191,102)">
+					<div class="workMeta">
+						<h6>Front-End Developer</h6>
+						<h6>October 2012 to December 2013</h6>
+						<a href="http://familiar-studio.com"><h1>Familiar Studio</h1></a>
+					</div>
+					<div class="visuals">
+					{% if workIndex.frontEndDev | length %}
+						{% for project in workIndex.frontEndDev %}
+							<h4><a href="{{ project.siteWebAddress }}">{{ project.siteName }}</a><h4>
+						{% endfor %}
+					{% endif %}
+					</div>
+				</li>
 		    </ul>
 		</div>
 		
+		<!-- 
 		<div id="dev">
 			<h2><a href="http://familiar-studio.com">Familiar Studio</a> (2013)</h2>
 			{% if workIndex.frontEndDev | length %}
@@ -80,6 +98,7 @@
 				{% endfor %}
 			{% endif %}
 		</div>
+		-->
 		
 	</section>
 	

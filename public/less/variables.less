@@ -11,8 +11,9 @@
 @black:					#000;
 @chalk:					rgb(246,245,236);
 @coal:					rgb(35,38,43);
-@dust:					rgb(205,204,192);
+@dust:					mix(@chalk, @coal, 70%); /* rgb(205,204,192); */
 @stone:					mix(@chalk, @coal, 50%);
+/*
 @orange:				rgb(252,176,98);
 @green:					rgb(118,131,88);
 @blue:					rgb(16,62,77);
@@ -22,6 +23,19 @@
 @yellow:				rgb(34,229,147);
 @purple:				rgb(129,85,90);
 @lime:					rgb(209,208,97);
+*/
+
+@orange:				rgb(252,189,98);
+@red:					rgb(215,70,65);
+@green:					@red;
+@blue:					@red;
+@lightblue:				@red;
+@darkblue:				@red;
+@yellow:				@red;
+@purple:				@red;
+@lime:					@red;
+
+
 
 @gray-darker:            lighten(#000, 13.5%); // #222
 @gray-dark:              lighten(#000, 20%);   // #333

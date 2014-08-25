@@ -1,3 +1,15 @@
+/* rgb(205,204,192); */
+/*
+@orange:				rgb(252,176,98);
+@green:					rgb(118,131,88);
+@blue:					rgb(16,62,77);
+@lightblue:				rgb(90,123,140);
+@darkblue:				rgb(96,118,132);
+@red:					rgb(242,109,104);
+@yellow:				rgb(34,229,147);
+@purple:				rgb(129,85,90);
+@lime:					rgb(209,208,97);
+*/
 .chaparral {
   font-family: "chaparral-pro", georgia;
   font-weight: 400;
@@ -3605,7 +3617,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   display: none;
 }
 #showLeftPush:hover {
-  background-color: #454749;
+  background-color: #414346;
 }
 .cbp-spmenu-push-toright .mainFlex {
   min-width: 100vw;
@@ -3646,7 +3658,7 @@ body {
     display: inherit;
   }
   .cbp-spmenu {
-    background: #cdccc0;
+    background: #b7b7b2;
     position: fixed;
     overflow-x: scroll;
     margin-top: 3.75em;
@@ -3756,7 +3768,7 @@ h5 {
   font-weight: 600;
   font-style: normal;
   text-transform: uppercase;
-  color: #fcb062;
+  color: #fcbd62;
   margin-top: 1.5em;
   margin-top: 10px;
 }
@@ -3788,13 +3800,13 @@ article h5 {
   margin-top: 1.5em;
 }
 article a {
-  border-bottom: 1px solid #fcb062;
+  border-bottom: 1px solid #fcbd62;
   color: inherit;
 }
 article a:hover {
   color: inherit;
   opacity: 1;
-  background-color: #cdccc0;
+  background-color: #b7b7b2;
 }
 blockquote {
   text-indent: 0em;
@@ -3807,7 +3819,7 @@ blockquote {
 blockquote:before {
   content: "“";
   font-size: 3.5em;
-  color: #fcb062;
+  color: #fcbd62;
   display: block;
   -webkit-transform: translate(-30px, 30px);
   -ms-transform: translate(-30px, 30px);
@@ -3848,7 +3860,7 @@ blockquote h6 {
 .columnFlex {
   flex: 0 0 16em;
   order: 0;
-  background-color: #cdccc0;
+  background-color: #b7b7b2;
 }
 @media (max-width: 700px) {
   header.columnFlex {
@@ -4045,7 +4057,7 @@ main > header nav ul li a {
   text-align: right;
 }
 #design ul li.webDesign .visuals {
-  border: 0.75em solid #cdccc0;
+  border: 0.75em solid #b7b7b2;
   border-top-width: 2em;
   position: relative;
 }
@@ -4104,41 +4116,41 @@ main > header nav ul li a {
 @keyframes playColor {
   0%,
   100% {
-    background: #f26d68;
+    background: #d74641;
   }
   33% {
-    background: #fcb062;
+    background: #fcbd62;
   }
   66% {
-    background: #103e4d;
+    background: #d74641;
   }
 }
 @-webkit-keyframes playColor {
   0%,
   100% {
-    background: #f26d68;
+    background: #d74641;
   }
   33% {
-    background: #fcb062;
+    background: #fcbd62;
   }
   66% {
-    background: #103e4d;
+    background: #d74641;
   }
 }
 @-moz-keyframes playColor {
   0%,
   100% {
-    background: #f26d68;
+    background: #d74641;
   }
   33% {
-    background: #fcb062;
+    background: #fcbd62;
   }
   66% {
-    background: #103e4d;
+    background: #d74641;
   }
 }
 #playgroundTitle {
-  background: #f26d68;
+  background: #d74641;
   animation: playColor 30s linear infinite;
   -webkit-animation: playColor 30s linear infinite;
   animation-delay: 1s;
@@ -4284,16 +4296,16 @@ main > header nav ul li a {
   font-size: .4em;
 }
 #archive .archive .Writing h6 {
-  color: #768358;
+  color: #d74641;
 }
 #archive .archive .Work h6 {
-  color: #5a7b8c;
+  color: #d74641;
 }
 #archive .archive .Photos h6 {
-  color: #fcb062;
+  color: #fcbd62;
 }
 #archive .archive .Playground h6 {
-  color: #436153;
+  color: #d74641;
 }
 @media (max-width: 1000px) {
   #archive .archive h1 {
@@ -4424,7 +4436,7 @@ header footer p a {
 }
 header footer p a:hover {
   color: #23262b;
-  background-color: #bcbbb1;
+  background-color: #a8a8a5;
 }
 @media (max-width: 600px) {
   header footer {
@@ -4440,17 +4452,17 @@ header footer p a:hover {
   height: 120px;
 }
 .colors ul li:nth-child(1) {
-  background-color: #103e4d;
+  background-color: #d74641;
 }
 .colors ul li:nth-child(2) {
-  background-color: #fcb062;
+  background-color: #fcbd62;
 }
 .colors ul li:nth-child(3) {
-  background-color: #f26d68;
+  background-color: #d74641;
 }
 .colors ul li:nth-child(4) {
-  background-color: #5a7b8c;
+  background-color: #d74641;
 }
 .colors ul li:nth-child(5) {
-  background-color: #768358;
+  background-color: #d74641;
 }
