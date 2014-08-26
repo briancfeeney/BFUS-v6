@@ -21,15 +21,28 @@
 
 {% block content %}
 
-<div id="main" class="contentFlex">
+{% set bgImage = image.getUrl() %}
 
-	<section id="bigbang">
-		<!-- <img src="./public/images/pleiades.jpg"> -->
-		<h2>The Big Bang</h2>
-		<p>Welcome to the new BrianFeeney.us.</p>
-		<p>This is the start of something. A new site with a new CMS and a new intention to have some fun on the internet.</p>
-	</section>
+{% if entry.backgroundImage | length %}
+	{% for background in entry.backgroundImage.limit(1).order('RAND()') %}
+		{% for image in background.photo.limit(1) %}
+			  {% set bgImage = image.getUrl() %}
+		{% endfor %}
+	{% endfor %}
+{% endif %}
+
+<style>
+	#bgImage {
+		background: url("{{ bgImage }}") no-repeat center center;
+		background-size: cover;
+	}
+</style>
+
+<section id="bgImage"></section>
+
+<section id="introText">
 	
-</div>	
-	
+	<p>Designer and developer. Employed by the Brooklyn Museum. Writer, photographer, illustrator, person. Hi.</p>
+</section>
+
 {% endblock %}

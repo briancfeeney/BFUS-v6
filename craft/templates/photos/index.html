@@ -8,14 +8,7 @@
 
 {% block content %}
 
-<div class="photosFlex">
-	<div class="galleryWrapper">
 		<section class="gallery">
-			{% if craft.request.getPageNum() == '1' %}
-			<article>
-				<img src="/public/images/photos.gif">
-			</article>
-			{% endif %}
 			{% paginate craft.entries.section('photos').limit(30) as entries %}
 			{% for entry in entries %}
 				{% if entry.photo|length %}
@@ -23,6 +16,7 @@
 					{% for image in entry.photo %}
 						<a href="{{ entry.url() }}"><img src="{{ image.getUrl('mediumImages') }}"></a>
 					{% endfor %}
+						<h5>{{ entry.postDate.format('F d, Y') }}</h5>
 					</article>
 				{% endif %}
 			{% endfor %}
@@ -38,14 +32,11 @@
 
 			{% endpaginate %}
 		</div>
-		
-	</div>
-</div>
 	
 	<script src="../public/js/jquery.masonry.min.js"></script>
 	<script>
 
-		var $container = $('.gallery');
+		var $container = $('.xgallery');
 		// initialize Masonry after all images have loaded  
 		$container.imagesLoaded( function() {
 		  $container.masonry(	{
@@ -54,7 +45,7 @@
 		});
 		
 		$( window ).ready(function() {
-		  	var $container = $('.gallery');
+		  	var $container = $('.xgallery');
 			// initialize
 			$container.masonry({
 			  itemSelector: 'article'
@@ -62,7 +53,7 @@
 		});
 
 		$( window ).resize(function() {
-		  	var $container = $('.gallery');
+		  	var $container = $('.xgallery');
 			// initialize
 			$container.masonry({
 			  itemSelector: 'article'
