@@ -3744,10 +3744,88 @@ header #social-links li {
   float: left;
   margin-left: 1em;
 }
+header .socialIcon {
+  display: none;
+  background: transparent;
+  border: 1px solid #23262b;
+  border-radius: 50%;
+  color: #23262b;
+  padding: 0;
+  height: 17px;
+  width: 17px;
+  font-size: 10px;
+  padding-top: 3px;
+}
+@media (max-width: 1150px) {
+  header #social-links {
+    float: left;
+    position: absolute;
+    top: -3.5em;
+    margin: -1em -1em 1em;
+    padding: 1em 1em .5em;
+    width: 100%;
+    background-color: rgba(35, 38, 43, 0.3);
+  }
+  header #social-links li {
+    margin: 0 1em 0 0;
+  }
+  header .socialIcon {
+    display: inline-block;
+    position: absolute;
+    right: 1.4em;
+    top: 1.4em;
+  }
+  header .socialIcon:active,
+  header .socialIcon:focus {
+    outline: none;
+  }
+  header .socialIcon.opened {
+    right: 1.4em;
+    top: -4.9em;
+  }
+}
+body.opened {
+  position: static;
+}
+@media (max-width: 1150px) {
+  body.opened {
+    position: relative;
+    top: 3.5em;
+  }
+}
+/* -------------------------------------------------------------------------------- */
+footer {
+  background: #f6f5ec;
+  min-height: 100vh;
+  padding-top: 1em;
+}
+footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+footer .footerIcon {
+  background: url('/public/images/me-rooftop.jpg');
+  background-position: center center;
+  background-size: 100%;
+  border: 0.05em solid #f6f5ec;
+  border-radius: 50%;
+  color: #f6f5ec;
+  padding: .22em;
+  height: 2em;
+  width: 2em;
+  font-size: 5em;
+  margin: -1em auto 1em;
+}
+footer .container {
+  width: 65em;
+  border-top: 0.2em solid #f6f5ec;
+}
 /* -------------------------------------------------------------------------------- */
 #main {
   width: 1000px;
   margin: 2em auto;
+  min-height: 100vh;
 }
 /* -------------------------------------------------------------------------------- */
 #home {
@@ -3760,6 +3838,10 @@ header #social-links li {
   width: 100%;
   margin: 0;
 }
+#home .socialIcon {
+  color: #f6f5ec;
+  border-color: #f6f5ec;
+}
 #bgImage {
   position: fixed;
   top: 0;
@@ -3769,7 +3851,7 @@ header #social-links li {
   opacity: .5;
 }
 #introText {
-  margin: 2em auto;
+  margin: 1.25em auto;
   padding: 1em;
   color: #f6f5ec;
   max-width: 20em;
@@ -3777,6 +3859,30 @@ header #social-links li {
   font-family: "proxima-nova";
   font-weight: 300;
   font-style: normal;
+}
+#landingAbout {
+  display: none;
+  min-height: 100vh;
+  background: #f6f5ec;
+}
+#landingAbout article {
+  width: 33.3333%;
+  float: left;
+  height: 50vh;
+  overflow: hidden;
+  color: #f6f5ec;
+}
+#landingAbout article a {
+  color: #f6f5ec;
+}
+#landingAbout article img {
+  opacity: 1;
+}
+#landingAbout article img:hover {
+  opacity: .25;
+}
+#landingAbout article.thebrooklynmuseum {
+  width: 66.6666%;
 }
 /* -------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------- */
@@ -3793,6 +3899,22 @@ header #social-links li {
 #photos article h5 {
   margin: 1em;
   text-transform: lowercase;
+}
+#photos footer {
+  background: #fcb062;
+  color: #f6f5ec;
+}
+#photos footer .footerIcon {
+  background: url('/public/photos/_MediumImages/sf-flight.JPG');
+  box-shadow: 0 0 0 0.1em #fcb062, 0 0 0 0.1em #fcb062;
+}
+#photos footer a {
+  color: #f6f5ec;
+}
+#photos footer h1 {
+  font-size: 4em;
+  font-family: "chaparral-pro", georgia;
+  font-weight: 400;
 }
 /* -------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------- */
@@ -4109,60 +4231,6 @@ header #social-links li {
   }
 }
 /* -------------------------------------------------------------------------------- */
-#issues .issuesList {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-#issues .issuesList li {
-  transitions: all 1s ease-in;
-}
-#issues .issuesList li h2 {
-  text-align: center;
-  font-size: 5em;
-  line-height: 1em;
-  margin: 0;
-  padding: .75em 0;
-  color: #f6f5ec;
-  cursor: pointer;
-}
-#issues .issuesList li:nth-child(5n-4) {
-  background-color: #103e4d;
-  border: 2em solid #103e4d;
-}
-#issues .issuesList li:nth-child(5n-3) {
-  background-color: #fcb062;
-  border: 2em solid #fcb062;
-}
-#issues .issuesList li:nth-child(5n-2) {
-  background-color: #768358;
-  border: 2em solid #768358;
-}
-#issues .issuesList li:nth-child(5n-1) {
-  background-color: #f26d68;
-  border: 2em solid #f26d68;
-}
-#issues .issuesList li:nth-child(5n) {
-  background-color: #81555a;
-  border: 2em solid #81555a;
-}
-#issues .issuesList li .bodytext {
-  margin: 0 auto;
-  max-width: 40em;
-  padding: 0 0 4em;
-  display: none;
-}
-#issues .issuesList li.open {
-  background-color: #f6f5ec;
-}
-#issues .issuesList li.open h2 {
-  color: #23262b;
-}
-#issues .issuesList li.open .bodytext {
-  display: block;
-}
-/* -------------------------------------------------------------------------------- */
 #brooklynMuseum {
   text-align: center;
 }
@@ -4238,4 +4306,3 @@ header #social-links li {
 #brooklynMuseum section .flexslider .flex-control-nav li a.flex-active {
   opacity: 1;
 }
-/* -------------------------------------------------------------------------------- */

@@ -41,7 +41,7 @@
 					<li><a href="{{ url('playground') }}" {% if craft.request.firstSegment == 'playground' %}class="active"{% endif %}>Playground</a></li>
 					<li><a href="{{ url('quotes') }}" {% if craft.request.firstSegment == 'quotes' %}class="active"{% endif %}>Quotes</a></li>
 					<li><a href="{{ url('journal') }}" {% if craft.request.firstSegment == 'journal' %}class="active"{% endif %}>Journal</a></li>
-					<li><a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>About</a></li>
+					<!-- <li><a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>About</a></li> -->
 				</ul>
 			</nav>
 			<ul id="social-links">
@@ -56,6 +56,7 @@
 				<li><a href="https://github.com/briancfeeney"><div data-icon="n" class="icon-social-github"></div></a></li>
 				<li><a href="http://last.fm/user/bfeeney"><div data-icon="k" class="icon-social-lastfm"></div></a></li>
 			</ul>
+			<button data-icon="d" class="socialIcon icon-torso"></button>
 		</header>
 		
 		<div id="main">
@@ -65,19 +66,53 @@
 			{% endblock %}
 		</div>
 
-	</main>
+		<footer>
+			<div class="container">
+			{% if craft.request.firstSegment == 'photos' %}
+				<div data-icon="t" class="icon-camera footerIcon"></div>
+				{% for date, entries in craft.entries.section('photos').limit(null) | group("postDate|date('Y')") %}
+				    <h5>{{ date }}</h5>
+				    <ul>
+				        {% for entry in entries %}
+				            <a href="{{ entry.url() }}">
+								<li>
+									<div class="archive-info">
+										<h1>{{ entry.title }} <small>{{ entry.postDate.format('n/d') }}</small></h1>
+									</div>
+								</li>
+							</a>
+				        {% endfor %}
+				    </ul>
+				{% endfor %}
+				{% else %}
+					<div class="footerIcon"></div>
+					<ul>
+					{% for date, entries in craft.entries.section('photos').limit(1) | group("postDate|date('Y')") %}
+				        {% for entry in entries %}
+				            <a href="{{ entry.url() }}">
+								<li>
+									<div class="archive-info">
+										<h1>{{ entry.title }} <small>{{ entry.postDate.format('n/d') }}</small></h1>
+									</div>
+								</li>
+							</a>
+				        {% endfor %}
+					{% endfor %}
+					</ul>
+			{% endif %}
+			</div>
+		</footer>
 
 	<!-- <footer>
 		<p>© Brian Feeney / <a href="{{ siteUrl }}/feeney.rss">RSS</a> / <a href="/archive">Archive</a></p>
 	</footer> -->
 	
-	
-	<script src="../public/js/jquery.flexslider-min.js"></script>
-	<link rel="stylesheet" type="text/css" href="../public/css/flexslider.css" />
-	<script type="text/javascript" charset="utf-8">
-	  $(window).load(function() {
-	    $('.flexslider').flexslider();
-	  });
+	<script>
+		$("button.socialIcon").click(function() {
+			$(this).toggleClass("opened");
+			$("#social-links").toggleClass("opened");
+			$("body").toggleClass("opened");
+		});
 	</script>
 	
 	<script src="../public/js/classie.js"></script>

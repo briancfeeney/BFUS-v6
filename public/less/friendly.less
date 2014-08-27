@@ -105,6 +105,85 @@ header {
 			margin-left: 1em;
 		}
 	}
+	.socialIcon {
+		display: none;
+		background: transparent;
+		border: 1px solid @coal;
+		border-radius: 50%;
+		color: @coal;
+		padding: 0;
+		height: 17px;
+		width: 17px;
+		font-size: 10px;
+		padding-top: 3px;
+	}
+	@media (max-width: 1150px) {
+		#social-links {
+			float: left;
+			position: absolute;
+			top: -3.5em;
+			margin: -1em -1em 1em;
+			padding: 1em 1em .5em;
+			width: 100%;
+			background-color: fade(@coal, 30%);
+			li {
+				margin: 0 1em 0 0;
+			}
+		}
+		.socialIcon {
+			display: inline-block;
+			position: absolute;
+			right: 1.4em;
+			top: 1.4em;
+			&:active, &:focus {
+				outline: none;
+			}
+			&.opened {
+				right: 1.4em;
+				top: -4.9em;
+			}
+		}
+	}
+}
+
+body.opened {
+	position: static;
+	@media (max-width: 1150px) {
+		position: relative;
+		top: 3.5em;
+	}
+}
+
+
+/* -------------------------------------------------------------------------------- */
+// FOOTER
+
+footer {
+	background: @chalk;
+	min-height: 100vh;
+	padding-top: 1em;
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	.footerIcon {
+		background: url('/public/images/me-rooftop.jpg');
+		background-position: center center;
+		background-size: 100%;
+		border: .05em solid @chalk;
+		border-radius: 50%;
+		color: @chalk;
+		padding: .22em;
+		height: 2em;
+		width: 2em;
+		font-size: 5em;
+		margin: -1em auto 1em;
+	}
+	.container {
+		width: 65em;
+		border-top: .2em solid @chalk;
+	}
 }
 
 
@@ -114,6 +193,7 @@ header {
 #main {
 	width: 1000px;
 	margin: 2em auto;
+	min-height: 100vh;
 }
 
 
@@ -129,6 +209,10 @@ header {
 		width: 100%;
 		margin: 0;
 	}
+	.socialIcon {
+		color: @chalk;
+		border-color: @chalk;
+	}
 }
 
 #bgImage {
@@ -141,12 +225,37 @@ header {
 }
 
 #introText {
-	margin: 2em auto;
+	margin: 1.25em auto;
 	padding: 1em;
 	color: @chalk;
 	max-width: 20em;
 	font-size: 4.25em;
 	.proximaL();
+}
+
+#landingAbout {
+	display: none;
+	min-height: 100vh;
+	background: @chalk;
+	article {
+		width: 33.3333%;
+		float: left;
+		height: 50vh;
+		overflow: hidden;
+		color: @chalk;
+		a {
+			color: @chalk;
+		}
+		img {
+			opacity: 1;
+			&:hover {
+				opacity: .25;
+			}
+		}
+		&.thebrooklynmuseum {
+			width: 66.6666%;
+		}
+	}
 }
 
 
@@ -182,6 +291,21 @@ header {
 		h5 {
 			margin: 1em;
 			text-transform: lowercase;
+		}
+	}
+	footer {
+		background: @orange;
+		color: @chalk;
+		.footerIcon {
+			background: url('/public/photos/_MediumImages/sf-flight.JPG');
+			box-shadow: 0 0 0 .1em @orange, 0 0 0 .1em @orange;
+		}
+		a {
+			color: @chalk;
+		}
+		h1 {
+			font-size: 4em;
+			.chaparral();
 		}
 	}
 }
@@ -472,65 +596,6 @@ header {
 }
 
 
-/* -------------------------------------------------------------------------------- */
-// ISSUES
-
-#issues {
-	.issuesList {
-		list-style-type: none;
-		padding: 0;
-		margin: 0;
-		width: 100%;
-		li {
-			transitions: all 1s ease-in;
-			h2 {
-				text-align: center;
-				font-size: 5em;
-				line-height: 1em;
-				margin: 0;
-				padding: .75em 0;
-				color: @chalk;
-				cursor: pointer;
-			}
-			&:nth-child(5n-4) {
-				background-color: @blue;
-				border: 2em solid @blue;
-			}
-			&:nth-child(5n-3) {
-				background-color: @orange;
-				border: 2em solid @orange;
-			}
-			&:nth-child(5n-2) {
-				background-color: @green;
-				border: 2em solid @green;
-			}
-			&:nth-child(5n-1) {
-				background-color: @red;
-				border: 2em solid @red;
-			}
-			&:nth-child(5n) {
-				background-color: @purple;
-				border: 2em solid @purple;
-			}
-			.bodytext {
-				margin: 0 auto;
-				max-width: 40em;
-				padding: 0 0 4em;
-				display: none;
-			}
-			&.open {
-				background-color: @chalk;
-				h2 {
-					color: @coal;
-				}
-				.bodytext {
-					display: block;
-				}
-			}
-		}
-	}
-}
-
 
 /* -------------------------------------------------------------------------------- */
 // BROOKLYN MUSEUM
@@ -614,11 +679,6 @@ header {
 		}
 	}
 }
-
-
-/* -------------------------------------------------------------------------------- */
-// FOOTER
-
 
 
 

@@ -45,4 +45,43 @@
 	<p>Designer and developer. Employed by the Brooklyn Museum. Writer, photographer, illustrator, person. Hi.</p>
 </section>
 
+<section id="landingAbout">
+	<article class="thebrooklynmuseum" style="background: rgb(0,174,239)">
+		<div class="visuals">
+			<img src="/public/images/bkm-logo-white.png">
+		</div>
+		<div class="workMeta">
+			<h6>Web Designer (staff)</h6>
+			<h6>January 2014 to Present</h6>
+			<h1>Brooklyn Museum</h1>
+		</div>
+	</article>
+	{% set allEntries = craft.entries.section('work').limit(null) %}
+	{% for date, entries in allEntries | group("postDate|date('Y')") %}
+	        {% for entry in entries %}
+				<article class="{{ entry.type }}" style="background: #{{ entry.color }};">
+					<div class="visuals">
+						<a href="{{ entry.url() }}">
+						{% for image in entry.portfolioImages.limit(1) %}
+							{% if entry.type == 'webDesign' %}
+								<div class="workImage" style="background:url({{ image.getUrl() }});"></div>
+							{% else %}
+								<img src="{{ image.getUrl() }}">
+							{% endif %}
+						{% endfor %}
+						</a>
+					</div>
+					<div class="workMeta">
+						<h6>{{ entry.type.name }}</h6>
+						<!-- <h4>{{ entry.postDate.format('F Y') }}</h4> -->
+						<a href="{{ entry.url() }}">
+							<h1>{{ entry.title }}</h1>
+						</a>
+					</div>
+				</article>
+	        {% endfor %}
+	{% endfor %}
+		
+</section>
+
 {% endblock %}
