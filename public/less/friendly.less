@@ -9,12 +9,17 @@
 /* -------------------------------------------------------------------------------- */
 // BASIC RESET
 
+html {
+	background: @coal;
+}
+
 body {
 	.chaparral();
 }
 
 h1 {
 	.proximaC();
+	font-size: 3.75em;
 }
 
 h2 {
@@ -27,20 +32,27 @@ h3 {
 
 h4 {
 	.proximaSC();
+	text-transform: uppercase;
+	margin: 1em 0 2em;
 }
 
 h5 {
 	.proximaSC();
+	text-transform: uppercase;
 }
 
 h6 {
 	.proximaSB();
 }
 
+p {
+	font-size: 1.5em;
+}
+
 a {
 	&:hover {
 		text-decoration: none;
-		color: @red;
+		color: @orange;
 	}
 }
 
@@ -71,13 +83,18 @@ blockquote {
 	}
 }
 
+article {
+	margin: 5em auto 10em;
+}
+
 
 /* -------------------------------------------------------------------------------- */
 // HEADER & NAV
 
 header {
-	margin: 1em;
+	padding: 1em;
 	overflow: hidden;
+	background-color: @coal;
 	nav {
 		ul {
 			list-style-type: none;
@@ -89,6 +106,9 @@ header {
 				text-transform: uppercase;
 				margin-right: 2em;
 				margin-bottom: .5em;
+				a {
+					color: @chalk;
+				}
 			}
 			#title {
 				.proximaSB();
@@ -103,12 +123,18 @@ header {
 		li {
 			float: left;
 			margin-left: 1em;
+			a {
+				color: @chalk;
+				&:hover {
+					color: @orange;
+				}
+			}
 		}
 	}
 	.socialIcon {
 		display: none;
 		background: transparent;
-		border: 1px solid @coal;
+		border: 1px solid @chalk;
 		border-radius: 50%;
 		color: @coal;
 		padding: 0;
@@ -119,59 +145,88 @@ header {
 	}
 	@media (max-width: 1150px) {
 		#social-links {
-			float: left;
+			width: 1.5em;
+			margin: 4em 0 0;
 			position: absolute;
-			top: -3.5em;
-			margin: -1em -1em 1em;
-			padding: 1em 1em .5em;
-			width: 100%;
-			background-color: fade(@coal, 30%);
+			right: 1em;
+			overflow: hidden;
 			li {
-				margin: 0 1em 0 0;
+				margin: 0 0 1em;
+				position: relative;
+				right: -3.25em;
+			}
+			&.opened {
+				overflow: visible;
 			}
 		}
 		.socialIcon {
 			display: inline-block;
 			position: absolute;
-			right: 1.4em;
-			top: 1.4em;
+			right: 1.25em;
+			color: @chalk;
 			&:active, &:focus {
 				outline: none;
 			}
 			&.opened {
-				right: 1.4em;
-				top: -4.9em;
+				right: -3em;
 			}
 		}
 	}
 }
 
-body.opened {
-	position: static;
-	@media (max-width: 1150px) {
-		position: relative;
-		top: 3.5em;
+body {
+	position: relative;
+	right: 0;
+	&.opened {
+		@media (max-width: 1150px) {
+			position: relative;
+			right: 3em;
+			#bgImage {
+				right: 3em;
+			}
+		}
 	}
 }
-
 
 /* -------------------------------------------------------------------------------- */
 // FOOTER
 
 footer {
-	background: @chalk;
+	background: @coal;
 	min-height: 100vh;
-	padding-top: 1em;
+	padding: 1em 0 5em;
+	position: relative;
+	color: @chalk;
+	a {
+		color: @chalk;
+	}
 	ul {
 		list-style-type: none;
-		margin: 0;
-		padding: 0;
+		margin: 0 0 5em;
+		border-bottom: 2px solid fade(@coal, 20%);
+		padding: 0 0 5em;
+		h4 {
+			font-size: 1.5em;
+		}
+		li {
+			margin-bottom: 2.5em;
+			h1 {
+				.proximaC();
+				font-size: 3.75em;
+				margin: .1em 0 0;
+			}
+			h5 {
+				margin: 0;
+				opacity: .5;
+			}
+		}
 	}
 	.footerIcon {
 		background: url('/public/images/me-rooftop.jpg');
 		background-position: center center;
-		background-size: 100%;
+		background-size: cover !important;
 		border: .05em solid @chalk;
+		box-shadow: 0 0 0 .1em @coal, 0 0 0 .1em @coal;
 		border-radius: 50%;
 		color: @chalk;
 		padding: .22em;
@@ -181,8 +236,11 @@ footer {
 		margin: -1em auto 1em;
 	}
 	.container {
-		width: 65em;
 		border-top: .2em solid @chalk;
+		width: 800px;
+	}
+	p a {
+		color: @lightblue;
 	}
 }
 
@@ -192,18 +250,34 @@ footer {
 
 #main {
 	width: 1000px;
-	margin: 2em auto;
+	margin: 2em auto 10em;
 	min-height: 100vh;
+	position: relative;
+	@media (max-width: 1050px) {
+		width: 95%;
+	}
+	&.fixed {
+		/*
+		position: fixed;
+		bottom: 0;
+		*/
+	}
 }
 
+.slideLeft {
+	-webkit-transition: all .5s ease-in-out;
+	-moz-transition: all .5s ease-in-out;
+	-o-transition: all .5s ease-in-out;
+	transition: all .5s ease-in-out;
+}
 
 /* -------------------------------------------------------------------------------- */
 // HOME
 
 #home {
 	background: @coal;
-	li a {
-		color: @chalk;
+	header {
+		background: transparent;
 	}
 	#main {
 		width: 100%;
@@ -212,6 +286,23 @@ footer {
 	.socialIcon {
 		color: @chalk;
 		border-color: @chalk;
+	}
+	footer {
+		background: @chalk;
+		color: @coal;
+		.footerIcon {
+			box-shadow: none;
+			border-width: .1em;
+		}
+		a {
+			color: @coal;
+			&:hover {
+				color: @orange;
+			}
+		}
+		p a {
+			color: @lightblue;
+		}
 	}
 }
 
@@ -225,11 +316,11 @@ footer {
 }
 
 #introText {
-	margin: 1.25em auto;
+	margin: 2.5em auto;
 	padding: 1em;
 	color: @chalk;
-	max-width: 20em;
-	font-size: 4.25em;
+	max-width: 26em;
+	font-size: 2.75em;
 	.proximaL();
 }
 
@@ -268,7 +359,30 @@ footer {
 /* -------------------------------------------------------------------------------- */
 // WRITING
 
-
+#writing,
+#journal {
+	#main {
+		max-width: 50em;
+		h1,
+		h1 a {
+			color: @green;
+		}
+	}
+	footer {
+		background: @green;
+		color: @chalk;
+		.footerIcon {
+			background: url('/public/photos/_MediumImages/montpelier-garden.jpg');
+			box-shadow: 0 0 0 .1em @green, 0 0 0 .1em @green;
+		}
+		a {
+			color: @chalk;
+		}
+		h1 {
+			font-size: 4em;
+		}
+	}
+}
 
 
 /* -------------------------------------------------------------------------------- */
@@ -282,7 +396,7 @@ footer {
 
 #photos {
 	#main {
-		width: 1000px;
+		margin-top: 3em;
 	}
 	article {
 		width: 100%;
@@ -305,7 +419,6 @@ footer {
 		}
 		h1 {
 			font-size: 4em;
-			.chaparral();
 		}
 	}
 }

@@ -3644,6 +3644,9 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   }
 }
 /* -------------------------------------------------------------------------------- */
+html {
+  background: #23262b;
+}
 body {
   font-family: "chaparral-pro", georgia;
   font-weight: 400;
@@ -3652,6 +3655,7 @@ h1 {
   font-family: "proxima-nova-condensed", sans-serif;
   font-style: normal;
   font-weight: 400;
+  font-size: 3.75em;
 }
 h2 {
   font-family: "proxima-nova";
@@ -3667,20 +3671,26 @@ h4 {
   font-family: "proxima-nova-sc-osf";
   font-weight: 600;
   font-style: normal;
+  text-transform: uppercase;
+  margin: 1em 0 2em;
 }
 h5 {
   font-family: "proxima-nova-sc-osf";
   font-weight: 600;
   font-style: normal;
+  text-transform: uppercase;
 }
 h6 {
   font-family: "proxima-nova";
   font-weight: 600;
   font-style: normal;
 }
+p {
+  font-size: 1.5em;
+}
 a:hover {
   text-decoration: none;
-  color: #f26d68;
+  color: #fcb062;
 }
 img {
   width: 100%;
@@ -3710,10 +3720,14 @@ blockquote p {
 blockquote h6 {
   text-align: right;
 }
+article {
+  margin: 5em auto 10em;
+}
 /* -------------------------------------------------------------------------------- */
 header {
-  margin: 1em;
+  padding: 1em;
   overflow: hidden;
+  background-color: #23262b;
 }
 header nav ul {
   list-style-type: none;
@@ -3728,6 +3742,9 @@ header nav ul li {
   text-transform: uppercase;
   margin-right: 2em;
   margin-bottom: .5em;
+}
+header nav ul li a {
+  color: #f6f5ec;
 }
 header nav ul #title {
   font-family: "proxima-nova";
@@ -3744,10 +3761,16 @@ header #social-links li {
   float: left;
   margin-left: 1em;
 }
+header #social-links li a {
+  color: #f6f5ec;
+}
+header #social-links li a:hover {
+  color: #fcb062;
+}
 header .socialIcon {
   display: none;
   background: transparent;
-  border: 1px solid #23262b;
+  border: 1px solid #f6f5ec;
   border-radius: 50%;
   color: #23262b;
   padding: 0;
@@ -3758,57 +3781,87 @@ header .socialIcon {
 }
 @media (max-width: 1150px) {
   header #social-links {
-    float: left;
+    width: 1.5em;
+    margin: 4em 0 0;
     position: absolute;
-    top: -3.5em;
-    margin: -1em -1em 1em;
-    padding: 1em 1em .5em;
-    width: 100%;
-    background-color: rgba(35, 38, 43, 0.3);
+    right: 1em;
+    overflow: hidden;
   }
   header #social-links li {
-    margin: 0 1em 0 0;
+    margin: 0 0 1em;
+    position: relative;
+    right: -3.25em;
+  }
+  header #social-links.opened {
+    overflow: visible;
   }
   header .socialIcon {
     display: inline-block;
     position: absolute;
-    right: 1.4em;
-    top: 1.4em;
+    right: 1.25em;
+    color: #f6f5ec;
   }
   header .socialIcon:active,
   header .socialIcon:focus {
     outline: none;
   }
   header .socialIcon.opened {
-    right: 1.4em;
-    top: -4.9em;
+    right: -3em;
   }
 }
-body.opened {
-  position: static;
+body {
+  position: relative;
+  right: 0;
 }
 @media (max-width: 1150px) {
   body.opened {
     position: relative;
-    top: 3.5em;
+    right: 3em;
+  }
+  body.opened #bgImage {
+    right: 3em;
   }
 }
 /* -------------------------------------------------------------------------------- */
 footer {
-  background: #f6f5ec;
+  background: #23262b;
   min-height: 100vh;
-  padding-top: 1em;
+  padding: 1em 0 5em;
+  position: relative;
+  color: #f6f5ec;
+}
+footer a {
+  color: #f6f5ec;
 }
 footer ul {
   list-style-type: none;
+  margin: 0 0 5em;
+  border-bottom: 2px solid rgba(35, 38, 43, 0.2);
+  padding: 0 0 5em;
+}
+footer ul h4 {
+  font-size: 1.5em;
+}
+footer ul li {
+  margin-bottom: 2.5em;
+}
+footer ul li h1 {
+  font-family: "proxima-nova-condensed", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 3.75em;
+  margin: .1em 0 0;
+}
+footer ul li h5 {
   margin: 0;
-  padding: 0;
+  opacity: .5;
 }
 footer .footerIcon {
   background: url('/public/images/me-rooftop.jpg');
   background-position: center center;
-  background-size: 100%;
+  background-size: cover !important;
   border: 0.05em solid #f6f5ec;
+  box-shadow: 0 0 0 0.1em #23262b, 0 0 0 0.1em #23262b;
   border-radius: 50%;
   color: #f6f5ec;
   padding: .22em;
@@ -3818,21 +3871,42 @@ footer .footerIcon {
   margin: -1em auto 1em;
 }
 footer .container {
-  width: 65em;
   border-top: 0.2em solid #f6f5ec;
+  width: 800px;
+}
+footer p a {
+  color: #5a7b8c;
 }
 /* -------------------------------------------------------------------------------- */
 #main {
   width: 1000px;
-  margin: 2em auto;
+  margin: 2em auto 10em;
   min-height: 100vh;
+  position: relative;
+}
+@media (max-width: 1050px) {
+  #main {
+    width: 95%;
+  }
+}
+#main.fixed {
+  /*
+		position: fixed;
+		bottom: 0;
+		*/
+}
+.slideLeft {
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 /* -------------------------------------------------------------------------------- */
 #home {
   background: #23262b;
 }
-#home li a {
-  color: #f6f5ec;
+#home header {
+  background: transparent;
 }
 #home #main {
   width: 100%;
@@ -3841,6 +3915,23 @@ footer .container {
 #home .socialIcon {
   color: #f6f5ec;
   border-color: #f6f5ec;
+}
+#home footer {
+  background: #f6f5ec;
+  color: #23262b;
+}
+#home footer .footerIcon {
+  box-shadow: none;
+  border-width: .1em;
+}
+#home footer a {
+  color: #23262b;
+}
+#home footer a:hover {
+  color: #fcb062;
+}
+#home footer p a {
+  color: #5a7b8c;
 }
 #bgImage {
   position: fixed;
@@ -3851,11 +3942,11 @@ footer .container {
   opacity: .5;
 }
 #introText {
-  margin: 1.25em auto;
+  margin: 2.5em auto;
   padding: 1em;
   color: #f6f5ec;
-  max-width: 20em;
-  font-size: 4.25em;
+  max-width: 26em;
+  font-size: 2.75em;
   font-family: "proxima-nova";
   font-weight: 300;
   font-style: normal;
@@ -3886,10 +3977,38 @@ footer .container {
 }
 /* -------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------- */
+#writing #main,
+#journal #main {
+  max-width: 50em;
+}
+#writing #main h1,
+#journal #main h1,
+#writing #main h1 a,
+#journal #main h1 a {
+  color: #768358;
+}
+#writing footer,
+#journal footer {
+  background: #768358;
+  color: #f6f5ec;
+}
+#writing footer .footerIcon,
+#journal footer .footerIcon {
+  background: url('/public/photos/_MediumImages/montpelier-garden.jpg');
+  box-shadow: 0 0 0 0.1em #768358, 0 0 0 0.1em #768358;
+}
+#writing footer a,
+#journal footer a {
+  color: #f6f5ec;
+}
+#writing footer h1,
+#journal footer h1 {
+  font-size: 4em;
+}
 /* -------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------- */
 #photos #main {
-  width: 1000px;
+  margin-top: 3em;
 }
 #photos article {
   width: 100%;
@@ -3913,8 +4032,6 @@ footer .container {
 }
 #photos footer h1 {
   font-size: 4em;
-  font-family: "chaparral-pro", georgia;
-  font-weight: 400;
 }
 /* -------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------- */

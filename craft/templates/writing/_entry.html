@@ -7,29 +7,6 @@
 {% set title = "Writing" %}
 
 {% block content %}
-
-	<section id="writing-index">
-		<h4 id="page-title">Writing</h4>
-		<button class="navbar-toggle">
-			<span class="sr-only">Toggle navigation</span>
-		    <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-		</button>
-	
-		{% if globalWriting.articleSubjects | length %}
-			{% for subject in globalWriting.articleSubjects %}
-				<h4 class="subjectTitle">{{ subject.subjectTitle }}</h4>
-				<ul>
-					{% for link in subject.subjectArticles %}
-						<li><a href="{{ link.url }}">{{ link.title }}</a></li>
-					{% endfor %}
-				</ul>
-			
-			{% endfor %}
-		{% endif %}
-	
-	</section>
 	
 	<section id="writing-main" class="single">
 		<article>
@@ -42,16 +19,6 @@
 		</article>
 	</section>
 	
-	<!--
-	{% if entry.featuredImage|length %}
-		<section id="writingImages">
-		{% for image in entry.featuredImage %}
-			<img src="{{ image.getUrl() }}">
-		{% endfor %}
-		</section>
-	{% endif %}
-	-->
-	
 	<section id="writingLinks">
 		{% if entry.writingLinks | length %}
 			<h5>Links</h5>
@@ -62,13 +29,5 @@
 			</ul>
 		{% endif %}
 	</section>
-	
-	<script>
-		$(window).load(function() {
-			$("#writing-index .navbar-toggle").click(function () {
-			    $("#writing-index").toggleClass("open-index");
-			});
-		});
-	</script>
 	
 {% endblock %}

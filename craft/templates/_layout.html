@@ -30,18 +30,18 @@
 
 <body id="{{ craft.request.firstSegment }}{% if craft.request.firstSegment == '' %}home{% endif %}">
 
-		<header>
+		<header data-stellar-ratio="1">
 			<nav>
 				<ul>
 					<li id="title"><a href="{{ siteUrl }}">{{ siteName }}</a></li>
-					<li><a href="{{ url('writing') }}" {% if craft.request.firstSegment == 'writing' %}class="active"{% endif %}>Writing</a></li>
-					<li><a href="{{ url('photos') }}" {% if craft.request.firstSegment == 'photos' %}class="active"{% endif %}>Photos</a></li>
-					<li><a href="{{ url('reading') }}" {% if craft.request.firstSegment == 'reading' %}class="active"{% endif %}>Reading</a></li>
 					<li><a href="{{ url('work') }}" {% if craft.request.firstSegment == 'work' %}class="active"{% endif %}>Work</a></li>
+					<li><a href="{{ url('photos') }}" {% if craft.request.firstSegment == 'photos' %}class="active"{% endif %}>Photos</a></li>
+					<li><a href="{{ url('journal') }}" {% if craft.request.firstSegment == 'journal' %}class="active"{% endif %}>Journal</a></li>
+					<!-- <li><a href="{{ url('reading') }}" {% if craft.request.firstSegment == 'reading' %}class="active"{% endif %}>Reading</a></li>
+					<li><a href="{{ url('writing') }}" {% if craft.request.firstSegment == 'writing' %}class="active"{% endif %}>Writing</a></li>
 					<li><a href="{{ url('playground') }}" {% if craft.request.firstSegment == 'playground' %}class="active"{% endif %}>Playground</a></li>
 					<li><a href="{{ url('quotes') }}" {% if craft.request.firstSegment == 'quotes' %}class="active"{% endif %}>Quotes</a></li>
-					<li><a href="{{ url('journal') }}" {% if craft.request.firstSegment == 'journal' %}class="active"{% endif %}>Journal</a></li>
-					<!-- <li><a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>About</a></li> -->
+					<li><a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>About</a></li> -->
 				</ul>
 			</nav>
 			<ul id="social-links">
@@ -59,46 +59,186 @@
 			<button data-icon="d" class="socialIcon icon-torso"></button>
 		</header>
 		
-		<div id="main">
+		<div id="main" data-stellar-ratio="1">
 			{% block content %}
 				<p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
 				<p>See Twig’s <a href="http://twig.sensiolabs.org/doc/templates.html#template-inheritance">Template Inheritance</a> documentation for an explanation.</p>
 			{% endblock %}
 		</div>
 
-		<footer>
+		<footer id="footer" data-stellar-ratio="2">
 			<div class="container">
 			{% if craft.request.firstSegment == 'photos' %}
+			
 				<div data-icon="t" class="icon-camera footerIcon"></div>
 				{% for date, entries in craft.entries.section('photos').limit(null) | group("postDate|date('Y')") %}
-				    <h5>{{ date }}</h5>
+				    <h4>{{ date }}</h4>
 				    <ul>
 				        {% for entry in entries %}
 				            <a href="{{ entry.url() }}">
 								<li>
-									<div class="archive-info">
-										<h1>{{ entry.title }} <small>{{ entry.postDate.format('n/d') }}</small></h1>
-									</div>
+									<h5>{{ entry.postDate.format('M d, Y') }}</h5>
+									<h1>{{ entry.title }}</h1>
 								</li>
 							</a>
 				        {% endfor %}
 				    </ul>
 				{% endfor %}
-				{% else %}
-					<div class="footerIcon"></div>
-					<ul>
-					{% for date, entries in craft.entries.section('photos').limit(1) | group("postDate|date('Y')") %}
+				
+			{% elseif craft.request.firstSegment == 'writing' %}
+
+				<div data-icon="x" class="icon-pencil footerIcon"></div>
+				{% if globalWriting.articleSubjects | length %}
+					{% for subject in globalWriting.articleSubjects %}
+						<h4 class="subjectTitle">{{ subject.subjectTitle }}</h4>
+						<ul>
+							{% for link in subject.subjectArticles %}
+								<li><a href="{{ link.url }}"><h1>{{ link.title }}</h1></a></li>
+							{% endfor %}
+						</ul>
+					{% endfor %}
+				{% endif %}
+				
+			{% else %}
+			
+				<div class="footerIcon"></div>
+				
+				<ul>
+					<li>
+						<p>I'm currently employed by the Brooklyn Museum, working on a bunch of really great stuff, none of which I can talk about yet. Soon.</p>
+					</li>
+					<li>
+						<p>I also take freelance work and am working on a couple personal projects. Want to work with me on something? Just want to say "hey"? <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Get in touch!</a></p>
+						<div id="accordion">
+							<!-- <h3>
+								<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Contact Me</a>
+							</h3> -->
+							<div id="collapseOne" class="panel panel-collapse collapse">
+								<div class="panel-body">
+									<div class="wufoo">
+										<head>
+											<!-- Meta Tags -->
+											<meta charset="utf-8">
+											<meta name="generator" content="Wufoo">
+											<meta name="robots" content="index, follow">
+
+											<!-- JavaScript -->
+											<script src="<?php echo get_template_directory_uri(); ?>/js/wufoo.js"></script>
+
+											<!--[if lt IE 10]>
+											<script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+											<![endif]-->
+										</head>
+										<body id="public">
+											<div id="container" class="ltr">
+												<form id="form1" name="form1" class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate action="https://bfeeney.wufoo.com/forms/z7x4m1/#public">
+													<label class="desc" id="title3" for="Field3">Your Name</label>
+													<div class="formName">
+														<input id="Field3" name="Field3" type="text" class="field text fn nameField" value="" size="8" tabindex="1" placeholder=" "/>
+													</div>
+
+													<label class="desc" id="title5" for="Field5">Your Email</label>
+													<div>
+														<input id="Field5" name="Field5" type="email" spellcheck="false" class="field text medium" value="" maxlength="255" tabindex="3" /> 
+													</div>
+
+													<div id="foli6" class="notranslate">
+														<label class="desc" id="title6" for="Field6">Your Words</label>
+														<div>
+															<textarea id="Field6" name="Field6" class="field textarea large" spellcheck="true" rows="6" cols="50" tabindex="4" onkeyup=""></textarea>
+														</div>
+													</div> 
+													<div class="buttons ">
+														<div><input id="saveForm" name="saveForm" class="btTxt submit" type="submit" value="Submit"/></div>
+													</div>
+												</form> 
+
+												<script>
+													$(".wufoo input, .wufoo textarea").focus(function() {
+														$(".contact-hello").hide();
+														$(".contact-thanks").show();
+													});
+													$(".wufoo input, .wufoo textarea").focusout(function() {
+														$(".contact-hello").show();
+														$(".contact-thanks").hide();
+													});
+												</script>
+
+											</div><!--container-->
+										</body>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<ul>
+					<h4>Writing</h4>
+					{% for date, entries in craft.entries.section('writing').limit(5) | group("postDate|date('Y')") %}
 				        {% for entry in entries %}
 				            <a href="{{ entry.url() }}">
 								<li>
-									<div class="archive-info">
-										<h1>{{ entry.title }} <small>{{ entry.postDate.format('n/d') }}</small></h1>
-									</div>
+									<h5>{{ entry.postDate.format('M d, Y') }}</h5>
+									<h1>{{ entry.title }}</h1>
 								</li>
 							</a>
 				        {% endfor %}
 					{% endfor %}
-					</ul>
+				</ul>
+				<ul>
+					<h4>Photos</h4>
+					{% for date, entries in craft.entries.section('photos').limit(5) | group("postDate|date('Y')") %}
+				        {% for entry in entries %}
+				            <a href="{{ entry.url() }}">
+								<li>
+									{% for image in entry.photo %}
+										<img src="{{ image.getUrl() }}">
+									{% endfor %}
+								</li>
+							</a>
+				        {% endfor %}
+					{% endfor %}
+				</ul>
+				<ul>
+					<h4>Reading</h4>
+					{% for date, entries in craft.entries.section('reading').limit(5) | group("postDate|date('Y')") %}
+				        {% for entry in entries %}
+				            <a href="{{ entry.url() }}">
+								<li>
+									<h5>{{ entry.readingAuthor }}</h5>
+									<h1>{{ entry.title }}</h1>
+								</li>
+							</a>
+				        {% endfor %}
+					{% endfor %}
+				</ul>
+				<!-- <ul>
+					<h4>Work</h4>
+					{% for date, entries in craft.entries.section('work').limit(5) | group("postDate|date('Y')") %}
+				        {% for entry in entries %}
+				            <a href="{{ entry.url() }}">
+								<li>
+									<h5>{{ entry.type.name }}</h5>
+									<h1>{{ entry.title }}</h1>
+								</li>
+							</a>
+				        {% endfor %}
+					{% endfor %}
+				</ul>
+				
+				<ul>
+					<h4>Quotes</h4>
+					{% for date, entries in craft.entries.section('quotes').limit(5) | group("postDate|date('Y')") %}
+				        {% for entry in entries %}
+				            <a href="{{ entry.url() }}">
+								<li>
+									<h1>{{ entry.quoteAttribution }}</h1>
+								</li>
+							</a>
+				        {% endfor %}
+					{% endfor %}
+				</ul> -->
+				
 			{% endif %}
 			</div>
 		</footer>
@@ -106,6 +246,8 @@
 	<!-- <footer>
 		<p>© Brian Feeney / <a href="{{ siteUrl }}/feeney.rss">RSS</a> / <a href="/archive">Archive</a></p>
 	</footer> -->
+	
+	<script src="../public/js/collapse.js"></script>
 	
 	<script>
 		$("button.socialIcon").click(function() {
@@ -115,25 +257,18 @@
 		});
 	</script>
 	
-	<script src="../public/js/classie.js"></script>
+	
+	<script src="../public/js/jquery.visible.min.js"></script>	
 	<script>
-		$(window).load(function() {
-			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-				showLeftPush = document.getElementById( 'showLeftPush' ),
-				body = document.body;
-
-			showLeftPush.onclick = function() {
-				console.log('test');
-				classie.toggle( this, 'active' );
-				classie.toggle( body, 'cbp-spmenu-push-toright' );
-				classie.toggle( menuLeft, 'cbp-spmenu-open' );
-				disableOther( 'showLeftPush' );
-			};
-
-			function disableOther( button ) {
-				if( button !== 'showLeftPush' ) {
-					classie.toggle( showLeftPush, 'disabled' );
-				}
+		$(window).scroll(function() {
+			if ($('#footer').visible(true)) {
+			    // The element is visible, do something
+				$('#main').addClass('fixed');
+				$('#footer').addClass('scrolling');
+			} else {
+			    // The element is NOT visible, do something else
+				$('#main').removeClass('fixed');
+				$('#footer').removeClass('scrolling');
 			}
 		});
 	</script>

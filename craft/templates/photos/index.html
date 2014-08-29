@@ -9,12 +9,12 @@
 {% block content %}
 
 		<section class="gallery">
-			{% paginate craft.entries.section('photos').limit(30) as entries %}
+			{% paginate craft.entries.section('photos').limit(20) as entries %}
 			{% for entry in entries %}
 				{% if entry.photo|length %}
 					<article>
 					{% for image in entry.photo %}
-						<a href="{{ entry.url() }}"><img src="{{ image.getUrl('mediumImages') }}"></a>
+						<a href="{{ entry.url() }}"><img src="{{ image.getUrl() }}"></a>
 					{% endfor %}
 						<h5>{{ entry.postDate.format('F d, Y') }}</h5>
 					</article>

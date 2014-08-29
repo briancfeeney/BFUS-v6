@@ -11,10 +11,9 @@
  #}
 
 {% extends "_layout" %}
-{% set title = "News" %}
+{% set title = "Journal" %}
 
 {% block content %}
-	<div class="container">
 	<section id="main">
 		{% paginate craft.entries.section('writing').limit(10) as entries %}
 		{% for entry in entries %}
@@ -36,5 +35,4 @@
 			{% endpaginate %}
 		</div>
 	</section>
-	</div>
 {% endblock %}
