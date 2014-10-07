@@ -2,29 +2,38 @@
 namespace Craft;
 
 /**
- * Craft by Pixel & Tonic
+ * Tokens service.
  *
- * @package   Craft
- * @author    Pixel & Tonic, Inc.
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
  * @license   http://buildwithcraft.com/license Craft License Agreement
- * @link      http://buildwithcraft.com
- */
-
-/**
- * Tokens service
+ * @see       http://buildwithcraft.com
+ * @package   craft.app.services
+ * @since     2.1
  */
 class TokensService extends BaseApplicationComponent
 {
+	// Properties
+	// =========================================================================
+
+	/**
+	 * @var bool
+	 */
 	private $_deletedExpiredTokens = false;
+
+	// Public Methods
+	// =========================================================================
 
 	/**
 	 * Creates a new token and returns it.
 	 *
-	 * @param mixed         $route      Where matching requests should be routed to.  If you want them to be routed to a controller
-	 *                                  action, pass `array('action' => "controller/action", 'params' => array('foo' => 'bar'))`.
+	 * @param mixed $route              Where matching requests should be routed to. If you want them to be routed to a
+	 *                                  controller action, pass:
+	 *                                  `array('action' => "controller/action", 'params' => array('foo' => 'bar'))`.
 	 * @param int|null      $usageLimit The maximum number of times this token can be used. Defaults to no limit.
-	 * @param DateTime|null $expiryDate The date that the token expires. Defaults to the 'defaultTokenDuration' config setting.
+	 * @param DateTime|null $expiryDate The date that the token expires. Defaults to the 'defaultTokenDuration' config
+	 *                                  setting.
+	 *
 	 * @return string|false             The generated token, or `false` if there was an error.
 	 */
 	public function createToken($route, $usageLimit = null, $expiryDate = null)
@@ -62,6 +71,7 @@ class TokensService extends BaseApplicationComponent
 	 * Searches for a token, and possibly returns a route for the request.
 	 *
 	 * @param string $token
+	 *
 	 * @return array|false
 	 */
 	public function getTokenRoute($token)
@@ -110,9 +120,10 @@ class TokensService extends BaseApplicationComponent
 	}
 
 	/**
-	 * Incremens a token's usage count.
+	 * Increments a token's usage count.
 	 *
 	 * @param int $tokenId
+	 *
 	 * @return bool
 	 */
 	public function incrementTokenUsageCountById($tokenId)
@@ -130,6 +141,7 @@ class TokensService extends BaseApplicationComponent
 	 * Deletes a token by its ID.
 	 *
 	 * @param int $tokenId
+	 *
 	 * @return bool
 	 */
 	public function deleteTokenById($tokenId)

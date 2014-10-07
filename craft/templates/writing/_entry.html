@@ -7,14 +7,43 @@
 {% set title = "Writing" %}
 
 {% block content %}
+
+{% if entry.featuredImage | length %}
+	{% if entry.type == 'articles' %}
+	</div>
+
+	{% for image in entry.featuredImage %}
+		<img src="{{ image.getUrl() }}" class="featuredImage">
+	
+		<style>
+			header {
+				background-color: rgba(35,38,43,.4);
+			}
+			header a {
+				color: rgb(246,245,236) !important;
+			}
+			header a:hover {
+				color: rgb(252,176,98) !important;
+			}
+			#main {
+				min-height: 0;
+				margin: 0;
+			}
+			#main.article {
+				margin: 0 auto 10em;
+			}
+		</style>
+	
+	{% endfor %}
+
+	<div id="main" class="article">
+	{% endif %}
+{% endif %}
 	
 	<section id="writing-main" class="single">
 		<article>
-			<h5>{{ entry.postDate.format('F d, Y') }}</h5>
 			<h1>{{ entry.title }}</h1>
-			{% for image in entry.featuredImage %}
-				<img src="{{ image.getUrl() }}">
-			{% endfor %}
+			<h5>{{ entry.postDate.format('F d, Y') }}</h5>
 			{{ entry.body }}
 		</article>
 	</section>

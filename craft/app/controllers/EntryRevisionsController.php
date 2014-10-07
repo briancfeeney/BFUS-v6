@@ -1,25 +1,31 @@
 <?php
 namespace Craft;
 
-/**
- * Craft by Pixel & Tonic
- *
- * @package   Craft
- * @author    Pixel & Tonic, Inc.
- * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @link      http://buildwithcraft.com
- */
-
 craft()->requireEdition(Craft::Client);
 
 /**
+ * The EntryRevisionsController class is a controller that handles various entry version and draft related tasks such as
+ * retrieving, saving, deleting, publishing and reverting entry drafts and versions.
  *
+ * Note that all actions in the controller require an authenticated Craft session via {@link BaseController::allowAnonymous}.
+ *
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license   http://buildwithcraft.com/license Craft License Agreement
+ * @see       http://buildwithcraft.com
+ * @package   craft.app.controllers
+ * @since     1.0
  */
 class EntryRevisionsController extends BaseEntriesController
 {
+	// Public Methods
+	// =========================================================================
+
 	/**
 	 * Saves a draft, or creates a new one.
+	 *
+	 * @throws Exception
+	 * @return null
 	 */
 	public function actionSaveDraft()
 	{
@@ -102,6 +108,9 @@ class EntryRevisionsController extends BaseEntriesController
 
 	/**
 	 * Renames a draft.
+	 *
+	 * @throws Exception
+	 * @return null
 	 */
 	public function actionUpdateDraftMeta()
 	{
@@ -139,6 +148,9 @@ class EntryRevisionsController extends BaseEntriesController
 
 	/**
 	 * Deletes a draft.
+	 *
+	 * @throws Exception
+	 * @return null
 	 */
 	public function actionDeleteDraft()
 	{
@@ -164,6 +176,9 @@ class EntryRevisionsController extends BaseEntriesController
 
 	/**
 	 * Publish a draft.
+	 *
+	 * @throws Exception
+	 * @return null
 	 */
 	public function actionPublishDraft()
 	{
@@ -247,6 +262,9 @@ class EntryRevisionsController extends BaseEntriesController
 
 	/**
 	 * Reverts an entry to a version.
+	 *
+	 * @throws Exception
+	 * @return null
 	 */
 	public function actionRevertEntryToVersion()
 	{
@@ -254,7 +272,6 @@ class EntryRevisionsController extends BaseEntriesController
 
 		$versionId = craft()->request->getPost('versionId');
 		$version = craft()->entryRevisions->getVersionById($versionId);
-		$userId = craft()->userSession->getUser()->id;
 
 		if (!$version)
 		{
@@ -290,7 +307,7 @@ class EntryRevisionsController extends BaseEntriesController
 			$userSessionService->requirePermission('publishEntries:'.$entry->sectionId);
 		}
 
-		// Revent to the version
+		// Revert to the version
 		if (craft()->entryRevisions->revertEntryToVersion($version))
 		{
 			craft()->userSession->setNotice(Craft::t('Entry reverted to past version.'));
@@ -307,14 +324,19 @@ class EntryRevisionsController extends BaseEntriesController
 		}
 	}
 
+	// Private Methods
+	// =========================================================================
+
 	/**
 	 * Sets a draft's attributes from the post data.
 	 *
-	 * @access private
 	 * @param EntryDraftModel $draft
+	 *
+	 * @return null
 	 */
 	private function _setDraftAttributesFromPost(EntryDraftModel $draft)
 	{
+		$draft->typeId     = craft()->request->getPost('typeId');
 		$draft->slug       = craft()->request->getPost('slug');
 		$draft->postDate   = craft()->request->getPost('postDate');
 		$draft->expiryDate = craft()->request->getPost('expiryDate');

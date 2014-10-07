@@ -2,20 +2,20 @@
 namespace Craft;
 
 /**
- * Craft by Pixel & Tonic
+ * Class AppVariable
  *
- * @package   Craft
- * @author    Pixel & Tonic, Inc.
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
  * @license   http://buildwithcraft.com/license Craft License Agreement
- * @link      http://buildwithcraft.com
- */
-
-/**
- * App functions
+ * @see       http://buildwithcraft.com
+ * @package   craft.app.variables
+ * @since     1.0
  */
 class AppVariable
 {
+	// Public Methods
+	// =========================================================================
+
 	/**
 	 * Returns the Craft edition.
 	 *
@@ -77,7 +77,8 @@ class AppVariable
 	}
 
 	/**
-	 * Returns whether Craft is running on a domain that is elligible to test out the editions.
+	 * Returns whether Craft is running on a domain that is eligible to test out
+	 * the editions.
 	 *
 	 * @return bool
 	 */
@@ -207,7 +208,13 @@ class AppVariable
 		$maxPost = AppHelper::getByteValueFromPhpSizeString(ini_get('post_max_size'));
 		$memoryLimit = AppHelper::getByteValueFromPhpSizeString(ini_get('memory_limit'));
 
-		$uploadInBytes = min($maxUpload, $maxPost, $memoryLimit);
+		$uploadInBytes = min($maxUpload, $maxPost);
+
+		if ($memoryLimit > 0)
+		{
+			$uploadInBytes = min($uploadInBytes, $memoryLimit);
+		}
+
 		$configLimit = (int) craft()->config->get('maxUploadFileSize');
 
 		if ($configLimit)

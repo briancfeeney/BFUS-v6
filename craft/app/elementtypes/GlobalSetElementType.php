@@ -2,20 +2,21 @@
 namespace Craft;
 
 /**
- * Craft by Pixel & Tonic
+ * The GlobalSetElementType class is responsible for implementing and defining globals as a native element type in
+ * Craft.
  *
- * @package   Craft
- * @author    Pixel & Tonic, Inc.
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
  * @license   http://buildwithcraft.com/license Craft License Agreement
- * @link      http://buildwithcraft.com
- */
-
-/**
- * Global Set element type
+ * @see       http://buildwithcraft.com
+ * @package   craft.app.elementtypes
+ * @since     1.0
  */
 class GlobalSetElementType extends BaseElementType
 {
+	// Public Methods
+	// =========================================================================
+
 	/**
 	 * Returns the element type name.
 	 *
@@ -64,6 +65,7 @@ class GlobalSetElementType extends BaseElementType
 	 *
 	 * @param DbCommand $query
 	 * @param ElementCriteriaModel $criteria
+	 *
 	 * @return mixed
 	 */
 	public function modifyElementsQuery(DbCommand $query, ElementCriteriaModel $criteria)
@@ -82,6 +84,7 @@ class GlobalSetElementType extends BaseElementType
 	 * Populates an element model based on a query result.
 	 *
 	 * @param array $row
+	 *
 	 * @return array
 	 */
 	public function populateElementModel($row)

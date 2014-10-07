@@ -2,22 +2,24 @@
 namespace Craft;
 
 /**
- * Craft by Pixel & Tonic
+ * Request functions.
  *
- * @package   Craft
- * @author    Pixel & Tonic, Inc.
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
  * @license   http://buildwithcraft.com/license Craft License Agreement
- * @link      http://buildwithcraft.com
- */
-
-/**
- * Request functions
+ * @see       http://buildwithcraft.com
+ * @package   craft.app.variables
+ * @since     1.0
  */
 class HttpRequestVariable
 {
+	// Public Methods
+	// =========================================================================
+
 	/**
 	 * Returns whether this is an Ajax request.
+	 *
+	 * @return bool
 	 */
 	public function isAjax()
 	{
@@ -89,6 +91,7 @@ class HttpRequestVariable
 	 * Returns a specific URI segment, or null if the segment doesn't exist.
 	 *
 	 * @param int $num
+	 *
 	 * @return string|null
 	 */
 	public function getSegment($num)
@@ -119,8 +122,9 @@ class HttpRequestVariable
 	/**
 	 * Returns a variable from either the query string or the post data.
 	 *
-	 * @param string $name
-	 * @param string $default
+	 * @param string      $name
+	 * @param string|null $default
+	 *
 	 * @return mixed
 	 */
 	public function getParam($name, $default = null)
@@ -131,11 +135,12 @@ class HttpRequestVariable
 	/**
 	 * Returns a variable from the query string.
 	 *
-	 * @param string $name
-	 * @param string $default
+	 * @param string|null $name
+	 * @param string|null $default
+	 *
 	 * @return mixed
 	 */
-	public function getQuery($name, $default = null)
+	public function getQuery($name = null, $default = null)
 	{
 		return craft()->request->getQuery($name, $default);
 	}
@@ -143,20 +148,22 @@ class HttpRequestVariable
 	/**
 	 * Returns a value from post data.
 	 *
-	 * @param string $name
-	 * @param string $default
+	 * @param string|null $name
+	 * @param string|null $default
+	 *
 	 * @return mixed
 	 */
-	public function getPost($name, $default = null)
+	public function getPost($name = null, $default = null)
 	{
 		return craft()->request->getPost($name, $default);
 	}
 
 	/**
-	 * Returns a \CHttpCookie if it exists, otherwise, null.
+	 * Returns a {@link HttpCookie} if it exists, otherwise, null.
 	 *
 	 * @param $name
-	 * @return \CHttpCookie|null
+	 *
+	 * @return HttpCookie|null
 	 */
 	public function getCookie($name)
 	{
@@ -194,6 +201,7 @@ class HttpRequestVariable
 	 * Returns whether the request is coming from a mobile browser.
 	 *
 	 * @param bool $detectTablets
+	 *
 	 * @return bool
 	 */
 	public function isMobileBrowser($detectTablets = false)
@@ -212,10 +220,11 @@ class HttpRequestVariable
 	}
 
 	/**
-	 * Returns the schema and host part of the application URL.  The returned URL does not have an ending slash.
-	 * By default this is determined based on the user request information.
+	 * Returns the schema and host part of the application URL.  The returned URL does not have an ending slash. By
+	 * default this is determined based on the user request information.
 	 *
 	 * @param string $schema
+	 *
 	 * @return string
 	 */
 	public function getHostInfo($schema = '')
@@ -234,8 +243,8 @@ class HttpRequestVariable
 	}
 
 	/**
-	 * Returns the path info of the currently requested URL. This refers to the part that is after the entry script and before the question mark.
-	 * The starting and ending slashes are stripped off.
+	 * Returns the path info of the currently requested URL. This refers to the part that is after the entry script and
+	 * before the question mark. The starting and ending slashes are stripped off.
 	 *
 	 * @return string
 	 */
@@ -245,8 +254,8 @@ class HttpRequestVariable
 	}
 
 	/**
-	 * Returns the request URI portion for the currently requested URL.  This refers to the portion that is after the host info part.
-	 * It includes the query string part if any.
+	 * Returns the request URI portion for the currently requested URL. This refers to the portion that is after the
+	 * host info part. It includes the query string part if any.
 	 *
 	 * @return string
 	 */
@@ -306,13 +315,26 @@ class HttpRequestVariable
 	}
 
 	/**
-	 * Returns the port to use for insecure requests. Defaults to 80, or the port specified by the server if the current request is insecure.
+	 * Returns the port to use for insecure requests. Defaults to 80, or the port specified by the server if the current
+	 * request is insecure.
 	 *
 	 * @return int
 	 */
 	public function getPort()
 	{
 		return craft()->request->getPort();
+	}
+
+	/**
+	 * Returns the random token used to perform CSRF validation.
+	 *
+	 * The token will be read from cookie first. If not found, a new token will be generated.
+	 *
+	 * @return string The random token for CSRF validation.
+	 */
+	public function getCsrfToken()
+	{
+		return craft()->request->getCsrfToken();
 	}
 
 }

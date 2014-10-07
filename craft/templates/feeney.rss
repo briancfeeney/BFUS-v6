@@ -9,7 +9,7 @@
         <pubDate>{{ now.rss }}</pubDate>
         <lastBuildDate>{{ now.rss }}</lastBuildDate>
 
-        {% for entry in craft.entries.section('writing,photos,reading,quotes').find() %}
+        {% for entry in craft.entries.section('writing,photos,reading').find() %}
             <item>
                 <title>{{ entry.title }}</title>
                 <link>{{ entry.url }}</link>
@@ -17,6 +17,12 @@
                 <author>{{ entry.author }}</author>
                 <guid>{{ entry.url }}</guid>
                 <description><![CDATA[
+					{% if entry.photo is not empty %}
+						<img src="{{ siteUrl }}{{ entry.photo[0].getUrl('') }}">
+					{% endif %}
+					{% if entry.bookCover is not empty %}
+						<img src="{{ siteUrl }}{{ entry.bookCover[0].getUrl('') }}">
+					{% endif %}
                     {{ entry.body }}
                 ]]></description>
             </item>

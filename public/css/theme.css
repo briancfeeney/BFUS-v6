@@ -6,6 +6,11 @@
   font-family: "chaparral-pro", georgia;
   font-weight: 300;
 }
+.chaparralB {
+  font-family: "chaparral-pro", georgia;
+  font-style: normal;
+  font-weight: 700;
+}
 .proximaL {
   font-family: "proxima-nova";
   font-weight: 300;

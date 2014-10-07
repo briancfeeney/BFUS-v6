@@ -2,27 +2,52 @@
 namespace Craft;
 
 /**
- * Craft by Pixel & Tonic
+ * Delete Stale Template Caches Task
  *
- * @package   Craft
- * @author    Pixel & Tonic, Inc.
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
  * @license   http://buildwithcraft.com/license Craft License Agreement
- * @link      http://buildwithcraft.com
- */
-
-/**
- * Delete Stale Template Caches Task
+ * @see       http://buildwithcraft.com
+ * @package   craft.app.tasks
+ * @since     2.0
  */
 class DeleteStaleTemplateCachesTask extends BaseTask
 {
+	// Properties
+	// =========================================================================
+
+	/**
+	 * @var
+	 */
 	private $_elementIds;
+
+	/**
+	 * @var
+	 */
 	private $_elementType;
 
+	/**
+	 * @var
+	 */
 	private $_batch;
+
+	/**
+	 * @var
+	 */
 	private $_batchRows;
+
+	/**
+	 * @var
+	 */
 	private $_noMoreRows;
+
+	/**
+	 * @var
+	 */
 	private $_deletedCacheIds;
+
+	// Public Methods
+	// =========================================================================
 
 	/**
 	 * Returns the default description for this task.
@@ -32,19 +57,6 @@ class DeleteStaleTemplateCachesTask extends BaseTask
 	public function getDescription()
 	{
 		return Craft::t('Deleting stale template caches');
-	}
-
-	/**
-	 * Defines the settings.
-	 *
-	 * @access protected
-	 * @return array
-	 */
-	protected function defineSettings()
-	{
-		return array(
-			'elementId' => AttributeType::Mixed,
-		);
 	}
 
 	/**
@@ -64,13 +76,13 @@ class DeleteStaleTemplateCachesTask extends BaseTask
 			return 0;
 		}
 
-		if (is_array($this->_elementIds))
+		if (is_array($elementId))
 		{
 			$this->_elementIds = $elementId;
 		}
 		else
 		{
-			$this->_elementIds = array($this->_elementIds);
+			$this->_elementIds = array($elementId);
 		}
 
 		// Figure out how many rows we're dealing with
@@ -86,6 +98,7 @@ class DeleteStaleTemplateCachesTask extends BaseTask
 	 * Runs a task step.
 	 *
 	 * @param int $step
+	 *
 	 * @return bool
 	 */
 	public function runStep($step)
@@ -142,10 +155,27 @@ class DeleteStaleTemplateCachesTask extends BaseTask
 		return true;
 	}
 
+	// Protected Methods
+	// =========================================================================
+
 	/**
-	 * Returns a DbCommand object for selecing criteria that could be dropped by this task.
+	 * Defines the settings.
 	 *
-	 * @access private
+	 * @return array
+	 */
+	protected function defineSettings()
+	{
+		return array(
+			'elementId' => AttributeType::Mixed,
+		);
+	}
+
+	// Private Methods
+	// =========================================================================
+
+	/**
+	 * Returns a DbCommand object for selecting criteria that could be dropped by this task.
+	 *
 	 * @return DbCommand
 	 */
 	private function _getQuery()

@@ -34,11 +34,11 @@
 			<nav>
 				<ul>
 					<li id="title"><a href="{{ siteUrl }}">{{ siteName }}</a></li>
-					<li><a href="{{ url('work') }}" {% if craft.request.firstSegment == 'work' %}class="active"{% endif %}>Work</a></li>
-					<li><a href="{{ url('photos') }}" {% if craft.request.firstSegment == 'photos' %}class="active"{% endif %}>Photos</a></li>
-					<li><a href="{{ url('journal') }}" {% if craft.request.firstSegment == 'journal' %}class="active"{% endif %}>Journal</a></li>
-					<!-- <li><a href="{{ url('reading') }}" {% if craft.request.firstSegment == 'reading' %}class="active"{% endif %}>Reading</a></li>
 					<li><a href="{{ url('writing') }}" {% if craft.request.firstSegment == 'writing' %}class="active"{% endif %}>Writing</a></li>
+					<li><a href="{{ url('photos') }}" {% if craft.request.firstSegment == 'photos' %}class="active"{% endif %}>Photos</a></li>
+					<!-- <li><a href="{{ url('reading') }}" {% if craft.request.firstSegment == 'reading' %}class="active"{% endif %}>Reading</a></li>
+					<li><a href="{{ url('work') }}" {% if craft.request.firstSegment == 'work' %}class="active"{% endif %}>Work</a></li>
+					<li><a href="{{ url('journal') }}" {% if craft.request.firstSegment == 'journal' %}class="active"{% endif %}>Journal</a></li>
 					<li><a href="{{ url('playground') }}" {% if craft.request.firstSegment == 'playground' %}class="active"{% endif %}>Playground</a></li>
 					<li><a href="{{ url('quotes') }}" {% if craft.request.firstSegment == 'quotes' %}class="active"{% endif %}>Quotes</a></li>
 					<li><a href="{{ url('about') }}" {% if craft.request.firstSegment == 'about' %}class="active"{% endif %}>About</a></li> -->
@@ -59,30 +59,25 @@
 			<button data-icon="d" class="socialIcon icon-torso"></button>
 		</header>
 		
-		<div id="main" data-stellar-ratio="1">
+		<div id="main">
 			{% block content %}
 				<p>If you see me, you haven’t set your <code>{% verbatim %}{% block content %}…{% endblock %}{% endverbatim %}</code> yet.</p>
 				<p>See Twig’s <a href="http://twig.sensiolabs.org/doc/templates.html#template-inheritance">Template Inheritance</a> documentation for an explanation.</p>
 			{% endblock %}
 		</div>
 
-		<footer id="footer" data-stellar-ratio="2">
+		<footer id="footer">
 			<div class="container">
 			{% if craft.request.firstSegment == 'photos' %}
 			
 				<div data-icon="t" class="icon-camera footerIcon"></div>
-				{% for date, entries in craft.entries.section('photos').limit(null) | group("postDate|date('Y')") %}
+				{% for date, entries in craft.entries.section('photos').type('photos').limit(null) | group("postDate|date('Y')") %}
 				    <h4>{{ date }}</h4>
-				    <ul>
 				        {% for entry in entries %}
 				            <a href="{{ entry.url() }}">
-								<li>
-									<h5>{{ entry.postDate.format('M d, Y') }}</h5>
-									<h1>{{ entry.title }}</h1>
-								</li>
+								{{ entry.title }}
 							</a>
 				        {% endfor %}
-				    </ul>
 				{% endfor %}
 				
 			{% elseif craft.request.firstSegment == 'writing' %}
@@ -103,12 +98,49 @@
 			
 				<div class="footerIcon"></div>
 				
-				<ul>
-					<li>
-						<p>I'm currently employed by the Brooklyn Museum, working on a bunch of really great stuff, none of which I can talk about yet. Soon.</p>
+				<ul class="aboutMe">
+					<li class="bkm">
+						<img src="../public/images/BM-logo.png">
+						<p>I'm currently employed as a designer by the Brooklyn Museum, working on their new Visitor Experience Initiative. You can read about it on <a href="http://www.brooklynmuseum.org/community/blogosphere/tag/visitorexperience/">the museum Tech Blog</a>.</p>
 					</li>
+				</ul>
+				<ul>
+					<h4>Writing</h4>
+					{% for date, entries in craft.entries.section('writing').limit(5) | group("postDate|date('Y')") %}
+				        {% for entry in entries %}
+				            <a href="{{ entry.url() }}">
+								<li>
+									<h5>{{ entry.postDate.format('M d, Y') }}</h5>
+									<h1>{{ entry.title }}</h1>
+								</li>
+							</a>
+				        {% endfor %}
+					{% endfor %}
+				</ul>
+			</div><!-- container -->	
+				
+				<ul class="photos">
+					<div class="container">
+					<h4>Photos</h4>
+					</div>
+					{% for date, entries in craft.entries.section('photos').type('photos').limit(9).order('RAND()') | group("postDate|date('Y')") %}
+				        {% for entry in entries %}
+				            <a href="{{ entry.url() }}">
+								{% for image in entry.photo %}
+								<li style="background-image: url( {{ image.getUrl('MediumImages') }} );">
+								</li>
+								{% endfor %}
+							</a>
+				        {% endfor %}
+					{% endfor %}
+				</ul>
+				
+			
+				
+				<ul class="aboutMe borderless">
+					<div class="container borderless">
 					<li>
-						<p>I also take freelance work and am working on a couple personal projects. Want to work with me on something? Just want to say "hey"? <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Get in touch!</a></p>
+						<p>I also take freelance work. Want to work with me on something? Just want to say "hey"? <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Send me a note.</a> I'm currently booked through January 2015.</p>
 						<div id="accordion">
 							<!-- <h3>
 								<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Contact Me</a>
@@ -171,35 +203,13 @@
 							</div>
 						</div>
 					</li>
+					</div>
+					<li class="bkm text-center">
+						<p>A new portfolio is coming soon . . .</p>
+					</li>
 				</ul>
-				<ul>
-					<h4>Writing</h4>
-					{% for date, entries in craft.entries.section('writing').limit(5) | group("postDate|date('Y')") %}
-				        {% for entry in entries %}
-				            <a href="{{ entry.url() }}">
-								<li>
-									<h5>{{ entry.postDate.format('M d, Y') }}</h5>
-									<h1>{{ entry.title }}</h1>
-								</li>
-							</a>
-				        {% endfor %}
-					{% endfor %}
-				</ul>
-				<ul>
-					<h4>Photos</h4>
-					{% for date, entries in craft.entries.section('photos').limit(5) | group("postDate|date('Y')") %}
-				        {% for entry in entries %}
-				            <a href="{{ entry.url() }}">
-								<li>
-									{% for image in entry.photo %}
-										<img src="{{ image.getUrl() }}">
-									{% endfor %}
-								</li>
-							</a>
-				        {% endfor %}
-					{% endfor %}
-				</ul>
-				<ul>
+				
+				<!-- <ul>
 					<h4>Reading</h4>
 					{% for date, entries in craft.entries.section('reading').limit(5) | group("postDate|date('Y')") %}
 				        {% for entry in entries %}
@@ -212,7 +222,7 @@
 				        {% endfor %}
 					{% endfor %}
 				</ul>
-				<!-- <ul>
+				<ul>
 					<h4>Work</h4>
 					{% for date, entries in craft.entries.section('work').limit(5) | group("postDate|date('Y')") %}
 				        {% for entry in entries %}
@@ -239,7 +249,19 @@
 					{% endfor %}
 				</ul> -->
 				
+				
+				<!-- <ul class="finalStuff">
+					<li><h1>Email Me<a href="mailto:bcfeeney+bfus@gmail.com"><div data-icon="u" class="icon-mail"></div></a></h1></li>
+					<li><h1>RSS Feed<a href="{{ siteUrl() }}/feeney.rss"><div data-icon="s" class="icon-rss"></div></a></h1></li>
+				</ul> -->
+				
+				
 			{% endif %}
+			
+				<div class="RSS">
+					<a href="{{ siteUrl() }}feeney.rss"><div data-icon="s" class="icon-rss"></div></a>
+				</div>
+				
 			</div>
 		</footer>
 

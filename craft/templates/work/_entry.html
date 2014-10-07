@@ -9,6 +9,8 @@
 
 <style>
 	.workBody p a {border-bottom: 1px solid #{{ entry.color }};}
+	header {background: #{{ entry.color }};}
+	#work #main {margin-top:0;}
 </style>
 
 <div class="workFlex">
@@ -20,7 +22,7 @@
 		<h4>{% if entry.type == 'printDesign' %}<a href="/work">Print Design</a>{% endif %}</h4>
 		-->
 	
-		<h4><a href="/work">{{ entry.postDate.format('F Y') }}</a></h4>
+		<!-- <h4><a href="/work">{{ entry.postDate.format('F Y') }}</a></h4> -->
 		<h1>{{ entry.title }}</h1>
 		
 	</div>

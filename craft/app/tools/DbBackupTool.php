@@ -2,20 +2,20 @@
 namespace Craft;
 
 /**
- * Craft by Pixel & Tonic
+ * Backup Database tool
  *
- * @package   Craft
- * @author    Pixel & Tonic, Inc.
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
  * @license   http://buildwithcraft.com/license Craft License Agreement
- * @link      http://buildwithcraft.com
- */
-
-/**
- * Backup Database tool
+ * @see       http://buildwithcraft.com
+ * @package   craft.app.tools
+ * @since     1.0
  */
 class DbBackupTool extends BaseTool
 {
+	// Public Methods
+	// =========================================================================
+
 	/**
 	 * Returns the tool name.
 	 *
@@ -54,15 +54,19 @@ class DbBackupTool extends BaseTool
 	 * Performs the tool's action.
 	 *
 	 * @param array $params
+	 *
 	 * @return array
 	 */
 	public function performAction($params = array())
 	{
-		$file = craft()->db->backup();
+		// In addition to the default tables we want to ignore data in, we also don't care about data in the session
+		// table in this tools' case.
+		$file = craft()->db->backup(array('sessions'));
 
 		if (IOHelper::fileExists($file) && isset($params['downloadBackup']) && (bool)$params['downloadBackup'])
 		{
 			$destZip = craft()->path->getTempPath().IOHelper::getFileName($file, false).'.zip';
+
 			if (IOHelper::fileExists($destZip))
 			{
 				IOHelper::deleteFile($destZip, true);

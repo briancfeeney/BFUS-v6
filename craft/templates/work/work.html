@@ -1,0 +1,79 @@
+{#
+ # Work index template
+ # -------------------
+ #}
+
+{% extends "_layout" %}
+{% set title = "Work" %}
+
+{% block content %}
+
+
+	<section id="theWork">
+
+		<div id="design">
+		    <ul class="webWork">
+		{% for entry in craft.entries.section('work').type('webDesign') %}
+		            
+				<li class="{{ entry.type }}">
+					<div class="visuals">
+						<a href="{{ entry.url() }}">
+						{% for image in entry.portfolioImages.limit(1) %}
+							<div class="workImage" style="background:url({{ image.getUrl() }});"></div>
+						{% endfor %}
+						</a>
+					</div>
+					<div class="workMeta">
+						<!-- <h4>{{ entry.postDate.format('F Y') }}</h4> -->
+						<a href="{{ entry.url() }}">
+							<h1 style="color: #{{ entry.color }}">{{ entry.title }}</h1>
+						</a>
+					</div>
+				</li>
+
+		{% endfor %}
+		    </ul>
+		
+			<ul class="printWork">
+				{% for entry in craft.entries.section('work').type('printDesign') %}
+
+						<li class="{{ entry.type }}">
+							<div class="visuals">
+								<a href="{{ entry.url() }}">
+								{% for image in entry.portfolioImages.limit(1) %}
+									<img src="{{ image.getUrl() }}">
+								{% endfor %}
+								</a>
+							</div>
+						</li>
+
+				{% endfor %}
+			</ul>
+		
+		</div>
+		
+	</section>
+	
+	<script src="../public/js/jquery.masonry.min.js"></script>
+	<script>
+
+			var $container = $('.printWork');
+			// initialize Masonry after all images have loaded  
+			$container.imagesLoaded( function() {
+			  $container.masonry(	{
+				  itemSelector: 'li'
+				});
+			});
+
+
+		$( window ).resize(function() {
+		  	var $container = $('.printWork');
+			// initialize
+			$container.masonry({
+			  itemSelector: 'li'
+			});
+		});
+
+	</script>
+	
+{% endblock %}

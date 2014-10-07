@@ -9,7 +9,7 @@
 {% block content %}
 
 		<section class="gallery">
-			{% paginate craft.entries.section('photos').limit(20) as entries %}
+			{% paginate craft.entries.section('photos').limit(10) as entries %}
 			{% for entry in entries %}
 				{% if entry.photo|length %}
 					<article>
@@ -22,7 +22,8 @@
 			{% endfor %}
 		</section>
 		
-		<div class="photoNav">
+		<div class="container">
+		<div class="pagination">
 		    {% if paginate.nextUrl %}
 		        <a href="{{ paginate.nextUrl }}" class="paging prev">Older</a>
 		    {% endif %}
@@ -31,6 +32,7 @@
 		    {% endif %}
 
 			{% endpaginate %}
+		</div>
 		</div>
 	
 	<script src="../public/js/jquery.masonry.min.js"></script>

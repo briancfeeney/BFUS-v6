@@ -25,6 +25,7 @@
 			{% for image in entry.photo %}
 				<img src="{{ image.getUrl() }}">
 			{% endfor %}
+			<h5>{{ entry.postDate.format('F d, Y') }}</h5>
 		</article>
 	{% endif %}
 	</div>

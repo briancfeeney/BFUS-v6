@@ -2,32 +2,43 @@
 namespace Craft;
 
 /**
- * Craft by Pixel & Tonic
+ * BaseController is a base class that all controllers in Craft extend.
  *
- * @package   Craft
- * @author    Pixel & Tonic, Inc.
+ * It extend's Yii's {@link \CController} overwriting specific methods as required.
+ *
+ * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
  * @license   http://buildwithcraft.com/license Craft License Agreement
- * @link      http://buildwithcraft.com
- */
-
-/**
- *
+ * @see       http://buildwithcraft.com
+ * @package   craft.app.controllers
+ * @since     1.0
  */
 abstract class BaseController extends \CController
 {
+	// Properties
+	// =========================================================================
+
 	/**
 	 * If set to false, you are required to be logged in to execute any of the given controller's actions.
+	 *
 	 * If set to true, anonymous access is allowed for all of the given controller's actions.
-	 * If the value is an array of action names, then you must be logged in for any action method except for the ones in the array list.
-	 * If you have a controller that where the majority of action methods will be anonymous, but you only want require login on a few, it's best to use craft()->userSession->requireLogin() in the individual methods.
+	 *
+	 * If the value is an array of action names, then you must be logged in for any action method except for the ones in
+	 * the array list.
+	 *
+	 * If you have a controller that where the majority of action methods will be anonymous, but you only want require
+	 * login on a few, it's best to use {@link UserSessionService::requireLogin() craft()->userSession->requireLogin()}
+	 * in the individual methods.
 	 *
 	 * @var bool
 	 */
 	protected $allowAnonymous = false;
 
+	// Public Methods
+	// =========================================================================
+
 	/**
-	 * Include any route params gathered by UrlManager as controller action params.
+	 * Include any route params gathered by {@link UrlManager} as controller action params.
 	 *
 	 * @return array
 	 */
@@ -45,8 +56,8 @@ abstract class BaseController extends \CController
 	}
 
 	/**
-	 * Returns the folder containing view files for this controller.
-	 * We're overriding this since CController's version defaults $module to craft().
+	 * Returns the folder containing view files for this controller. Craft overrides this since {@link \CController}'s
+	 * version defaults $module to craft().
 	 *
 	 * @return string The folder containing the view files for this controller.
 	 */
@@ -63,10 +74,11 @@ abstract class BaseController extends \CController
 	/**
 	 * Renders a template, and either outputs or returns it.
 	 *
-	 * @param mixed $template      The name of the template to load, or a StringTemplate object.
-	 * @param array $variables     The variables that should be available to the template
-	 * @param bool  $return        Whether to return the results, rather than output them
+	 * @param mixed $template      The name of the template to load, or a {@link StringTemplate} object.
+	 * @param array $variables     The variables that should be available to the template.
+	 * @param bool  $return        Whether to return the results, rather than output them.
 	 * @param bool  $processOutput
+	 *
 	 * @throws HttpException
 	 * @return mixed
 	 */
@@ -85,27 +97,29 @@ abstract class BaseController extends \CController
 			}
 			else
 			{
-				// Get the template file's MIME type
-
-				// Safe to assume that findTemplate() will return an actual template path here, and not `false`.
-				// If the template didn't exist, a TemplateLoaderException would have been thrown when calling craft()->templates->render().
-				$templateFile = craft()->templates->findTemplate($template);
-				$extension = IOHelper::getExtension($templateFile, 'html');
-
-				if ($extension == 'twig')
-				{
-					$extension = 'html';
-				}
-
-				// If Content-Type is set already, presumably the template set it with the {% header %} tag.
+				// Set the MIME type for the request based on the matched template's file extension (unless the
+				// Content-Type header was already set, perhaps by the template via the {% header %} tag)
 				if (!HeaderHelper::isHeaderSet('Content-Type'))
 				{
+					// Safe to assume that findTemplate() will return an actual template path here, and not `false`.
+					// If the template didn't exist, a TemplateLoaderException would have been thrown when calling
+					// craft()->templates->render().
+					$templateFile = craft()->templates->findTemplate($template);
+					$extension = IOHelper::getExtension($templateFile, 'html');
+
+					if ($extension == 'twig')
+					{
+						$extension = 'html';
+					}
+
 					HeaderHelper::setContentTypeByExtension($extension);
 				}
 
+				// Set the charset header
 				HeaderHelper::setHeader(array('charset' => 'utf-8'));
 
-				if ($extension == 'html')
+				// Are we serving HTML or XHTML?
+				if (in_array(HeaderHelper::getMimeType(), array('text/html', 'application/xhtml+xml')))
 				{
 					// Are there any head/foot nodes left in the queue?
 					$headHtml = craft()->templates->getHeadHtml();
@@ -115,7 +129,7 @@ abstract class BaseController extends \CController
 					{
 						if (($endHeadPos = mb_stripos($output, '</head>')) !== false)
 						{
-							$output = mb_substr($output, 0, $endHeadPos) . $headHtml . mb_substr($output, $endHeadPos);
+							$output = mb_substr($output, 0, $endHeadPos).$headHtml.mb_substr($output, $endHeadPos);
 						}
 						else
 						{
@@ -127,7 +141,7 @@ abstract class BaseController extends \CController
 					{
 						if (($endBodyPos = mb_stripos($output, '</body>')) !== false)
 						{
-							$output = mb_substr($output, 0, $endBodyPos) . $footHtml . mb_substr($output, $endBodyPos);
+							$output = mb_substr($output, 0, $endBodyPos).$footHtml.mb_substr($output, $endBodyPos);
 						}
 						else
 						{
@@ -135,14 +149,9 @@ abstract class BaseController extends \CController
 						}
 					}
 				}
-				else
-				{
-					// If this is a non-HTML, non-Twig request, remove the extra logging information.
-					craft()->log->removeRoute('WebLogRoute');
-					craft()->log->removeRoute('ProfileLogRoute');
-				}
 
-				// Output to the browser!
+				// Output it into a buffer, in case TasksService wants to close the connection prematurely
+				ob_start();
 				echo $output;
 
 				// End the request
@@ -156,7 +165,9 @@ abstract class BaseController extends \CController
 	}
 
 	/**
-	 * Redirects user to the login template if they're not logged in
+	 * Redirects user to the login template if they're not logged in.
+	 *
+	 * @return null
 	 */
 	public function requireLogin()
 	{
@@ -167,7 +178,10 @@ abstract class BaseController extends \CController
 	}
 
 	/**
-	 * Requires the current user to be logged in as an admin
+	 * Requires the current user to be logged in as an admin.
+	 *
+	 * @throws HttpException
+	 * @return null
 	 */
 	public function requireAdmin()
 	{
@@ -181,6 +195,7 @@ abstract class BaseController extends \CController
 	 * Returns a 400 if this isn't a POST request
 	 *
 	 * @throws HttpException
+	 * @return null
 	 */
 	public function requirePostRequest()
 	{
@@ -191,9 +206,10 @@ abstract class BaseController extends \CController
 	}
 
 	/**
-	 * Returns a 400 if this isn't an Ajax request
+	 * Returns a 400 if this isn't an Ajax request.
 	 *
 	 * @throws HttpException
+	 * @return null
 	 */
 	public function requireAjaxRequest()
 	{
@@ -207,6 +223,7 @@ abstract class BaseController extends \CController
 	 * Requires the current request to include a token.
 	 *
 	 * @throws HttpException
+	 * @return null
 	 */
 	public function requireToken()
 	{
@@ -222,6 +239,8 @@ abstract class BaseController extends \CController
 	 * @param      $url
 	 * @param bool $terminate
 	 * @param int  $statusCode
+	 *
+	 * @return null
 	 */
 	public function redirect($url, $terminate = true, $statusCode = 302)
 	{
@@ -239,15 +258,26 @@ abstract class BaseController extends \CController
 	/**
 	 * Redirects to the URI specified in the POST.
 	 *
-	 * @param mixed $object Object containing properties that should be parsed for in the URL.
+	 * @param mixed  $object  Object containing properties that should be parsed for in the URL.
+	 * @param string $default The default URL to redirect them to, if no 'redirect' parameter exists. If this is left
+	 *                        null, then the current request’s path will be used.
+	 *
+	 * @return null
 	 */
-	public function redirectToPostedUrl($object = null)
+	public function redirectToPostedUrl($object = null, $default = null)
 	{
 		$url = craft()->request->getPost('redirect');
 
 		if ($url === null)
 		{
-			$url = craft()->request->getPath();
+			if ($default !== null)
+			{
+				$url = $default;
+			}
+			else
+			{
+				$url = craft()->request->getPath();
+			}
 		}
 
 		if ($object)
@@ -262,11 +292,17 @@ abstract class BaseController extends \CController
 	 * Respond with JSON
 	 *
 	 * @param array|null $var The array to JSON-encode and return
+	 *
+	 * @return null
 	 */
 	public function returnJson($var = array())
 	{
 		JsonHelper::sendJsonHeaders();
+
+		// Output it into a buffer, in case TasksService wants to close the connection prematurely
+		ob_start();
 		echo JsonHelper::encode($var);
+
 		craft()->end();
 	}
 
@@ -274,6 +310,8 @@ abstract class BaseController extends \CController
 	 * Respond with a JSON error message
 	 *
 	 * @param string $error The error message
+	 *
+	 * @return null
 	 */
 	public function returnErrorJson($error)
 	{
@@ -281,10 +319,11 @@ abstract class BaseController extends \CController
 	}
 
 	/**
-	 * Checks if a controller has overridden allowAnonymous either as an array with actions to allow anonymous access to
-	 * or as a bool that applies to all actions.
+	 * Checks if a controller has overridden allowAnonymous either as an array with actions to allow anonymous access
+	 * to or as a bool that applies to all actions.
 	 *
 	 * @param \CAction $action
+	 *
 	 * @return bool
 	 */
 	public function beforeAction($action)
@@ -312,5 +351,6 @@ abstract class BaseController extends \CController
 	 */
 	public function filters()
 	{
+
 	}
 }
