@@ -4070,7 +4070,7 @@ footer p a {
   background-color: #fcb062;
 }
 /* -------------------------------------------------------------------------------- */
-@media (min-width: 1450px) {
+@media (min-width: 1500px) {
   .container {
     width: 1200px;
   }
@@ -4188,7 +4188,7 @@ footer p a {
   opacity: .5;
 }
 #introText {
-  margin: 2.5em auto;
+  margin: 3.5em auto;
   padding: 1em;
   color: #f6f5ec;
   max-width: 26em;
@@ -4200,6 +4200,11 @@ footer p a {
 @media (max-width: 768px) {
   #introText {
     font-size: 1.5em;
+  }
+}
+@media (min-width: 1500px) {
+  #introText {
+    margin: 5em auto;
   }
 }
 #landingAbout {

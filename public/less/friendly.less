@@ -5,6 +5,7 @@
 @phone:		420px;
 @tablet: 	600px;
 @desktop:	1200px;
+@widescreen: 1500px;
 
 /* -------------------------------------------------------------------------------- */
 // BASIC RESET
@@ -424,7 +425,7 @@ footer {
 // MISC.
 
 .container {
-	@media (min-width: 1450px) {
+	@media (min-width: @widescreen) {
 		width: 1200px;
 	}
 }
@@ -549,7 +550,7 @@ footer {
 }
 
 #introText {
-	margin: 2.5em auto;
+	margin: 3.5em auto;
 	padding: 1em;
 	color: @chalk;
 	max-width: 26em;
@@ -557,6 +558,9 @@ footer {
 	.proximaT();
 	@media (max-width: @screen-sm) {
 		font-size: 1.5em;
+	}
+	@media (min-width: @widescreen) {
+		margin: 5em auto;
 	}
 }
 

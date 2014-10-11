@@ -83,6 +83,16 @@
 			{% elseif craft.request.firstSegment == 'writing' %}
 
 				<div data-icon="x" class="icon-pencil footerIcon"></div>
+				
+				<div class="editor">
+				{% for entry in craft.entries.section('writing').type('lettersFromTheEditor').limit(1).find() %}
+					<h4>Letter from the Editor <small style="margin-left: 10px;">{{ entry.postDate.format('F d, Y') }}</small></h4>
+					<ul>
+						<li><a href="{{ entry.url }}"><h1 class="subTitle">{{ entry.title }}</h1></a></li>
+					</ul>
+				{% endfor %}
+				</div>
+				
 				{% if globalWriting.articleSubjects | length %}
 					{% for subject in globalWriting.articleSubjects %}
 						<h4 class="subjectTitle">{{ subject.subjectTitle }}</h4>
@@ -101,7 +111,7 @@
 				<ul class="aboutMe">
 					<li class="bkm">
 						<img src="../public/images/BM-logo.png">
-						<p>I'm currently employed as a designer by the Brooklyn Museum, working on their new Visitor Experience Initiative. You can read about it on <a href="http://www.brooklynmuseum.org/community/blogosphere/tag/visitorexperience/">the museum Tech Blog</a>.</p>
+						<p>I'm currently employed as a designer by the Brooklyn Museum, working on their new Visitor Experience Initiative. You can read about it on <a href="http://www.brooklynmuseum.org/community/blogosphere/">the museum Tech Blog</a>.</p>
 					</li>
 				</ul>
 				<ul>
@@ -121,7 +131,7 @@
 				
 				<ul class="photos">
 					<div class="container">
-					<h4>Photos</h4>
+						<h4>Photos</h4>
 					</div>
 					{% for date, entries in craft.entries.section('photos').type('photos').limit(9).order('RAND()') | group("postDate|date('Y')") %}
 				        {% for entry in entries %}
@@ -135,6 +145,14 @@
 					{% endfor %}
 				</ul>
 				
+				<div class="container">
+					{% for entry in craft.entries.section('quotes').limit(1).order('RAND()') %}
+				        <article>
+							{{ entry.body }}
+							<h5>{{ entry.quoteAttribution }}</h5>
+						</article>
+					{% endfor %}
+				</div>
 			
 				
 				<ul class="aboutMe borderless">
