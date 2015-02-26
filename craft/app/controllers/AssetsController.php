@@ -8,12 +8,13 @@ namespace Craft;
  * Note that all actions in the controller except {@link actionGenerateTransform} require an authenticated Craft session
  * via {@link BaseController::allowAnonymous}.
  *
- * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
- * @package   craft.app.controllers
- * @since     1.0
+ * @author     Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright  Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license    http://buildwithcraft.com/license Craft License Agreement
+ * @see        http://buildwithcraft.com
+ * @package    craft.app.controllers
+ * @since      1.0
+ * @deprecated This class will have several breaking changes in Craft 3.0.
  */
 class AssetsController extends BaseController
 {
@@ -341,7 +342,7 @@ class AssetsController extends BaseController
 		$output = array();
 		foreach ($transforms as $transform)
 		{
-			$output[] = (object) array('id' => $transform->id, 'handle' => $transform->handle, 'name' => $transform->name);
+			$output[] = (object) array('id' => $transform->id, 'handle' => HtmlHelper::encode($transform->handle), 'name' => HtmlHelper::encode($transform->name));
 		}
 
 		$this->returnJson($output);

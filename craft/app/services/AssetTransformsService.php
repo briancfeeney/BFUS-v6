@@ -4,12 +4,13 @@ namespace Craft;
 /**
  * Class AssetTransformsService
  *
- * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
- * @package   craft.app.services
- * @since     1.0
+ * @author     Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright  Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license    http://buildwithcraft.com/license Craft License Agreement
+ * @see        http://buildwithcraft.com
+ * @package    craft.app.services
+ * @since      1.0
+ * @deprecated This class will have several breaking changes in Craft 3.0.
  */
 class AssetTransformsService extends BaseApplicationComponent
 {
@@ -644,14 +645,23 @@ class AssetTransformsService extends BaseApplicationComponent
 		$sourceType = craft()->assetSources->getSourceTypeById($file->sourceId);
 		$imageSourcePath = $sourceType->getImageSourcePath($file);
 
-		if (!IOHelper::fileExists($imageSourcePath))
+		if (!IOHelper::fileExists($imageSourcePath) || IOHelper::getFileSize($imageSourcePath) == 0)
 		{
 			if (!$sourceType->isRemote())
 			{
-				throw new Exception(Craft::t("Image “{file}” cannot be found.", array('file' => $file->filename)));
+				throw new Exception(Craft::t('Image “{file}” cannot be found.', array('file' => $file->filename)));
 			}
 
+			// Delete it just in case it's a 0-byter
+			IOHelper::deleteFile($imageSourcePath, true);
+
 			$localCopy = $sourceType->getLocalCopy($file);
+
+			if (!IOHelper::fileExists($localCopy) || IOHelper::getFileSize($localCopy) == 0)
+			{
+				throw new Exception(Craft::t('Tried to download the source file for image “{file}”, but it was 0 bytes long.', array('file' => $file->filename)));
+			}
+
 			$this->storeLocalSource($localCopy, $imageSourcePath);
 			$this->queueSourceForDeletingIfNecessary($imageSourcePath);
 		}
@@ -688,6 +698,19 @@ class AssetTransformsService extends BaseApplicationComponent
 			{
 				craft()->onEndRequest = array($this, 'deleteQueuedSourceFiles');
 			}
+		}
+	}
+
+	/**
+	 * Delete all image sources queued up for deletion.
+	 *
+	 * @return null
+	 */
+	public function deleteQueuedSourceFiles()
+	{
+		foreach ($this->_sourcesToBeDeleted as $source)
+		{
+			IOHelper::deleteFile($source, true);
 		}
 	}
 
@@ -732,15 +755,15 @@ class AssetTransformsService extends BaseApplicationComponent
 	 */
 	public function detectAutoTransformFormat(AssetFileModel $file)
 	{
-		if (in_array($file->getExtension(), ImageHelper::getWebSafeFormats()))
+		if (in_array(mb_strtolower($file->getExtension()), ImageHelper::getWebSafeFormats()))
 		{
 			return $file->getExtension();
 		}
 		else if ($file->kind == "image")
 		{
 
-			// The only reasonable way to check for transparency is with Imagick
-			// If Imagick is not present, then we fallback to jpg
+			// The only reasonable way to check for transparency is with Imagick. If Imagick is not present, then
+			// we fallback to jpg
 			if (craft()->images->isGd() || !method_exists("Imagick", "getImageAlphaChannel"))
 			{
 				return 'jpg';
@@ -1052,7 +1075,7 @@ class AssetTransformsService extends BaseApplicationComponent
 	private function _getThumbExtension(AssetFileModel $file)
 	{
 		// For non-web-safe formats we go with jpg.
-		if (!in_array(IOHelper::getExtension($file->filename), ImageHelper::getWebSafeFormats()))
+		if (!in_array(mb_strtolower(IOHelper::getExtension($file->filename)), ImageHelper::getWebSafeFormats()))
 		{
 			return 'jpg';
 		}

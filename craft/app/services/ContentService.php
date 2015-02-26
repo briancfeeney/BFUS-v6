@@ -248,6 +248,20 @@ class ContentService extends BaseApplicationComponent
 			'locale'    => $content->locale,
 		);
 
+		$excludeColumns = array_keys($values);
+		$excludeColumns = array_merge($excludeColumns, array_keys(DbHelper::getAuditColumnConfig()));
+
+		$fullContentTableName = craft()->db->addTablePrefix($this->contentTable);
+		$contentTableSchema = craft()->db->schema->getTable($fullContentTableName);
+
+		foreach ($contentTableSchema->columns as $columnSchema)
+		{
+			if ($columnSchema->allowNull && !in_array($columnSchema->name, $excludeColumns))
+			{
+				$values[$columnSchema->name] = null;
+			}
+		}
+
 		// If the element type has titles, than it's required and will be set. Otherwise, no need to include it (it
 		// might not even be a real column if this isn't the 'content' table).
 		if ($content->title)

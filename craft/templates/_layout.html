@@ -25,6 +25,17 @@
 	
 	<script type="text/javascript" src="//use.typekit.net/ghk7wom.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-716677-3', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
 
 </head>
 
@@ -45,16 +56,16 @@
 				</ul>
 			</nav>
 			<ul id="social-links">
-				<li><a href="http://twitter.com/#!/bfeeney"><div data-icon="f" class="icon-social-twitter"></div></a></li>
-				<li><a href="http://dribbble.com/bfeeney"><div data-icon="r" class="icon-social-dribble"></div></a></li>
-				<li><a href="http://instagram.com/brianfeeney/"><div data-icon="l" class="icon-social-instagram"></div></a></li>
+				<li><a href="https://twitter.com/bfeeney" rel="me"><div data-icon="f" class="icon-social-twitter"></div></a></li>
+				<li><a href="http://dribbble.com/bfeeney" rel="me"><div data-icon="r" class="icon-social-dribble"></div></a></li>
+				<li><a href="http://instagram.com/brianfeeney/" rel="me"><div data-icon="l" class="icon-social-instagram"></div></a></li>
 				<!-- <li><a href="http://www.facebook.com/bcfeeney"><div data-icon="o" class="icon-social-facebook"></div></a></li> -->
-				<li><a href="http://briancfeeney.tumblr.com"><div data-icon="g" class="icon-social-tumblr"></div></a></li>
-				<li><a href="http://pinterest.com/brianfeeney/"><div data-icon="i" class="icon-social-pinterest"></div></a></li>
-				<li><a href="http://www.rdio.com/people/brianfeeney/"><div data-icon="j" class="icon-social-rdio"></div></a></li>
+				<li><a href="http://briancfeeney.tumblr.com" rel="me"><div data-icon="g" class="icon-social-tumblr"></div></a></li>
+				<li><a href="http://pinterest.com/brianfeeney/" rel="me"><div data-icon="i" class="icon-social-pinterest"></div></a></li>
+				<li><a href="http://www.rdio.com/people/brianfeeney/" rel="me"><div data-icon="j" class="icon-social-rdio"></div></a></li>
 				<!-- <li><a href="http://www.flickr.com/photos/briancf/"><div data-icon="m" class="icon-social-flickr"></div></a></li> -->
-				<li><a href="https://github.com/briancfeeney"><div data-icon="n" class="icon-social-github"></div></a></li>
-				<li><a href="http://last.fm/user/bfeeney"><div data-icon="k" class="icon-social-lastfm"></div></a></li>
+				<li><a href="https://github.com/briancfeeney" rel="me"><div data-icon="n" class="icon-social-github"></div></a></li>
+				<li><a href="http://last.fm/user/bfeeney" rel="me"><div data-icon="k" class="icon-social-lastfm"></div></a></li>
 			</ul>
 			<button data-icon="d" class="socialIcon icon-torso"></button>
 		</header>
@@ -86,7 +97,7 @@
 				
 				<div class="editor">
 				{% for entry in craft.entries.section('writing').type('lettersFromTheEditor').limit(1).find() %}
-					<h4>Letter from the Editor <small style="margin-left: 10px;">{{ entry.postDate.format('F d, Y') }}</small></h4>
+					<h4>Letter from the Editor <small>{{ entry.postDate.format('F d, Y') }}</small></h4>
 					<ul>
 						<li><a href="{{ entry.url }}"><h1 class="subTitle">{{ entry.title }}</h1></a></li>
 					</ul>
@@ -111,12 +122,12 @@
 				<ul class="aboutMe">
 					<li class="bkm">
 						<img src="../public/images/BM-logo.png">
-						<p>I'm currently employed as a designer by the Brooklyn Museum, working on their new Visitor Experience Initiative. You can read about it on <a href="http://www.brooklynmuseum.org/community/blogosphere/">the museum Tech Blog</a>.</p>
+						<p>I'm currently employed as a designer by the Brooklyn Museum, working on the Bloomberg Connects project. You can read about it on <a href="http://www.brooklynmuseum.org/community/blogosphere/">the museum Tech Blog</a>.</p>
 					</li>
 				</ul>
 				<ul>
 					<h4>Writing</h4>
-					{% for date, entries in craft.entries.section('writing').limit(5) | group("postDate|date('Y')") %}
+					{% for date, entries in craft.entries.section('writing').type('journal', 'articles').limit(5) | group("postDate|date('Y')") %}
 				        {% for entry in entries %}
 				            <a href="{{ entry.url() }}">
 								<li>
@@ -145,134 +156,15 @@
 					{% endfor %}
 				</ul>
 				
-				<div class="container">
+				<div class="container borderless">
 					{% for entry in craft.entries.section('quotes').limit(1).order('RAND()') %}
-				        <article>
+				        <article class="footer-quote">
 							{{ entry.body }}
 							<h5>{{ entry.quoteAttribution }}</h5>
 						</article>
 					{% endfor %}
 				</div>
 			
-				
-				<ul class="aboutMe borderless">
-					<div class="container borderless">
-					<li>
-						<p>I also take freelance work. Want to work with me on something? Just want to say "hey"? <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Send me a note.</a> I'm currently booked through January 2015.</p>
-						<div id="accordion">
-							<!-- <h3>
-								<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Contact Me</a>
-							</h3> -->
-							<div id="collapseOne" class="panel panel-collapse collapse">
-								<div class="panel-body">
-									<div class="wufoo">
-										<head>
-											<!-- Meta Tags -->
-											<meta charset="utf-8">
-											<meta name="generator" content="Wufoo">
-											<meta name="robots" content="index, follow">
-
-											<!-- JavaScript -->
-											<script src="<?php echo get_template_directory_uri(); ?>/js/wufoo.js"></script>
-
-											<!--[if lt IE 10]>
-											<script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-											<![endif]-->
-										</head>
-										<body id="public">
-											<div id="container" class="ltr">
-												<form id="form1" name="form1" class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate action="https://bfeeney.wufoo.com/forms/z7x4m1/#public">
-													<label class="desc" id="title3" for="Field3">Your Name</label>
-													<div class="formName">
-														<input id="Field3" name="Field3" type="text" class="field text fn nameField" value="" size="8" tabindex="1" placeholder=" "/>
-													</div>
-
-													<label class="desc" id="title5" for="Field5">Your Email</label>
-													<div>
-														<input id="Field5" name="Field5" type="email" spellcheck="false" class="field text medium" value="" maxlength="255" tabindex="3" /> 
-													</div>
-
-													<div id="foli6" class="notranslate">
-														<label class="desc" id="title6" for="Field6">Your Words</label>
-														<div>
-															<textarea id="Field6" name="Field6" class="field textarea large" spellcheck="true" rows="6" cols="50" tabindex="4" onkeyup=""></textarea>
-														</div>
-													</div> 
-													<div class="buttons ">
-														<div><input id="saveForm" name="saveForm" class="btTxt submit" type="submit" value="Submit"/></div>
-													</div>
-												</form> 
-
-												<script>
-													$(".wufoo input, .wufoo textarea").focus(function() {
-														$(".contact-hello").hide();
-														$(".contact-thanks").show();
-													});
-													$(".wufoo input, .wufoo textarea").focusout(function() {
-														$(".contact-hello").show();
-														$(".contact-thanks").hide();
-													});
-												</script>
-
-											</div><!--container-->
-										</body>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-					</div>
-					<li class="bkm text-center">
-						<p>A new portfolio is coming soon . . .</p>
-					</li>
-				</ul>
-				
-				<!-- <ul>
-					<h4>Reading</h4>
-					{% for date, entries in craft.entries.section('reading').limit(5) | group("postDate|date('Y')") %}
-				        {% for entry in entries %}
-				            <a href="{{ entry.url() }}">
-								<li>
-									<h5>{{ entry.readingAuthor }}</h5>
-									<h1>{{ entry.title }}</h1>
-								</li>
-							</a>
-				        {% endfor %}
-					{% endfor %}
-				</ul>
-				<ul>
-					<h4>Work</h4>
-					{% for date, entries in craft.entries.section('work').limit(5) | group("postDate|date('Y')") %}
-				        {% for entry in entries %}
-				            <a href="{{ entry.url() }}">
-								<li>
-									<h5>{{ entry.type.name }}</h5>
-									<h1>{{ entry.title }}</h1>
-								</li>
-							</a>
-				        {% endfor %}
-					{% endfor %}
-				</ul>
-				
-				<ul>
-					<h4>Quotes</h4>
-					{% for date, entries in craft.entries.section('quotes').limit(5) | group("postDate|date('Y')") %}
-				        {% for entry in entries %}
-				            <a href="{{ entry.url() }}">
-								<li>
-									<h1>{{ entry.quoteAttribution }}</h1>
-								</li>
-							</a>
-				        {% endfor %}
-					{% endfor %}
-				</ul> -->
-				
-				
-				<!-- <ul class="finalStuff">
-					<li><h1>Email Me<a href="mailto:bcfeeney+bfus@gmail.com"><div data-icon="u" class="icon-mail"></div></a></h1></li>
-					<li><h1>RSS Feed<a href="{{ siteUrl() }}/feeney.rss"><div data-icon="s" class="icon-rss"></div></a></h1></li>
-				</ul> -->
-				
 				
 			{% endif %}
 			
@@ -300,6 +192,8 @@
 	
 	<script src="../public/js/jquery.visible.min.js"></script>	
 	<script>
+		var viewportHeight = $(window).height();
+	
 		$(window).scroll(function() {
 			if ($('#footer').visible(true)) {
 			    // The element is visible, do something

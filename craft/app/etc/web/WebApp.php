@@ -111,10 +111,15 @@ class WebApp extends \CWebApplication
 	// =========================================================================
 
 	/**
+	 * Initializes the application.
+	 *
 	 * @return null
 	 */
 	public function init()
 	{
+		// NOTE: Nothing that triggers a database connection should be made here until *after* _processResourceRequest()
+		// in processRequest() is called.
+
 		// Set default timezone to UTC
 		date_default_timezone_set('UTC');
 
@@ -130,6 +135,10 @@ class WebApp extends \CWebApplication
 		// Initialize Cache, HttpRequestService and LogRouter right away (order is important)
 		$this->getComponent('cache');
 		$this->getComponent('request');
+
+		// Attach our own custom Logger
+		Craft::setLogger(new Logger());
+
 		$this->getComponent('log');
 
 		// So we can try to translate Yii framework strings
@@ -137,22 +146,6 @@ class WebApp extends \CWebApplication
 
 		// Set our own custom runtime path.
 		$this->setRuntimePath($this->path->getRuntimePath());
-
-		// Attach our own custom Logger
-		Craft::setLogger(new Logger());
-
-		// If we're not in devMode, or it's a 'dontExtendSession' request, we're going to remove some logging routes.
-		if (!$this->config->get('devMode') || (craft()->isInstalled() && !$this->userSession->shouldExtendSession()))
-		{
-			$this->log->removeRoute('WebLogRoute');
-			$this->log->removeRoute('ProfileLogRoute');
-		}
-
-		// Additionally, we don't want these in the log files at all.
-		if (craft()->isInstalled() && !$this->userSession->shouldExtendSession())
-		{
-			$this->log->removeRoute('FileLogRoute');
-		}
 
 		// If there is a custom appId set, apply it here.
 		if ($appId = $this->config->get('appId'))
@@ -173,6 +166,26 @@ class WebApp extends \CWebApplication
 	{
 		// If this is a resource request, we should respond with the resource ASAP
 		$this->_processResourceRequest();
+
+		// If we're not in devMode, or it's a 'dontExtendSession' request, we're going to remove some logging routes.
+		if (!$this->config->get('devMode') || (craft()->isInstalled() && !$this->userSession->shouldExtendSession()))
+		{
+			$this->log->removeRoute('WebLogRoute');
+			$this->log->removeRoute('ProfileLogRoute');
+		}
+
+		// Additionally, we don't want these in the log files at all.
+		if (craft()->isInstalled() && !$this->userSession->shouldExtendSession())
+		{
+			$this->log->removeRoute('FileLogRoute');
+		}
+
+		// If this is a CP request, prevent robots from indexing/following the page
+		// (see https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag)
+		if ($this->request->isCpRequest())
+		{
+			HeaderHelper::setHeader(array('X-Robots-Tag' => 'none'));
+		}
 
 		// Validate some basics on the database configuration file.
 		$this->validateDbConfigFile();
@@ -381,54 +394,6 @@ class WebApp extends \CWebApplication
 				$this->parseActionParams($action),
 			);
 		}
-	}
-
-	/**
-	 * Gets the viewPath for the incoming request.
-	 *
-	 * Craft can't use Yii's {@link setViewPath()} because Craft's view path depends on the request type, which is
-	 * initialized after web application, so we override getViewPath().
-	 *
-	 * @return string
-	 */
-	public function getViewPath()
-	{
-		if (!isset($this->_templatePath))
-		{
-			if (mb_strpos(get_class($this->request), 'HttpRequest') !== false)
-			{
-				$this->_templatePath = $this->path->getTemplatesPath();
-			}
-			else
-			{
-				// in the case of an exception, our custom classes are not loaded.
-				$this->_templatePath = CRAFT_TEMPLATES_PATH;
-			}
-		}
-
-		return $this->_templatePath;
-	}
-
-	/**
-	 * Sets the template path for the app.
-	 *
-	 * @param string $path
-	 *
-	 * @return null
-	 */
-	public function setViewPath($path)
-	{
-		$this->_templatePath = $path;
-	}
-
-	/**
-	 * Returns the CP templates path.
-	 *
-	 * @return string
-	 */
-	public function getSystemViewPath()
-	{
-		return $this->path->getCpTemplatesPath();
 	}
 
 	/**

@@ -7,12 +7,13 @@ namespace Craft;
  *
  * Note that all actions in the controller require an authenticated Craft session via {@link BaseController::allowAnonymous}.
  *
- * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
- * @package   craft.app.controllers
- * @since     1.0
+ * @author     Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright  Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license    http://buildwithcraft.com/license Craft License Agreement
+ * @see        http://buildwithcraft.com
+ * @package    craft.app.controllers
+ * @since      1.0
+ * @deprecated This class will have several breaking changes in Craft 3.0.
  */
 class AssetTransformsController extends BaseController
 {
@@ -20,16 +21,26 @@ class AssetTransformsController extends BaseController
 	// =========================================================================
 
 	/**
+	 * @inheritDoc BaseController::init()
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function init()
+	{
+		// All asset transform actions require an admin
+		craft()->userSession->requireAdmin();
+	}
+
+	/**
 	 * Shows the asset transform list.
 	 */
 	public function actionTransformIndex()
 	{
-		craft()->userSession->requireAdmin();
-
 		$variables['transforms'] = craft()->assetTransforms->getAllTransforms();
 		$variables['transformModes'] = AssetTransformModel::getTransformModes();
 
-		$this->renderTemplate('settings/assets/transforms/index', $variables);
+		$this->renderTemplate('settings/assets/transforms/_index', $variables);
 	}
 
 	/**
@@ -41,8 +52,6 @@ class AssetTransformsController extends BaseController
 	 */
 	public function actionEditTransform(array $variables = array())
 	{
-		craft()->userSession->requireAdmin();
-
 		if (empty($variables['transform']))
 		{
 			if (!empty($variables['handle']))

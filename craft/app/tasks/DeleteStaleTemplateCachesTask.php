@@ -50,7 +50,7 @@ class DeleteStaleTemplateCachesTask extends BaseTask
 	// =========================================================================
 
 	/**
-	 * Returns the default description for this task.
+	 * @inheritDoc ITask::getDescription()
 	 *
 	 * @return string
 	 */
@@ -60,7 +60,7 @@ class DeleteStaleTemplateCachesTask extends BaseTask
 	}
 
 	/**
-	 * Gets the total number of steps for this task.
+	 * @inheritDoc ITask::getTotalSteps()
 	 *
 	 * @return int
 	 */
@@ -95,7 +95,7 @@ class DeleteStaleTemplateCachesTask extends BaseTask
 	}
 
 	/**
-	 * Runs a task step.
+	 * @inheritDoc ITask::runStep()
 	 *
 	 * @param int $step
 	 *
@@ -133,6 +133,11 @@ class DeleteStaleTemplateCachesTask extends BaseTask
 		{
 			$params = JsonHelper::decode($row['criteria']);
 			$criteria = craft()->elements->getCriteria($row['type'], $params);
+
+			// Chance overcorrecting a little for the sake of templates with pending elements,
+			// whose caches should be recreated (see http://craftcms.stackexchange.com/a/2611/9)
+			$criteria->status = null;
+
 			$criteriaElementIds = $criteria->ids();
 			$cacheIdsToDelete = array();
 
@@ -159,7 +164,7 @@ class DeleteStaleTemplateCachesTask extends BaseTask
 	// =========================================================================
 
 	/**
-	 * Defines the settings.
+	 * @inheritDoc BaseSavableComponentType::defineSettings()
 	 *
 	 * @return array
 	 */

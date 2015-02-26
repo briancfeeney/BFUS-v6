@@ -125,6 +125,12 @@ class DbHelper
 	 */
 	public static function generateColumnDefinition($config)
 	{
+		// Don't do anything to PKs.
+		if ($config === ColumnType::PK)
+		{
+			return $config;
+		}
+
 		$config = static::normalizeAttributeConfig($config);
 
 		// Start the column definition
@@ -369,15 +375,7 @@ class DbHelper
 
 		foreach ($values as $value)
 		{
-			if ($value === null)
-			{
-				$value = ':empty:';
-			}
-			else if (StringHelper::toLowerCase($value) == ':notempty:')
-			{
-				$value = 'not :empty:';
-			}
-
+			static::_normalizeEmptyValue($value);
 			$operator = static::_parseParamOperator($value);
 
 			if (StringHelper::toLowerCase($value) == ':empty:')
@@ -446,6 +444,17 @@ class DbHelper
 
 		foreach ($values as $value)
 		{
+			// Is this an empty value?
+			static::_normalizeEmptyValue($value);
+
+			if ($value == ':empty:' || $value == 'not :empty:')
+			{
+				$normalizedValues[] = $value;
+
+				// Sneak out early
+				continue;
+			}
+
 			if (is_string($value))
 			{
 				$operator = static::_parseParamOperator($value);
@@ -470,18 +479,35 @@ class DbHelper
 	// =========================================================================
 
 	/**
+	 * Normalizes “empty” values.
+	 *
+	 * @param stirng &$value The param value.
+	 */
+	private static function _normalizeEmptyValue(&$value)
+	{
+		if ($value === null)
+		{
+			$value = ':empty:';
+		}
+		else if (StringHelper::toLowerCase($value) == ':notempty:')
+		{
+			$value = 'not :empty:';
+		}
+	}
+
+	/**
 	 * Extracts the operator from a DB param and returns it.
 	 *
-	 * @param string &$value
+	 * @param string &$value Te param value.
 	 *
-	 * @return string
+	 * @return string The operator.
 	 */
 	private static function _parseParamOperator(&$value)
 	{
 		foreach (static::$_operators as $testOperator)
 		{
 			// Does the value start with this operator?
-			$operatorLength = mb_strlen($testOperator);
+			$operatorLength = strlen($testOperator);
 
 			if (strncmp(StringHelper::toLowerCase($value), $testOperator, $operatorLength) == 0)
 			{

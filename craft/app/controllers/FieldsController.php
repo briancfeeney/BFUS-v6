@@ -19,6 +19,18 @@ class FieldsController extends BaseController
 	// Public Methods
 	// =========================================================================
 
+	/**
+	 * @inheritDoc BaseController::init()
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function init()
+	{
+		// All field actions require an admin
+		craft()->userSession->requireAdmin();
+	}
+
 	// Groups
 	// -------------------------------------------------------------------------
 

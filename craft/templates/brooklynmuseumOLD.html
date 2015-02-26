@@ -1,0 +1,140 @@
+{#
+ # Homepage template
+ # ---------------
+ #
+ # When this template gets loaded, it will be because someone has accessed
+ # http://yoursite.com/ (without any URI). Craft checks to see if you have
+ # a Single section set to be the Homepage (as you do, by default), and
+ # loads the section’s Template (this file). A special ‘entry’ variable
+ # will already be set for you, assigned to the Homepage entry.
+ #
+ # It's worth noting that even if you didn't have a Homepage Single section,
+ # as long as this template remains at craft/templates/index.html, it
+ # would still be the one to get loaded when accessing http://yoursite.com/,
+ # albeit without an ‘entry’ variable already set for you.
+ #
+ # See this page for more details on how Craft routes requests:
+ # http://buildwithcraft.com/docs/routing
+ #}
+
+{% extends "_layout" %}
+
+{% block content %}
+
+<div id="brooklynMuseum">	
+	
+	<img src="./public/images/BM-logo.png" id="BMlogo">
+	
+	<section class="BMwork">
+		<h1>January 2014</h1>
+		<p>On my first date of hire, there were already three projects set to move. The first was the biggest, the Visitor Experience Initiative, which was as yet undefinded, though the dashboard prototyping was underway. The second was the creation of a micro-site for the event videos for the Elizabeth A. Sackler Center for Feminist Art. And the third, for which I helped define the roadmap, was a refresh of the entire Brooklyn Museum website. Since there was not enough political capital to roll out a complete redesign, we planned to update the header and footer, as well as resetting the type and opening up the layout a little.</p>
+		<ul>
+			<li>Began creating a front end style guide for the website.</li>
+			<li>Helped create the RFP for the Sackler Center Video project. Searched for and hired a freelance <a href="http://karyn.me/">design/dev team</a> to build it.</li>
+			<li class="images"><span class="arrowDown">Comped new headers for the BMA website refresh. A preliminary exercise for selling possible new directions to website stakeholders.</span>
+				<div class="flexslider">
+					<ul class="slides">
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps4.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps5.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps6.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps9.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps12.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps13.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps17.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps22.png"></li>
+					</ul>
+				</div>
+			</li>
+			<li class="images"><span class="arrowDown">Comped new footers for a BMA website refresh.</span>
+				<div class="flexslider">
+					<ul class="slides">
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r2.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r22.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r23.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r24.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r25.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r26.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BMA-header-comps_r27.png"></li>
+					</ul>
+				</div>
+			</li>
+			<li>Began designing onboarding process for the VEI dashboard.</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h1>February 2014</h1>
+		<ul>
+			<li>Acted as creative director for the <a href="http://brooklynmuseum.org/eascfa/video">Sackler Video website</a>, which launched March 4th.</li>
+			<li>Made a full content audit of the current BMA website.</li>
+			<li>Comped new typographic layouts for the BMA site refresh.</li>
+			<li>Researched agencies for the VEI digital signage.</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h1>March 2014</h1>
+		<ul>
+			<li>Created wireframes for the brooklynmuseum.org refresh.</li>
+			<li>Began collecting UI/UX examples for VEI project and sketching out user flows.</li>
+			<li>Helped to define the design roadmap for the VEI project with respect to established project deadlines.</li>
+			<li>Tested new color pallets for screens. Current official colors are meant for print and don't translate.</li>
+			<li class="images"><span class="arrowDown">Designed the prototype for the VEI account screens.</span>
+				<div class="flexslider">
+					<ul class="slides">
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/dashboard-comps_9.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/dashboard-comps_10.png"></li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</section>
+	<section>
+		<h1>April 2014</h1>
+		<ul>
+			<li class="images"><span class="arrowDown">Designed new logo for the BKM Tech blog, now the central blog for the museum.</span>
+				<div class="flexslider">
+					<ul class="slides">
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/BKMTech-logo.png"></li>
+					</ul>
+				</div>
+			</li>
+			<li>Found new WP theme for BKM Tech blog, made a few design alterations.</li>
+			<li class="images"><span class="arrowDown">Wireframed the new kiosk creator dashboard.</span>
+				<div class="flexslider">
+					<ul class="slides">
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/VEI-wireframe-kiosk2.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/VEI-wireframe-kiosk3.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/VEI-wireframe-kiosk4.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/VEI-wireframe-kiosk5.png"></li>
+					</ul>
+				</div>
+			</li>
+			<li>Lo-Fi wireframes for the VEI dashboard and iPhone app</li>
+		</ul>
+	</section>
+	<section>
+		<h1>May 2014</h1>
+		<ul>
+			<li>Concluded the wireframes for the VEI Host Dashboard view.</li>
+			<li class="images"><span class="arrowDown">First round comps for the VEI Host Dashboard view.</span>
+				<div class="flexslider">
+					<ul class="slides">
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/VEI-host-comps-r2.png"></li>
+						<li><img src="http://brianfeeney.us/brooklynmuseumimages/VEI-host-comps-r22.png"></li>
+					</ul>
+				</div>
+			</li>
+			<li>Chose with the team one of the comps and iterated upon it.</li>
+		</ul>
+	</section>
+		
+</div>
+
+<script>
+	$('.arrowDown').click( function() {
+		$(this).next('.flexslider').toggleClass('open');
+	});
+</script>
+
+{% endblock %}

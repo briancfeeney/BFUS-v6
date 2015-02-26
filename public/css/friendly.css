@@ -3648,6 +3648,94 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
     padding: 2.5em 1.25em;
   }
 }
+#brooklynmuseum header {
+  background-color: transparent;
+}
+#brooklynmuseum header a {
+  color: #f6f5ec !important;
+}
+#brooklynmuseum header a:hover {
+  color: #fcb062 !important;
+}
+#brooklynmuseum .bkmHeader {
+  background-color: #00aeef;
+  background: url("../images/BKM/bkm-header.png");
+  padding: 2em 0;
+  margin-bottom: 5em;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  height: 33em;
+  margin-top: -4em;
+}
+#brooklynmuseum .bkmHeader img {
+  width: 50%;
+  max-width: 20em;
+  margin-top: 5em;
+}
+#brooklynmuseum section {
+  overflow: hidden;
+  padding: 5em 0;
+}
+#brooklynmuseum blockquote {
+  width: 90%;
+  max-width: 1400px;
+  border: none;
+  background-color: transparent;
+  color: #00aeef;
+  text-align: center;
+  font-size: 4em;
+  margin: 1.5em auto 2em;
+  padding: 0;
+  font-family: "proxima-nova";
+  font-weight: 300;
+  font-style: normal;
+}
+@media (max-width: 992px) {
+  #brooklynmuseum blockquote {
+    font-size: 3em;
+    padding: 0 .5em;
+  }
+}
+@media (max-width: 768px) {
+  #brooklynmuseum blockquote {
+    font-size: 2.5em;
+  }
+}
+#brooklynmuseum .mission-statement {
+  background: #00aeef;
+}
+#brooklynmuseum .mission-statement blockquote {
+  color: #ffffff;
+}
+#brooklynmuseum .jan2 {
+  background: #808080;
+}
+#brooklynmuseum #main {
+  min-height: 0;
+  margin: 0;
+}
+#brooklynmuseum #main.bkmStory {
+  width: 100%;
+  margin: 0 auto 10em;
+  overflow: hidden;
+}
+#brooklynmuseum #main.bkmStory h2 {
+  color: #00aeef;
+  margin-top: 2em;
+}
+#brooklynmuseum #main.bkmStory figure figcaption {
+  margin: .5em 0;
+  font-family: "proxima-nova";
+  font-weight: 400;
+  font-style: normal;
+}
+@media (max-width: 768px) {
+  #brooklynmuseum #main.bkmStory figure {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+}
 /* -------------------------------------------------------------------------------- */
 html {
   background: #23262b;
@@ -3667,7 +3755,8 @@ h1 {
   font-family: "proxima-nova-condensed", sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 3.75em;
+  font-size: 3.5em;
+  /* was 3.75 */
 }
 @media (max-width: 768px) {
   h1 {
@@ -3690,6 +3779,7 @@ h4 {
   font-style: normal;
   text-transform: uppercase;
   margin: 1em 0 2em;
+  font-size: 1.6em;
 }
 h5 {
   font-family: "proxima-nova-sc-osf";
@@ -3747,6 +3837,19 @@ blockquote h6 {
 }
 article {
   margin: 5em auto 10em;
+}
+article ul {
+  font-size: 1.5em;
+  font-weight: 300;
+  padding-left: 1.2em;
+}
+article ul li {
+  margin-bottom: 1em;
+}
+article h2 {
+  color: #5a7b8c;
+  margin: 2em 0 .75em;
+  font-size: 2em;
 }
 /* -------------------------------------------------------------------------------- */
 header {
@@ -3820,7 +3923,7 @@ header .socialIcon.opened:hover {
   color: #fcb062;
   border-color: #fcb062;
 }
-@media (max-width: 1150px) {
+@media (max-width: 600px) {
   header #social-links {
     width: 1.5em;
     margin: 4em 0 0;
@@ -3829,7 +3932,7 @@ header .socialIcon.opened:hover {
     overflow: hidden;
   }
   header #social-links li {
-    margin: 0 0 1em;
+    margin: 0 0 2em;
     position: relative;
     right: -3.25em;
   }
@@ -3860,7 +3963,7 @@ body {
   position: relative;
   right: 0;
 }
-@media (max-width: 1150px) {
+@media (max-width: 600px) {
   body.opened {
     position: relative;
     right: 3em;
@@ -3887,6 +3990,10 @@ footer p {
   font-family: "proxima-nova";
   font-weight: 300;
   font-style: normal;
+}
+footer h4 {
+  letter-spacing: .1em;
+  opacity: .5;
 }
 footer ul {
   list-style-type: none;
@@ -3954,6 +4061,9 @@ footer ul.photos a:nth-child(9) {
 footer ul.photos .container {
   border: none;
 }
+footer .footer-quote {
+  text-align: center;
+}
 footer .aboutMe {
   padding-bottom: 0;
 }
@@ -3972,6 +4082,17 @@ footer .aboutMe li.bkm img {
 }
 footer .aboutMe li.bkm p {
   margin: 1em 0;
+}
+@media (max-width: 420px) {
+  footer .aboutMe li.bkm {
+    text-align: center;
+  }
+  footer .aboutMe li.bkm img {
+    float: none;
+  }
+  footer .aboutMe li.bkm p {
+    text-align: left;
+  }
 }
 footer .finalStuff {
   border: none !important;
@@ -4021,6 +4142,14 @@ footer .container {
 }
 footer p a {
   color: #5a7b8c;
+}
+footer p a:hover {
+  color: #fcb062;
+}
+@media (max-width: 420px) {
+  footer {
+    font-size: .8em;
+  }
 }
 .wufoo {
   margin: 2em 0;
@@ -4107,6 +4236,11 @@ footer p a {
   font-style: normal;
   font-size: 3em;
   text-transform: lowercase;
+}
+@media (max-width: 420px) {
+  .pagination a {
+    font-size: 2em;
+  }
 }
 .pagination .next {
   float: right;
@@ -4202,6 +4336,12 @@ footer p a {
     font-size: 1.5em;
   }
 }
+@media (max-width: 420px) {
+  #introText {
+    font-size: 1.3em;
+    margin: 1.5em auto;
+  }
+}
 @media (min-width: 1500px) {
   #introText {
     margin: 5em auto;
@@ -4232,7 +4372,6 @@ footer p a {
   width: 66.6666%;
 }
 /* -------------------------------------------------------------------------------- */
-/* -------------------------------------------------------------------------------- */
 #writing #main,
 #journal #main {
   max-width: 50em;
@@ -4262,10 +4401,6 @@ footer p a {
   font-size: 5em;
   bottom: -2em;
 }
-#writing .pagination a,
-#journal .pagination a {
-  color: #103e4d;
-}
 #writing footer,
 #journal footer {
   /* background: @blue; */
@@ -4294,300 +4429,22 @@ footer p a {
     font-size: 2.75em;
   }
 }
+#writing footer h4 small,
+#journal footer h4 small {
+  margin-left: .8em;
+}
+@media (max-width: 768px) {
+  #writing footer h4 small,
+  #journal footer h4 small {
+    display: block;
+    margin: .5em 0;
+  }
+}
 #writing .featuredImage,
 #journal .featuredImage {
   margin-top: -3.5em;
   z-index: -1;
   position: relative;
-}
-/* -------------------------------------------------------------------------------- */
-#work #main {
-  width: 100%;
-  margin: 0;
-}
-.workFlex {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-#workIntro {
-  display: flex;
-  width: 100%;
-}
-#workIntro .workList {
-  background-color: #fcb062;
-  flex: 1;
-  min-width: 100px;
-  padding: 1.25em;
-}
-#workIntro .workList h5 {
-  font-size: 2em;
-}
-#workIntro .workDesc {
-  background-color: #103e4d;
-  display: flex;
-  flex: 2;
-  color: #fcb062;
-  padding: 2.5em;
-  align-items: center;
-}
-#workIntro .workDesc p {
-  font-size: 1.9em;
-  font-weight: 100;
-}
-/*
-
-#design {
-	ul {
-		list-style-type: none;
-		.list-unstyled();
-		li {
-			margin: 0;
-			display: flex;
-			align-items: center;
-			min-height: 100vh;
-			padding: 5em 0 5em 5em;
-			.visuals {
-				width: 50%;
-				.workImage {
-					width: 100%;
-					max-width: 750px;
-					height: 0;
-					margin: 0 auto;
-					padding-bottom: 100%;
-					background-size: cover !important;
-					background-repeat: no-repeat;
-				}
-			}
-			.workMeta {
-				width: 50%;
-				padding: 2.5em;
-				margin: 0 auto;
-				h1 {
-					color: @chalk;
-				}
-				h6 {
-					color: @chalk;
-					opacity: .66;
-					align-content: flex-start;
-				}
-			}
-			@media (max-width: 1100px) {
-				display: block;
-				.visuals, .workMeta {
-					width: 100%;
-					display: block;
-				}
-			}
-			&:nth-child(even) {
-				padding: 5em 5em 5em 0;
-				.visuals {
-					order: 2;
-				}
-				.workMeta {
-					text-align: right;
-				}
-			}
-			&.webDesign {
-				h1 {
-					font-size: 4em;
-				}
-				.visuals {
-					border: .75em solid @dust;
-					border-top-width: 2em;
-					position: relative;
-					&:before {
-						content: ". . .";
-						color: @chalk;
-						font-size: 6em;
-						line-height: 1em;
-						position: absolute;
-						top: -75px;
-						letter-spacing: -13px;
-					}
-				}
-				.workImage {
-					padding-bottom: 62.5%;
-				}
-			}
-		}
-	}
-	.printWork {
-		width: 100%;
-		display: block;
-		margin-bottom: 10em;
-		.printDesign {
-			width: 25%;
-			padding: .5em 1em;
-			margin-bottom: 1em !important;
-			.visuals {
-				width: 100% !important;
-			}
-		}
-	}
-}
-
-#dev {
-	padding: 5em 0 5em;
-	h2 {
-		color: @blue;
-		margin: 0;
-		padding: 1.25em 1.25em 0;
-	}
-	.project {
-		padding: 2.5em;
-		display: inline-block;
-		h1 {
-			margin: 0;
-			a {
-				color: @red;
-				&:hover {
-					color: @orange;
-				}
-			}
-		}
-		h5 {
-			color: @stone;
-			letter-spacing: 1px;
-		}
-	}
-}
-
-*/
-.workTop {
-  text-align: center;
-}
-.workTop h1 {
-  color: #f6f5ec;
-  text-transform: uppercase;
-  padding: 1.5em 0 .5em;
-  font-size: 4em;
-}
-.workTop a {
-  color: #f6f5ec;
-}
-.workBody {
-  max-width: 50em;
-  margin: 20px auto 80px;
-  text-align: center;
-}
-.workBody p {
-  max-width: 35em;
-  margin: 20px auto;
-}
-.workBody p a:hover {
-  color: #23262b;
-  background-color: #cdccc0;
-}
-.workBody img {
-  width: 100%;
-  margin: 20px 0;
-}
-.workBody .btn {
-  color: #f6f5ec;
-  margin: 20px auto;
-  display: inline-block;
-}
-.workBody .btn:hover {
-  background: #23262b !important;
-}
-#work header li a {
-  color: #f6f5ec;
-}
-#work #main {
-  overflow: hidden;
-  width: 100%;
-  margin: 5em auto;
-}
-#workDesc {
-  width: 25%;
-  float: left;
-  padding-left: 5%;
-  position: fixed;
-  top: 5em;
-}
-#workDesc p {
-  text-align: right;
-}
-#theWork {
-  text-align: center;
-}
-#theWork #design {
-  text-align: center;
-}
-#theWork #design h2 {
-  font-family: "proxima-nova-sc-osf";
-  font-weight: 600;
-  font-style: normal;
-  font-size: 3em;
-  text-transform: uppercase;
-  margin: 0;
-}
-#theWork #design ul {
-  list-style-type: none;
-  padding-left: 0;
-  list-style: none;
-}
-#theWork #design ul li {
-  margin: 0 auto 15em;
-  display: block;
-}
-#theWork #design ul li .visuals {
-  width: 90%;
-  max-width: 55em;
-  display: block;
-  margin: 0 auto;
-}
-#theWork #design ul li .visuals .workImage {
-  width: 100%;
-  max-width: 750px;
-  height: 0;
-  margin: 0 auto;
-  padding-bottom: 100%;
-  background-size: cover !important;
-  background-repeat: no-repeat;
-}
-#theWork #design ul li .btn {
-  color: #f6f5ec;
-}
-#theWork #design ul li.webDesign .visuals {
-  border: 0.75em solid #cdccc0;
-  border-top-width: 2em;
-  position: relative;
-}
-#theWork #design ul li.webDesign .visuals:before {
-  content: ". . .";
-  color: #f6f5ec;
-  font-size: 6em;
-  line-height: 1em;
-  position: absolute;
-  top: -75px;
-  left: 0;
-  letter-spacing: -13px;
-}
-#theWork #design ul li.webDesign .workImage {
-  padding-bottom: 62.5%;
-}
-#theWork .printWork {
-  width: 100%;
-}
-#theWork .printWork li {
-  width: 20%;
-  padding: .5em;
-  margin-bottom: 1em !important;
-}
-#theWork .printWork li .visuals {
-  width: 100% !important;
-}
-@media (max-width: 992px) {
-  #theWork .printWork li {
-    width: 33.33%;
-  }
-}
-@media (max-width: 768px) {
-  #theWork .printWork li {
-    width: 50%;
-  }
 }
 /* -------------------------------------------------------------------------------- */
 #photos #main {
@@ -4599,6 +4456,7 @@ footer p a {
   margin-bottom: 10em;
   text-align: center;
   max-height: 95vh;
+  margin: 0 auto 15em;
 }
 #photos article h5 {
   margin: 1em;
@@ -4607,10 +4465,12 @@ footer p a {
 #photos article img {
   width: auto;
   max-width: 100%;
-  max-height: 100%;
+  max-height: 95vh;
 }
-#photos .pagination a {
-  color: #fcb062;
+@media (max-width: 420px) {
+  #photos article {
+    margin: 0 auto 5em;
+  }
 }
 #photos footer {
   /* background: @orange; */
@@ -4667,395 +4527,9 @@ footer p a {
   padding-left: 2em;
 }
 /* -------------------------------------------------------------------------------- */
-#quotes #main {
-  min-height: 0;
-  margin: 0 auto;
-  max-width: 800px;
-}
-#quotes .main {
-  width: 100%;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  align-content: flex-start;
-}
-#quotes .main.single {
-  flex: 1;
-  flex-flow: row nowrap;
-}
-#quotes .main.single article {
-  background-position: 50% 35%;
-}
-#quotes article {
-  flex: 1 1 25em;
-  align-items: center;
-  padding: 2.5em 2.5em 1.25em;
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  max-width: 35em;
-  background-image: url('/public/images/quotes.png');
-  background-position: 50% 35%;
-  background-size: 20%;
-  background-repeat: no-repeat;
-  margin: 1.25em;
-  /* border: 5px solid lighten(@lime, 27%);
-		background-color: lighten(@chalk, 1.5%);
-		&:hover {
-			background-color: lighten(@chalk, 4%);
-		} */
-}
-#quotes article:first-child {
-  background-position: 50% 65%;
-}
-#quotes article p {
-  font-size: 1.4em;
-}
-#quotes article h5 {
-  color: #9e9d2e;
-  letter-spacing: 1px;
-}
-#quotes article a {
-  border: none;
-}
-@media (max-width: 420px) {
-  #quotes article {
-    padding: 1.25em;
-    margin: .75em;
-    padding-bottom: 2.5em;
-  }
-  #quotes article p {
-    font-size: 1.3em;
-  }
-  #quotes article h5 {
-    margin-top: .75em;
-  }
-  #quotes article:first-child {
-    background-position: 50% 40%;
-  }
-}
-.quotesNav {
-  display: flex;
-  order: 2;
-  align-self: flex-end;
-  width: 100%;
-  margin-top: 4em;
-}
-.quotesNav a {
-  color: #d1d061;
-  margin: 1.25em;
-}
-.quotesNav a:hover {
-  color: #aeae56;
-}
-/* -------------------------------------------------------------------------------- */
-@keyframes playColor {
-  0%,
-  100% {
-    color: #f26d68;
-  }
-  16% {
-    color: #fcb062;
-  }
-  31% {
-    color: #d1d061;
-  }
-  50% {
-    color: #768358;
-  }
-  67% {
-    color: #103e4d;
-  }
-  83% {
-    color: #81555a;
-  }
-}
-@-webkit-keyframes playColor {
-  0%,
-  100% {
-    color: #f26d68;
-  }
-  16% {
-    color: #fcb062;
-  }
-  31% {
-    color: #d1d061;
-  }
-  50% {
-    color: #768358;
-  }
-  67% {
-    color: #103e4d;
-  }
-  83% {
-    color: #81555a;
-  }
-}
-@-moz-keyframes playColor {
-  0%,
-  100% {
-    color: #f26d68;
-  }
-  16% {
-    color: #fcb062;
-  }
-  31% {
-    color: #d1d061;
-  }
-  50% {
-    color: #768358;
-  }
-  67% {
-    color: #103e4d;
-  }
-  83% {
-    color: #81555a;
-  }
-}
-#playgroundTitle {
-  flex: 2;
-  text-align: center;
-}
-#playgroundTitle h2 {
-  font-size: 7em;
-  margin: 0;
-  padding: 40px;
-  color: #f26d68;
-  font-family: "proxima-nova-sc-osf";
-  font-weight: 800;
-  font-style: normal;
-  animation: playColor 10s linear infinite;
-  -webkit-animation: playColor 10s linear infinite;
-  animation-delay: 1s;
-  -webkit-animation-delay: 1s;
-}
-@media (max-width: 1135px) {
-  #playgroundTitle h2 {
-    font-size: 6em;
-  }
-}
-@media (max-width: 1070px) {
-  #playgroundTitle h2 {
-    font-size: 5em;
-  }
-}
-@media (max-width: 930px) {
-  #playgroundTitle h2 {
-    font-size: 4em;
-  }
-}
-@media (max-width: 810px) {
-  #playgroundTitle h2 {
-    font-size: 3em;
-  }
-}
-@media (max-width: 399px) {
-  #playgroundTitle h2 {
-    font-size: 2em;
-  }
-}
-#playground .playFlex {
-  display: block;
-  width: 100%;
-}
-#playground #main {
-  margin: 3em auto;
-  max-width: 50em;
-  padding: 0 1em;
-}
-#playground #main article {
-  margin-bottom: 10em;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-#playground #main article .images {
-  flex-basis: 49%;
-  margin-bottom: 2%;
-}
-#playground a {
-  border: none;
-}
-#playground a:hover {
-  background-color: transparent;
-}
-/* -------------------------------------------------------------------------------- */
-#archive {
-  background: #23262b;
-  color: #f6f5ec;
-}
-#archive .archive {
-  width: 100%;
-}
-#archive .archive a {
-  color: #f6f5ec;
-}
-#archive .archive h1 {
-  margin: 0;
-}
-#archive .archive h4 {
-  padding: .25em 0 2.25em 2.25em;
-}
-#archive .archive h5 {
-  margin: 1.25em 0 0;
-  padding: 0 1.25em .75em 2.5em;
-  color: #8d8e8c;
-  border-bottom: 1px solid #383b3e;
-}
-#archive .archive ul {
-  padding-left: 0;
-  list-style: none;
-  margin-bottom: 3.75em;
-}
-#archive .archive ul li {
-  padding: 1.25em;
-  display: flex;
-  border-bottom: 1px solid #383b3e;
-}
-#archive .archive ul li:hover {
-  background-color: #2e3035;
-}
-#archive .archive ul li .icon {
-  font-size: 2em;
-  color: #8d8e8c;
-  margin: auto 1.25em auto .75em;
-  width: 1em;
-}
-#archive .archive ul li .archive-info {
-  display: flex;
-  flex-direction: column;
-  max-width: 75%;
-}
-#archive .archive ul li small {
-  margin-left: 5px;
-  font-family: "proxima-nova-sc-osf";
-  font-weight: 600;
-  font-style: normal;
-  font-size: .4em;
-}
-#archive .archive .Writing h6 {
-  color: #81555a;
-}
-#archive .archive .Work h6 {
-  color: #5a7b8c;
-}
-#archive .archive .Photos h6 {
-  color: #fcb062;
-}
-#archive .archive .Playground h6 {
-  color: #436153;
-}
-#archive .archive .Reading h6 {
-  color: #768358;
-}
-@media (max-width: 1000px) {
-  #archive .archive h1 {
-    font-size: 2em;
-  }
-  #archive .archive h5 {
-    padding: .5em 1em;
-    font-size: .9em;
-  }
-  #archive .archive ul li {
-    padding: .5em 1em;
-  }
-  #archive .archive ul li .icon {
-    margin: auto .75em auto 0;
-    font-size: 1.5em;
-  }
-}
-@media (max-width: 600px) {
-  #archive .archive {
-    padding-top: 1em;
-  }
-  #archive .archive h1 {
-    font-size: 2em;
-  }
-  #archive .archive h5 {
-    padding: .5em 1.75em;
-    font-size: .75em;
-  }
-  #archive .archive ul li {
-    padding: .5em 1.5em;
-  }
-  #archive .archive ul li .icon {
-    margin: auto .75em auto 0;
-    font-size: 1.25em;
-  }
-}
-/* -------------------------------------------------------------------------------- */
-#brooklynMuseum {
-  text-align: center;
-}
-#brooklynMuseum h1 {
-  font-size: 2em;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin: 60px 0 20px;
-}
-#brooklynMuseum p {
-  margin: 20px auto;
-  text-align: left;
-}
-#BMlogo {
-  max-width: 240px;
-  margin-top: 40px;
-}
-#brooklynMuseum section {
-  margin-bottom: 60px;
-}
-#brooklynMuseum section a {
-  color: inherit;
-  text-decoration: underline;
-}
-#brooklynMuseum section a:hover {
-  opacity: .8;
-}
-#brooklynMuseum section ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-#brooklynMuseum section ul li {
-  padding: 30px 20px;
-  background-color: #00aeef;
-  color: #f6f5ec;
-  font-size: 1.3em;
-  margin-bottom: 2px;
-}
-#brooklynMuseum section ul li.images {
-  cursor: pointer;
-}
-#brooklynMuseum section ul li.images:hover {
-  background-color: #009bd6;
-}
-#brooklynMuseum section .flexslider {
-  max-width: 800px;
-  margin: 0 auto;
-  height: auto;
-  max-height: 0;
-  border: 0px;
-  overflow: hidden;
-  transition: all 0.3s ease-in;
-}
-#brooklynMuseum section .flexslider.open {
-  height: auto;
-  margin: 40px auto 40px;
-  border: 10px solid #f6f5ec;
-  max-height: 1000px;
-  transition: all 0.3s ease-in;
-}
-#brooklynMuseum section .flexslider ul li,
-#brooklynMuseum section .flexslider ol li {
-  padding: 0;
-}
-#brooklynMuseum section .flexslider .flex-control-nav {
-  margin-top: 20px;
-}
-#brooklynMuseum section .flexslider .flex-control-nav li a {
-  background: #f6f5ec;
-  opacity: .6;
-}
-#brooklynMuseum section .flexslider .flex-control-nav li a.flex-active {
-  opacity: 1;
+#journal #main article:after {
+  content: "";
+}
+#journal #main article h1 {
+  font-size: 3em;
 }

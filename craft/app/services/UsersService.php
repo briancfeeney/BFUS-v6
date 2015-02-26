@@ -198,7 +198,7 @@ class UsersService extends BaseApplicationComponent
 	 *
 	 * $user->getContent()->birthYear = 1812;
 	 *
-	 * $success = craft()->users->saveUser($entry);
+	 * $success = craft()->users->saveUser($user);
 	 *
 	 * if (!$success)
 	 * {
@@ -446,7 +446,7 @@ class UsersService extends BaseApplicationComponent
 		IOHelper::ensureFolderExists($userPhotoFolder);
 		IOHelper::ensureFolderExists($targetFolder);
 
-		$targetPath = $targetFolder.$fileName;
+		$targetPath = $targetFolder.AssetsHelper::cleanAssetName($fileName);
 
 		$result = $image->saveAs($targetPath);
 

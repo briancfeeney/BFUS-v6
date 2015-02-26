@@ -20,6 +20,18 @@ class PluginsController extends BaseController
 	// =========================================================================
 
 	/**
+	 * @inheritDoc BaseController::init()
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function init()
+	{
+		// All plugin actions require an admin
+		craft()->userSession->requireAdmin();
+	}
+
+	/**
 	 * Installs a plugin.
 	 *
 	 * @return null

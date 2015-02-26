@@ -383,15 +383,15 @@ class Image
 	}
 
 	/**
-	 * Returns true if Imagick is installed and says that the iamge is transparent.
+	 * Returns true if Imagick is installed and says that the image is transparent.
 	 *
 	 * @return bool
 	 */
 	public function isTransparent()
 	{
-		if(craft()->images->isImagick() && method_exists("Imagick", "getImageAlphaChannel"))
+		if (craft()->images->isImagick() && method_exists("Imagick", "getImageAlphaChannel"))
 		{
-			return $this->_image->getImagineImageInterface()->getImagick()->getImageAlphaChannel();
+			return $this->_image->getImagick()->getImageAlphaChannel();
 		}
 
 		return false;
@@ -527,6 +527,16 @@ class Image
 				// levels, not quality, like jpg and gif.
 				$normalizedQuality = round(($quality * 9) / 100);
 				$normalizedQuality = 9 - $normalizedQuality;
+
+				if ($normalizedQuality < 0)
+				{
+					$normalizedQuality = 0;
+				}
+
+				if ($normalizedQuality > 9)
+				{
+					$normalizedQuality = 9;
+				}
 
 				return array('png_compression_level' => $normalizedQuality, 'flatten' => false);
 			}

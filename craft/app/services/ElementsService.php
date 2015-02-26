@@ -180,7 +180,7 @@ class ElementsService extends BaseApplicationComponent
 	/**
 	 * Finds elements.
 	 *
-	 * @param ElementCriteriaModel $criteria An element criteria model that defines the praameters for the elemetns
+	 * @param ElementCriteriaModel $criteria An element criteria model that defines the parameters for the elements
 	 *                                       we should be looking for.
 	 * @param bool                 $justIds  Whether the method should only return an array of the IDs of the matched
 	 *                                       elements. Defaults to `false`.
@@ -340,7 +340,7 @@ class ElementsService extends BaseApplicationComponent
 	/**
 	 * Returns the total number of elements that match a given criteria.
 	 *
-	 * @param ElementCriteriaModel $criteria An element criteria model that defines the praameters for the elemetns
+	 * @param ElementCriteriaModel $criteria An element criteria model that defines the parameters for the elements
 	 *                                       we should be counting.
 	 *
 	 * @return int The total number of elements that match the criteria.
@@ -1497,10 +1497,24 @@ class ElementsService extends BaseApplicationComponent
 			if (count($elementIds) == 1)
 			{
 				$condition = array('id' => $elementIds[0]);
+				$matrixBlockCondition = array('ownerId' => $elementIds[0]);
 			}
 			else
 			{
 				$condition = array('in', 'id', $elementIds);
+				$matrixBlockCondition = array('in', 'ownerId', $elementIds);
+			}
+
+			// First delete any Matrix blocks that belong to this element(s)
+			$matrixBlockIds = craft()->db->createCommand()
+				->select('id')
+				->from('matrixblocks')
+				->where($matrixBlockCondition)
+				->queryColumn();
+
+			if ($matrixBlockIds)
+			{
+				craft()->matrix->deleteBlockById($matrixBlockIds);
 			}
 
 			$affectedRows = craft()->db->createCommand()->delete('elements', $condition);

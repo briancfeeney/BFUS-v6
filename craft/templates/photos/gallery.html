@@ -1,0 +1,32 @@
+{#
+ # Archive template
+ # ---------------
+ #}
+
+{% extends "_layout" %}
+
+{% block content %}
+
+<section class="photoGallery">
+	{% paginate craft.entries.section('photos').limit(1000) as entries %}
+	{% for entry in entries %}
+		{% if entry.photo|length %}
+			{% for image in entry.photo %}
+				<a href="{{ entry.url() }}"><img src="{{ image.getUrl('thumbnail') }}" style="width:auto;"></a>
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+</section>
+
+<div class="pagination">
+    {% if paginate.nextUrl %}
+        <a href="{{ paginate.nextUrl }}" class="paging prev">Older</a>
+    {% endif %}
+	{% if paginate.prevUrl %}
+        <a href="{{ paginate.prevUrl }}" class="paging next">Newer</a>
+    {% endif %}
+
+	{% endpaginate %}
+</div>
+
+{% endblock %}

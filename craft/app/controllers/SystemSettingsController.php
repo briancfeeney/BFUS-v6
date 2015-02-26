@@ -20,14 +20,14 @@ class SystemSettingsController extends BaseController
 	// =========================================================================
 
 	/**
-	 * Initializes the controller.  This method is called by the Craft before the controller starts to execute.
+	 * @inheritDoc BaseController::init()
 	 *
 	 * @throws HttpException
 	 * @return null
 	 */
 	public function init()
 	{
-		// All System Settings actions require an admin
+		// All system setting actions require an admin
 		craft()->userSession->requireAdmin();
 	}
 
@@ -50,7 +50,7 @@ class SystemSettingsController extends BaseController
 
 		$variables['tools'] = ToolVariable::populateVariables($tools);
 
-		$this->renderTemplate('settings/index', $variables);
+		$this->renderTemplate('settings/_index', $variables);
 	}
 
 	/**
@@ -108,7 +108,7 @@ class SystemSettingsController extends BaseController
 
 		array_multisort($offsets, $timezoneIds, $variables['timezoneOptions']);
 
-		$this->renderTemplate('settings/general/index', $variables);
+		$this->renderTemplate('settings/general/_index', $variables);
 	}
 
 	/**
@@ -290,6 +290,12 @@ class SystemSettingsController extends BaseController
 		$emailSettings->emailAddress                = craft()->request->getPost('emailAddress');
 		$emailSettings->senderName                  = craft()->request->getPost('senderName');
 
+		if (craft()->getEdition() >= Craft::Client)
+		{
+			$settings['template'] = craft()->request->getPost('template');
+			$emailSettings->template = $settings['template'];
+		}
+
 		// Validate user input
 		if (!$emailSettings->validate())
 		{
@@ -299,11 +305,6 @@ class SystemSettingsController extends BaseController
 		$settings['protocol']     = $emailSettings->protocol;
 		$settings['emailAddress'] = $emailSettings->emailAddress;
 		$settings['senderName']   = $emailSettings->senderName;
-
-		if (craft()->getEdition() >= Craft::Client)
-		{
-			$settings['template'] = craft()->request->getPost('template');
-		}
 
 		switch ($emailSettings->protocol)
 		{

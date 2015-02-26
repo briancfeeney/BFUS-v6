@@ -1,0 +1,86 @@
+@bkmcolor: rgb(0,174,239);
+
+#brooklynmuseum {
+	header {
+		background-color: transparent;
+		a {
+			color: rgb(246,245,236) !important;
+			&:hover {
+				color: rgb(252,176,98) !important;
+			}
+		}
+	}
+	.bkmHeader {
+		background-color: @bkmcolor;
+		background: url("../images/BKM/bkm-header.png");
+		padding: 2em 0;
+		margin-bottom: 5em;
+		text-align: center;
+		background-size: cover;
+		background-position: center;
+		height: 33em;
+		margin-top: -4em;
+		img {
+			width: 50%;
+			max-width: 20em;
+			margin-top: 5em;
+		}
+	}
+	section {
+		overflow: hidden;
+		padding: 5em 0;
+	}
+	blockquote {
+		width: 90%;
+		max-width: 1400px;
+		border: none;
+		background-color: transparent;
+		color: @bkmcolor;
+		text-align: center;
+		font-size: 4em;
+		margin: 1.5em auto 2em;
+		padding: 0;
+		.proximaL();
+		@media (max-width: @screen-md) {
+			font-size: 3em;
+			padding: 0 .5em;
+		}
+		@media (max-width: @screen-sm) {
+			font-size: 2.5em;
+		}
+	}
+	
+	.mission-statement {
+		background: @bkmcolor;
+		blockquote {
+			color: @white;
+		}
+	}
+	.jan2 {
+		background: lighten(@black, 50%);
+	}
+	
+	#main {
+		min-height: 0;
+		margin: 0;
+	}
+	#main.bkmStory {
+		width: 100%;
+		margin: 0 auto 10em;
+		overflow: hidden;
+		h2 {
+			color: @bkmcolor;
+			margin-top: 2em;
+		}
+		figure {
+			figcaption {
+				margin: .5em 0;
+				.proximaR();
+			}
+			@media (max-width: @screen-sm) {
+				max-width: 90%;
+				margin: 0 auto;
+			}
+		}
+	}
+}

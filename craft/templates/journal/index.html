@@ -14,7 +14,17 @@
 {% set title = "Journal" %}
 
 {% block content %}
-	<section id="main">
+
+	<div class="info-column">
+		<nav>
+			<ul>
+				<li id="title"><a href="{{ siteUrl }}">{{ siteName }}</a></li>
+				<li><a href="{{ url('writing') }}" {% if craft.request.firstSegment == 'writing' %}class="active"{% endif %}>Writing</a></li>
+				<li><a href="{{ url('photos') }}" {% if craft.request.firstSegment == 'photos' %}class="active"{% endif %}>Photos</a></li>
+			</ul>
+		</nav>
+	</section>
+	<section class="main-column">
 		{% paginate craft.entries.section('writing').limit(10) as entries %}
 		{% for entry in entries %}
 			<article>
@@ -23,7 +33,7 @@
 				{{ entry.body }}
 			</article>
 		{% endfor %}
-		
+	
 		<div class="pagination">
 		    {% if paginate.nextUrl %}
 		        <a href="{{ paginate.nextUrl }}" class="paging prev">Older</a>
@@ -35,4 +45,5 @@
 			{% endpaginate %}
 		</div>
 	</section>
+	
 {% endblock %}

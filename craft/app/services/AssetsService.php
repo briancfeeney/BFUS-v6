@@ -4,12 +4,13 @@ namespace Craft;
 /**
  * Class AssetsService
  *
- * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
- * @package   craft.app.services
- * @since     1.0
+ * @author     Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright  Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license    http://buildwithcraft.com/license Craft License Agreement
+ * @see        http://buildwithcraft.com
+ * @package    craft.app.services
+ * @since      1.0
+ * @deprecated This class will have several breaking changes in Craft 3.0.
  */
 class AssetsService extends BaseApplicationComponent
 {
@@ -693,12 +694,34 @@ class AssetsService extends BaseApplicationComponent
 	}
 
 	/**
-	 * Inserts a file from a local path into a folder and returns the resulting file id.
+	 * Saves a file into an asset folder.
 	 *
-	 * @param string $localPath
-	 * @param string $fileName
-	 * @param int    $folderId
-	 * @param mixed  $conflictResolution What action should be taken in the event of a filename conflict.
+	 * This can be used to store newly-uploaded files:
+	 *
+	 * ```php
+	 * $uploadedFile = UploadedFile::getInstanceByName('photo');
+	 * $folderId = 10;
+	 *
+	 * $response = craft()->assets->insertFileByLocalPath(
+	 *     $uploadedFile->tempName,
+	 *     $uploadedFile->name,
+	 *     $folderId,
+	 *     AssetConflictResolution::KeepBoth
+	 * );
+	 *
+	 * if ($response->isSuccess())
+	 * {
+	 *     $fileId = $response->getDataItem('fileId');
+	 *     // ...
+	 * }
+	 * ```
+	 *
+	 * @param string $localPath          The local path to the file.
+	 * @param string $fileName           The name that the file should be given when saved in the asset folder.
+	 * @param int    $folderId           The ID of the folder that the file should be saved into.
+	 * @param string $conflictResolution What action should be taken in the event of a filename conflict, if any
+	 *                                   (`AssetConflictResolution::KeepBoth`, `AssetConflictResolution::Replace`,
+	 *                                   or `AssetConflictResolution::Cancel).
 	 *
 	 * @return AssetOperationResponseModel
 	 */
@@ -1196,6 +1219,18 @@ class AssetsService extends BaseApplicationComponent
 					'folderId' => $folder->id,
 					'filename' => $fileName
 				));
+
+				// If the file doesn't exist in the index, but just in the source,
+				// quick-index it, so we have a File Model to work with.
+				if (!$targetFile)
+				{
+					$targetFile = new AssetFileModel();
+					$targetFile->sourceId = $folder->sourceId;
+					$targetFile->folderId = $folder->id;
+					$targetFile->filename = $fileName;
+					$targetFile->kind = IOHelper::getFileKind(IOHelper::getExtension($fileName));
+					$this->storeFile($targetFile);
+				}
 
 				$source->replaceFile($targetFile, $theNewFile);
 				$fileId = $targetFile->id;

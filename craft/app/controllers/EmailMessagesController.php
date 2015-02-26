@@ -22,6 +22,18 @@ class EmailMessagesController extends BaseController
 	// =========================================================================
 
 	/**
+	 * @inheritDoc BaseController::init()
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function init()
+	{
+		// All email message actions require an admin
+		craft()->userSession->requireAdmin();
+	}
+
+	/**
 	 * Saves an email message.
 	 *
 	 * @return null

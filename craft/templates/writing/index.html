@@ -8,7 +8,7 @@
 
 {% block content %}
 
-	{% paginate craft.entries.section('writing').limit(10) as entries %}
+	{% paginate craft.entries.section('writing').type('journal', 'articles').limit(5) as entries %}
 	{% for entry in entries %}
 		<article>
 			<h1><a href="{{ entry.url }}">{{ entry.title }}</a></h1>

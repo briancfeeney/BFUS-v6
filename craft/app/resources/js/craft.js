@@ -23,11 +23,12 @@ $.extend(Craft,
 	 * @var object
 	 */
 	asciiCharMap: {
-		'223':'ss', '224':'a',  '225':'a',  '226':'a',  '229':'a',  '227':'ae', '230':'ae', '228':'ae', '231':'c',  '232':'e',
-		'233':'e',  '234':'e',  '235':'e',  '236':'i',  '237':'i',  '238':'i',  '239':'i',  '241':'n',  '242':'o',  '243':'o',
-		'244':'o',  '245':'o',  '246':'oe', '249':'u',  '250':'u',  '251':'u',  '252':'ue', '255':'y',  '257':'aa', '269':'ch',
-		'275':'ee', '291':'gj', '299':'ii', '311':'kj', '316':'lj', '326':'nj', '353':'sh', '363':'uu', '382':'zh', '256':'aa',
-		'268':'ch', '274':'ee', '290':'gj', '298':'ii', '310':'kj', '315':'lj', '325':'nj', '352':'sh', '362':'uu', '381':'zh'
+		'216':'O',  '223':'ss', '224':'a',  '225':'a',  '226':'a',  '229':'a',  '227':'ae', '230':'ae', '228':'ae', '231':'c',
+		'232':'e',  '233':'e',  '234':'e',  '235':'e',  '236':'i',  '237':'i',  '238':'i',  '239':'i',  '241':'n',  '242':'o',
+		'243':'o', 	'244':'o',  '245':'o',  '246':'oe', '248':'o',  '249':'u',  '250':'u',  '251':'u',  '252':'ue', '255':'y',
+		'257':'aa', '269':'ch', '275':'ee', '291':'gj', '299':'ii', '311':'kj', '316':'lj', '326':'nj', '353':'sh', '363':'uu',
+		'382':'zh', '256':'aa', '268':'ch', '274':'ee', '290':'gj', '298':'ii', '310':'kj', '315':'lj', '325':'nj', '352':'sh',
+		'362':'uu', '381':'zh'
 	},
 
 	/**
@@ -784,7 +785,7 @@ $.extend(Craft,
 
 		var secondsInWeek   = 604800,
 			secondsInDay    = 86400,
-			secondsInHour   = 1400,
+			secondsInHour   = 3600,
 			secondsInMinute = 60;
 
 		var weeks = Math.floor(seconds / secondsInWeek);
@@ -1034,7 +1035,15 @@ $.extend(Craft,
 		if (typeof localStorage != 'undefined')
 		{
 			key = 'Craft-'+Craft.siteUid+'.'+key;
-			localStorage[key] = JSON.stringify(value);
+
+			// localStorage might be filled all the way up.
+			// Especially likely if this is a private window in Safari 8+, where localStorage technically exists,
+			// but has a max size of 0 bytes.
+			try
+			{
+				localStorage[key] = JSON.stringify(value);
+			}
+			catch(e) {}
 		}
 	},
 
@@ -1292,6 +1301,9 @@ Garnish.$doc.ready(function()
  */
 Craft.BaseElementIndex = Garnish.Base.extend(
 {
+	// Properties
+	// =========================================================================
+
 	initialized: false,
 	elementType: null,
 
@@ -1328,16 +1340,19 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 	$sidebar: null,
 	$sidebarButtonContainer: null,
 	showingSidebar: null,
-	$sources: null,
 	sourceKey: null,
 	sourceViewModes: null,
 	$source: null,
-	$sourceToggles: null,
 	$elements: null,
 	$table: null,
 	$elementContainer: null,
 
+	// Public methods
+	// =========================================================================
 
+	/**
+	 * Constructor
+	 */
 	init: function(elementType, $container, settings)
 	{
 		this.elementType = elementType;
@@ -1372,8 +1387,6 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 		this.$loadingMoreSpinner = this.$container.find('.spinner.loadingmore')
 		this.$sidebar = this.$container.find('.sidebar:first');
 		this.$sidebarButtonContainer = this.$sidebar.children('.buttons');
-		this.$sources = this.$sidebar.find('nav a');
-		this.$sourceToggles = this.$sidebar.find('.toggle');
 		this.$elements = this.$container.find('.elements:first');
 
 		if (!this.$sidebarButtonContainer.length)
@@ -1386,11 +1399,29 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 		this.$viewModeBtnTd = this.$toolbar.find('.viewbtns:first');
 		this.$viewModeBtnContainer = $('<div class="btngroup"/>').appendTo(this.$viewModeBtnTd);
 
+		// Initialize the sources
+		// ---------------------------------------------------------------------
+
+		var $sources = this._getSourcesInList(this.$sidebar.children('nav').children('ul'));
+
 		// No source, no party.
-		if (this.$sources.length == 0)
+		if ($sources.length == 0)
 		{
 			return;
 		}
+
+		// The source selector
+		this.sourceSelect = new Garnish.Select(this.$sidebar.find('nav'), {
+			multi:             false,
+			allowEmpty:        false,
+			vertical:          true,
+			onSelectionChange: $.proxy(this, 'onSourceSelectionChange')
+		});
+
+		this._initSources($sources);
+
+		// Initialize the locale menu button
+		// ---------------------------------------------------------------------
 
 		// Is there a locale menu?
 		if (this.$localeMenuBtn.length)
@@ -1468,27 +1499,9 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 			var $source = this.$sources.first();
 		}
 
-		this.selectSource($source);
-
 		// Load up the elements!
 		this.initialized = true;
-		this.updateElements();
-
-		// Add some listeners
-		this.addListener(this.$sourceToggles, 'click', function(ev)
-		{
-			$(ev.currentTarget).parent().toggleClass('expanded');
-			this.$sidebar.trigger('resize');
-			ev.stopPropagation();
-		});
-
-		// The source selector
-		this.sourceSelect = new Garnish.Select(this.$sidebar.find('nav'), this.$sources, {
-			selectedClass:     'sel',
-			multi:             false,
-			vertical:          true,
-			onSelectionChange: $.proxy(this, 'onSourceSelectionChange')
-		});
+		this.sourceSelect.selectItem($source);
 
 		// Status changes
 		if (this.$statusMenuBtn.length)
@@ -1542,6 +1555,48 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 		}
 	},
 
+	get $sources()
+	{
+		if (!this.sourceSelect)
+		{
+			return undefined;
+		}
+
+		return this.sourceSelect.$items;
+	},
+
+	initSource: function($source)
+	{
+		this.sourceSelect.addItems($source);
+		this.initSourceToggle($source);
+	},
+
+	initSourceToggle: function($source)
+	{
+		var $toggle = this._getSourceToggle($source);
+
+		if ($toggle.length)
+		{
+			this.addListener($toggle, 'click', '_onToggleClick');
+		}
+	},
+
+	deinitSource: function($source)
+	{
+		this.sourceSelect.removeItems($source);
+		this.deinitSourceToggle($source);
+	},
+
+	deinitSourceToggle: function($source)
+	{
+		var $toggle = this._getSourceToggle($source);
+
+		if ($toggle.length)
+		{
+			this.removeListener($toggle, 'click');
+		}
+	},
+
 	getDefaultSourceKey: function()
 	{
 		return this.instanceState.selectedSource;
@@ -1549,14 +1604,10 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 
 	onSourceSelectionChange: function()
 	{
-		var sourceElement = this.$sources.filter('.sel');
-		if (sourceElement.length == 0)
+		if (this.selectSource(this.sourceSelect.$selectedItems))
 		{
-			sourceElement = this.$sources.filter(':first');
+			this.updateElements();
 		}
-
-		this.selectSource(sourceElement);
-		this.updateElements();
 	},
 
 	setInstanceState: function(key, value)
@@ -1834,11 +1885,11 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 
 	getSourceByKey: function(key)
 	{
-		for (var i = 0; i < this.$sources.length; i++)
+		if (this.$sources)
 		{
-			var $source = $(this.$sources[i]);
+			var $source = this.$sources.filter('[data-key="'+key+'"]:first');
 
-			if ($source.data('key') == key)
+			if ($source.length)
 			{
 				return $source;
 			}
@@ -1847,18 +1898,18 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 
 	selectSource: function($source)
 	{
-		if (this.$source == $source)
+		if (this.$source && this.$source[0] && this.$source[0] == $source[0])
 		{
-			return;
+			return false;
 		}
 
-		if (this.$source)
+		if ($source[0] != this.sourceSelect.$selectedItems[0])
 		{
-			this.$source.removeClass('sel');
+			this.sourceSelect.selectItem($source);
 		}
 
+		this.$source = $source;
 		this.sourceKey = $source.data('key');
-		this.$source = $source.addClass('sel');
 		this.setInstanceState('selectedSource', this.sourceKey);
 
 		if (this.$search)
@@ -1932,6 +1983,8 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 		this.selectViewMode(viewMode);
 
 		this.onSelectSource();
+
+		return true;
 	},
 
 	getViewModesForSource: function()
@@ -2040,7 +2093,7 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 
 	disableElements: function($elements)
 	{
-		$elements.removeClass('sel').addClass('disabled').parent().removeClass('sel');
+		$elements.removeClass('sel').addClass('disabled');
 
 		for (var i = 0; i < $elements.length; i++)
 		{
@@ -2136,8 +2189,85 @@ Craft.BaseElementIndex = Garnish.Base.extend(
 		this.$mainSpinner.addClass('hidden');
 		this.isIndexBusy = false;
 		this.$elements.fadeTo('fast', 1);
+	},
+
+	// Private methods
+	// =========================================================================
+
+	_getSourcesInList: function($list)
+	{
+		return $list.children('li').children('a');
+	},
+
+	_getChildSources: function($source)
+	{
+		var $list = $source.siblings('ul');
+		return this._getSourcesInList($list);
+	},
+
+	_getSourceToggle: function($source)
+	{
+		return $source.siblings('.toggle');
+	},
+
+	_initSources: function($sources)
+	{
+		for (var i = 0; i < $sources.length; i++)
+		{
+			this.initSource($($sources[i]));
+		}
+	},
+
+	_deinitSources: function($sources)
+	{
+		for (var i = 0; i < $sources.length; i++)
+		{
+			this.deinitSource($($sources[i]));
+		}
+	},
+
+	_onToggleClick: function(ev)
+	{
+		this._toggleSource($(ev.currentTarget).prev('a'));
+		ev.stopPropagation();
+	},
+
+	_toggleSource: function($source)
+	{
+		if ($source.parent('li').hasClass('expanded'))
+		{
+			this._collapseSource($source);
+		}
+		else
+		{
+			this._expandSource($source);
+		}
+	},
+
+	_expandSource: function($source)
+	{
+		$source.parent('li').addClass('expanded');
+
+		this.$sidebar.trigger('resize');
+
+		var $childSources = this._getChildSources($source);
+		this._initSources($childSources);
+	},
+
+	_collapseSource: function($source)
+	{
+		$source.parent('li').removeClass('expanded');
+
+		this.$sidebar.trigger('resize');
+
+		var $childSources = this._getChildSources($source);
+		this._deinitSources($childSources);
 	}
 },
+
+// Static Properties
+// =============================================================================
+
 {
 	defaults: {
 		context: 'index',
@@ -2213,11 +2343,19 @@ Craft.BaseElementSelectInput = Garnish.Base.extend(
 		{
 			this.elementSort = new Garnish.DragSort({
 				container: this.$elementsContainer,
-				filter: (this.selectable ? $.proxy(function() {
-					return this.elementSelect.getSelectedItems();
+				filter: (this.selectable ? $.proxy(function()
+				{
+					// Only return all the selected items if the target item is selected
+					if (this.elementSort.$targetItem.hasClass('sel'))
+					{
+						return this.elementSelect.getSelectedItems();
+					}
+					else
+					{
+						return this.elementSort.$targetItem;
+					}
 				}, this) : null),
 				ignoreHandleSelector: '.delete',
-				caboose: $('<div class="caboose"/>'),
 				onSortChange: (this.selectable ? $.proxy(function() {
 					this.elementSelect.resetItemOrder();
 				}, this) : null)
@@ -2991,7 +3129,6 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 	$uploadInput: null,
 	$progressBar: null,
 	$folders: null,
-	$previouslySelectedFolder: null,
 
 	uploader: null,
 	promptHandler: null,
@@ -3018,25 +3155,54 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 
 		if (this.settings.context == 'index')
 		{
-			this.initIndexMode();
+			this._initIndexPageMode();
+		}
+	},
+
+	initSource: function($source)
+	{
+		this.base($source);
+
+		this._createFolderContextMenu($source);
+
+		if (this.settings.context == 'index')
+		{
+			if (this._folderDrag && this._getSourceLevel($source) > 1)
+			{
+				this._folderDrag.addItems($source.parent());
+			}
+
+			if (this._fileDrag)
+			{
+				this._fileDrag.updateDropTargets();
+			}
+		}
+	},
+
+	deinitSource: function($source)
+	{
+		this.base($source);
+
+		// Does this source have a context menu?
+		var contextMenu = $source.data('contextmenu');
+
+		if (contextMenu)
+		{
+			contextMenu.destroy();
 		}
 
-		for (var i = 0; i < this.$sources.length; i++)
+		if (this.settings.context == 'index')
 		{
-			var $source = $(this.$sources[i]);
-			this._createFolderContextMenu($source);
-
-			if (this.settings.context == 'index')
+			if (this._folderDrag && this._getSourceLevel($source) > 1)
 			{
-				if (this._folderDrag)
-				{
-					if (this._getSourceLevel($source) > 1)
-					{
-						this._folderDrag.addItems($source.parent());
-					}
-				}
+				this._folderDrag.removeItems($source.parent());
 			}
-		};
+
+			if (this._fileDrag)
+			{
+				this._fileDrag.updateDropTargets();
+			}
+		}
 	},
 
 	_getSourceLevel: function($source)
@@ -3045,16 +3211,18 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 	},
 
 	/**
-	 * Full blown Assets.
+	 * Initialize the index page-specific features
 	 */
-	initIndexMode: function()
+	_initIndexPageMode: function()
 	{
-		// ---------------------------------------
+		var onDragStartProxy = $.proxy(this, '_onDragStart')
+			onDropTargetChangeProxy = $.proxy(this, '_onDropTargetChange');
+
 		// File dragging
-		// ---------------------------------------
+		// ---------------------------------------------------------------------
 
 		this._fileDrag = new Garnish.DragDrop({
-			activeDropTargetClass: 'sel assets-fm-dragtarget',
+			activeDropTargetClass: 'sel',
 			helperOpacity: 0.5,
 
 			filter: $.proxy(function()
@@ -3064,7 +3232,7 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 
 			helper: $.proxy(function($file)
 			{
-				return this._getDragHelper($file);
+				return this._getFileDragHelper($file);
 			}, this),
 
 			dropTargets: $.proxy(function()
@@ -3079,31 +3247,22 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 				return targets;
 			}, this),
 
-			onDragStart: $.proxy(function()
-			{
-				this._tempExpandedFolders = [];
-
-				this.$previouslySelectedFolder = this.$source.removeClass('sel');
-
-			}, this),
-
-			onDropTargetChange: $.proxy(this, '_onDropTargetChange'),
-
+			onDragStart: onDragStartProxy,
+			onDropTargetChange: onDropTargetChangeProxy,
 			onDragStop: $.proxy(this, '_onFileDragStop')
 		});
 
-		// ---------------------------------------
 		// Folder dragging
-		// ---------------------------------------
+		// ---------------------------------------------------------------------
 
 		this._folderDrag = new Garnish.DragDrop(
 		{
-			activeDropTargetClass: 'sel assets-fm-dragtarget',
+			activeDropTargetClass: 'sel',
 			helperOpacity: 0.5,
 
 			filter: $.proxy(function()
 			{
-				// return each of the selected <a>'s parent <li>s, except for top level drag attampts.
+				// Return each of the selected <a>'s parent <li>s, except for top level drag attempts.
 				var $selected = this.sourceSelect.getSelectedItems(),
 					draggees = [];
 
@@ -3146,7 +3305,7 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 
 				// Tag the dragged folder and it's subfolders
 				var draggedSourceIds = [];
-				this._folderDrag.$draggee.find('a[data-key]').each(function ()
+				this._folderDrag.$draggee.find('a[data-key]').each(function()
 				{
 					draggedSourceIds.push($(this).data('key'));
 				});
@@ -3163,24 +3322,21 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 				return targets;
 			}, this),
 
-			onDragStart: $.proxy(function()
-			{
-				this._tempExpandedFolders = [];
-			}, this),
-
-			onDropTargetChange: $.proxy(this, '_onDropTargetChange'),
-
+			onDragStart: onDragStartProxy,
+			onDropTargetChange: onDropTargetChangeProxy,
 			onDragStop: $.proxy(this, '_onFolderDragStop')
 		});
-
 	},
 
+	/**
+	 * On file drag stop
+	 */
 	_onFileDragStop: function()
 	{
-		if (this._fileDrag.$activeDropTarget)
+		if (this._fileDrag.$activeDropTarget && this._fileDrag.$activeDropTarget[0] != this.$source[0])
 		{
-			// keep it selected
-			this._fileDrag.$activeDropTarget.addClass('sel');
+			// Keep it selected
+			this.sourceSelect.selectItem(this._fileDrag.$activeDropTarget);
 
 			var targetFolderId = this._getFolderIdFromSourceKey(this._fileDrag.$activeDropTarget.data('key')),
 				originalFileIds = [],
@@ -3192,11 +3348,16 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 				var originalFileId = Craft.getElementInfo(this._fileDrag.$draggee[i]).id,
 					fileName = Craft.getElementInfo(this._fileDrag.$draggee[i]).url.split('/').pop();
 
+				if (fileName.indexOf('?') !== -1)
+				{
+					fileName = fileName.split('?').shift();
+				}
+
 				originalFileIds.push(originalFileId);
 				newFileNames.push(fileName);
 			}
 
-			// are any files actually getting moved?
+			// Are any files actually getting moved?
 			if (originalFileIds.length)
 			{
 				this.setIndexBusy();
@@ -3207,7 +3368,7 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 				this.progressBar.showProgressBar();
 
 
-				// for each file to move a separate request
+				// For each file to move a separate request
 				var parameterArray = [];
 				for (i = 0; i < originalFileIds.length; i++)
 				{
@@ -3218,17 +3379,17 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 					});
 				}
 
-				// define the callback for when all file moves are complete
+				// Define the callback for when all file moves are complete
 				var onMoveFinish = $.proxy(function(responseArray)
 				{
 					this.promptHandler.resetPrompts();
 
-					// loop trough all the responses
+					// Loop trough all the responses
 					for (var i = 0; i < responseArray.length; i++)
 					{
 						var data = responseArray[i];
 
-						// push prompt into prompt array
+						// Push prompt into prompt array
 						if (data.prompt)
 						{
 							this.promptHandler.addPrompt(data);
@@ -3245,12 +3406,12 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 
 					if (this.promptHandler.getPromptCount())
 					{
-						// define callback for completing all prompts
+						// Define callback for completing all prompts
 						var promptCallback = $.proxy(function(returnData)
 						{
 							var newParameterArray = [];
 
-							// loop trough all returned data and prepare a new request array
+							// Loop trough all returned data and prepare a new request array
 							for (var i = 0; i < returnData.length; i++)
 							{
 								if (returnData[i].choice == 'cancel')
@@ -3258,7 +3419,7 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 									continue;
 								}
 
-								// find the matching request parameters for this file and modify them slightly
+								// Find the matching request parameters for this file and modify them slightly
 								for (var ii = 0; ii < parameterArray.length; ii++)
 								{
 									if (parameterArray[ii].fileName == returnData[i].fileName)
@@ -3269,20 +3430,20 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 								}
 							}
 
-							// nothing to do, carry on
+							// Nothing to do, carry on
 							if (newParameterArray.length == 0)
 							{
 								this._selectSourceByFolderId(targetFolderId);
 							}
 							else
 							{
-								// start working
+								// Start working
 								this.setIndexBusy();
 								this.progressBar.resetProgressBar();
 								this.progressBar.setItemCount(this.promptHandler.getPromptCount());
 								this.progressBar.showProgressBar();
 
-								// move conflicting files again with resolutions now
+								// Move conflicting files again with resolutions now
 								this._moveFile(newParameterArray, 0, onMoveFinish);
 							}
 						}, this);
@@ -3297,46 +3458,49 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 					}
 				}, this);
 
-				// initiate the file move with the built array, index of 0 and callback to use when done
+				// Initiate the file move with the built array, index of 0 and callback to use when done
 				this._moveFile(parameterArray, 0, onMoveFinish);
 
-				// skip returning dragees
+				// Skip returning dragees
 				return;
 			}
 		}
 		else
 		{
+			// Add the .sel class back on the selected source
+			this.$source.addClass('sel');
+
 			this._collapseExtraExpandedFolders();
 		}
-
-		// re-select the previously selected folders
-		this.$previouslySelectedFolder.addClass('sel');
 
 		this._fileDrag.returnHelpersToDraggees();
 	},
 
+	/**
+	 * On folder drag stop
+	 */
 	_onFolderDragStop: function()
 	{
 		// Only move if we have a valid target and we're not trying to move into our direct parent
 		if (
 			this._folderDrag.$activeDropTarget &&
-			this._folderDrag.$activeDropTarget.siblings('ul').find('>li').filter(this._folderDrag.$draggee).length == 0
+			this._folderDrag.$activeDropTarget.siblings('ul').children('li').filter(this._folderDrag.$draggee).length == 0
 		)
 		{
 			var targetFolderId = this._getFolderIdFromSourceKey(this._folderDrag.$activeDropTarget.data('key'));
 
 			this._collapseExtraExpandedFolders(targetFolderId);
 
-			// get the old folder IDs, and sort them so that we're moving the most-nested folders first
+			// Get the old folder IDs, and sort them so that we're moving the most-nested folders first
 			var folderIds = [];
 
 			for (var i = 0; i < this._folderDrag.$draggee.length; i++)
 			{
-				var $a = $('> a', this._folderDrag.$draggee[i]),
+				var $a = this._folderDrag.$draggee.eq(i).children('a'),
 					folderId = this._getFolderIdFromSourceKey($a.data('key')),
 					$source = this._getSourceByFolderId(folderId);
 
-				// make sure it's not already in the target folder
+				// Make sure it's not already in the target folder
 				if (this._getFolderIdFromSourceKey(this._getParentSource($source).data('key')) != targetFolderId)
 				{
 					folderIds.push(folderId);
@@ -3365,7 +3529,7 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 					});
 				}
 
-				// increment, so to avoid displaying folder files that are being moved
+				// Increment, so to avoid displaying folder files that are being moved
 				this.requestId++;
 
 				/*
@@ -3384,13 +3548,13 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 				 6) Champagne
 				 */
 
-				// this will hold the final list of files to move
+				// This will hold the final list of files to move
 				var fileMoveList = [];
 
-				// these folders have to be deleted at the end
+				// These folders have to be deleted at the end
 				var folderDeleteList = [];
 
-				// this one tracks the changed folder ids
+				// This one tracks the changed folder ids
 				var changedFolderIds = {};
 
 				var removeFromTree = [];
@@ -3399,12 +3563,12 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 				{
 					this.promptHandler.resetPrompts();
 
-					// loop trough all the responses
+					// Loop trough all the responses
 					for (var i = 0; i < responseArray.length; i++)
 					{
 						var data = responseArray[i];
 
-						// if succesful and have data, then update
+						// If succesful and have data, then update
 						if (data.success)
 						{
 							if (data.transferList && data.deleteList && data.changedFolderIds)
@@ -3428,7 +3592,7 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 							}
 						}
 
-						// push prompt into prompt array
+						// Push prompt into prompt array
 						if (data.prompt)
 						{
 							this.promptHandler.addPrompt(data);
@@ -3442,7 +3606,7 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 
 					if (this.promptHandler.getPromptCount())
 					{
-						// define callback for completing all prompts
+						// Define callback for completing all prompts
 						var promptCallback = $.proxy(function(returnData)
 						{
 							this.promptHandler.resetPrompts();
@@ -3450,7 +3614,7 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 
 							var newParameterArray = [];
 
-							// loop trough all returned data and prepare a new request array
+							// Loop trough all returned data and prepare a new request array
 							for (var i = 0; i < returnData.length; i++)
 							{
 								if (returnData[i].choice == 'cancel')
@@ -3462,20 +3626,20 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 								newParameterArray.push(parameterArray[0]);
 							}
 
-							// start working on them lists, baby
+							// Start working on them lists, baby
 							if (newParameterArray.length == 0)
 							{
 								$.proxy(this, '_performActualFolderMove', fileMoveList, folderDeleteList, changedFolderIds, removeFromTree)();
 							}
 							else
 							{
-								// start working
+								// Start working
 								this.setIndexBusy();
 								this.progressBar.resetProgressBar();
 								this.progressBar.setItemCount(this.promptHandler.getPromptCount());
 								this.progressBar.showProgressBar();
 
-								// move conflicting files again with resolutions now
+								// Move conflicting files again with resolutions now
 								moveFolder(newParameterArray, 0, onMoveFinish);
 							}
 						}, this);
@@ -3520,15 +3684,18 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 					}, this));
 				}, this);
 
-				// initiate the folder move with the built array, index of 0 and callback to use when done
+				// Initiate the folder move with the built array, index of 0 and callback to use when done
 				moveFolder(parameterArray, 0, onMoveFinish);
 
-				// skip returning dragees until we get the Ajax response
+				// Skip returning dragees until we get the Ajax response
 				return;
 			}
 		}
 		else
 		{
+			// Add the .sel class back on the selected source
+			this.$source.addClass('sel');
+
 			this._collapseExtraExpandedFolders();
 		}
 
@@ -3578,7 +3745,7 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 				return;
 			}
 
-			var topFolder = topFolderLi.find('>a');
+			var topFolder = topFolderLi.children('a');
 
 			// Now move the uppermost node.
 			var siblings = topFolderLi.siblings('ul, .toggle');
@@ -3586,14 +3753,14 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 
 			var newParent = this._getSourceByFolderId(targetFolderId);
 			this._prepareParentForChildren(newParent);
-			this._addSubfolder(newParent, topFolderLi);
+			this._appendSubfolder(newParent, topFolderLi);
 
 			topFolder.after(siblings);
 
 			this._cleanUpTree(parentSource);
 			this.$sidebar.find('ul>ul, ul>.toggle').remove();
 
-			// delete the old folders
+			// Delete the old folders
 			for (var i = 0; i < folderDeleteList.length; i++)
 			{
 				Craft.postActionRequest('assets/deleteFolder', {folderId: folderDeleteList[i]});
@@ -3689,11 +3856,16 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 
 			if (!$parentSource.hasClass('expanded'))
 			{
-				$parentSource.find('> .toggle').click();
+				$parentSource.children('.toggle').click();
 			}
 		};
 
-		this.selectSource($targetSource);
+		this.sourceSelect.selectItem($targetSource);
+
+		this.$source = $targetSource;
+		this.sourceKey = $targetSource.data('key');
+		this.setInstanceState('selectedSource', this.sourceKey);
+
 		this.updateElements();
 	},
 
@@ -3828,7 +4000,7 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 			doReload = false;
 		}
 
-		// for the last file, display prompts, if any. If not - just update the element view.
+		// For the last file, display prompts, if any. If not - just update the element view.
 		if (this.uploader.isLastUpload())
 		{
 			this.setIndexAvailable();
@@ -3923,16 +4095,16 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 		// See if we have freshly uploaded files to add to selection
 		if (this._uploadedFileIds.length)
 		{
-			var item = null;
+			var $item = null;
 			for (var i = 0; i < this._uploadedFileIds.length; i++)
 			{
-				item = this.$main.find('[data-id=' + this._uploadedFileIds[i] + ']:first').parent();
+				$item = this.$main.find('.element[data-id=' + this._uploadedFileIds[i] + ']:first').parent();
 				if (this.getSelectedSourceState('mode') == 'table')
 				{
-					item = item.parent();
+					$item = $item.parent();
 				}
 
-				this.elementSelect.selectItem(item);
+				this.elementSelect.selectItem($item);
 			}
 
 			// Reset the list.
@@ -3959,13 +4131,16 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 
 	_onElementSelectionChange: function()
 	{
-		this._enableElementContextMenu();
-		var selected = this.elementSelect.getSelectedItems();
-		this._selectedFileIds = [];
-
-		for (var i = 0; i < selected.length; i++)
+		if (this.settings.context == 'index')
 		{
-			this._selectedFileIds[i] = Craft.getElementInfo(selected[i]).id;
+			this._enableElementContextMenu();
+			var selected = this.elementSelect.getSelectedItems();
+			this._selectedFileIds = [];
+
+			for (var i = 0; i < selected.length; i++)
+			{
+				this._selectedFileIds[i] = Craft.getElementInfo(selected[i]).id;
+			}
 		}
 	},
 
@@ -4195,9 +4370,21 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 		}
 	},
 
-	_getDragHelper: function($element)
+	/**
+	 * On Drag Start
+	 */
+	_onDragStart: function()
+	{
+		this._tempExpandedFolders = [];
+	},
+
+	/**
+	 * Get File Drag Helper
+	 */
+	_getFileDragHelper: function($element)
 	{
 		var currentView = this.getSelectedSourceState('mode');
+
 		switch (currentView)
 		{
 			case 'table':
@@ -4245,6 +4432,16 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 				this.dropTargetFolder = null;
 			}
 		}
+
+		if ($dropTarget && $dropTarget[0] != this.$source[0])
+		{
+			// Temporarily remove the .sel class on the active source
+			this.$source.removeClass('sel');
+		}
+		else
+		{
+			this.$source.addClass('sel');
+		}
 	},
 
 	/**
@@ -4254,17 +4451,17 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 	{
 		clearTimeout(this._expandDropTargetFolderTimeout);
 
-		// If a source id is passed in, exclude it's parents
+		// If a source ID is passed in, exclude its parents
 		if (dropTargetFolderId)
 		{
-			var excluded = this._getSourceByFolderId(dropTargetFolderId).parents('li').find('>a');
+			var excluded = this._getSourceByFolderId(dropTargetFolderId).parents('li').children('a');
 		}
 
 		for (var i = this._tempExpandedFolders.length-1; i >= 0; i--)
 		{
 			var $source = this._tempExpandedFolders[i];
 
-			// check the parent list, if a source id is passed in
+			// Check the parent list, if a source id is passed in
 			if (! dropTargetFolderId || excluded.filter('[data-key="' + $source.data('key') + '"]').length == 0)
 			{
 				this._collapseFolder($source);
@@ -4290,22 +4487,20 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 
 	_expandFolder: function()
 	{
-		// collapse any temp-expanded drop targets that aren't parents of this one
+		// Collapse any temp-expanded drop targets that aren't parents of this one
 		this._collapseExtraExpandedFolders(this._getFolderIdFromSourceKey(this.dropTargetFolder.data('key')));
 
-		this.dropTargetFolder.parent().find('> .toggle').click();
+		this.dropTargetFolder.siblings('.toggle').click();
 
-		// keep a record of that
+		// Keep a record of that
 		this._tempExpandedFolders.push(this.dropTargetFolder);
 	},
 
 	_collapseFolder: function($source)
 	{
-		var li = $source.parent();
-
-		if (li.hasClass('expanded'))
+		if ($source.parent().hasClass('expanded'))
 		{
-			li.find('> .toggle').click();
+			$source.siblings('.toggle').click();
 		}
 	},
 
@@ -4355,18 +4550,9 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 						'</li>'
 					);
 
-					var $a = $subFolder.find('a');
-					this._addSubfolder($parentFolder, $subFolder);
-					this._createFolderContextMenu($a);
-					this.sourceSelect.addItems($a);
-
-					// For Assets Modals the folder drag manager won't be available
-					if (this._folderDrag)
-					{
-						this._folderDrag.addItems($a.parent());
-					}
-
-					this.$sources = this.$sources.add($a);
+					var $a = $subFolder.children('a:first');
+					this._appendSubfolder($parentFolder, $subFolder);
+					this.initSource($a);
 				}
 
 				if (textStatus == 'success' && data.error)
@@ -4395,12 +4581,13 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 				{
 					var $parentFolder = this._getParentSource($targetFolder);
 
-					// remove folder and any trace from it's parent, if needed.
-					this.$sources = this.$sources.not($targetFolder);
-					this.sourceSelect.removeItems($targetFolder);
+					// Remove folder and any trace from its parent, if needed
+					this.deinitSource($targetFolder);
 
 					$targetFolder.parent().remove();
 					this._cleanUpTree($parentFolder);
+
+					this.$sidebar.trigger('resize');
 				}
 
 				if (textStatus == 'success' && data.error)
@@ -4457,34 +4644,33 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 		if (!this._hasSubfolders($parentFolder))
 		{
 			$parentFolder.parent().addClass('expanded').append('<div class="toggle"></div><ul></ul>');
-
-			this.addListener($parentFolder.siblings('.toggle'), 'click', function(ev)
-			{
-				$(ev.currentTarget).parent().toggleClass('expanded');
-			});
+			this.initSourceToggle($parentFolder);
 		}
 	},
 
 	/**
-	 * Add a subfolder to the parent folder at the correct spot.
+	 * Appends a subfolder to the parent folder at the correct spot.
 	 *
 	 * @param $parentFolder
 	 * @param $subFolder
 	 * @private
 	 */
-	_addSubfolder: function($parentFolder, $subFolder)
+	_appendSubfolder: function($parentFolder, $subFolder)
 	{
-		var $existingChildren = $parentFolder.siblings('ul').find('>li');
-		var folderInserted = false;
+		var $subfolderList = $parentFolder.siblings('ul'),
+			$existingChildren = $subfolderList.children('li'),
+			subfolderLabel = $.trim($subFolder.children('a:first').text()),
+			folderInserted = false;
 
 		for (var i = 0; i < $existingChildren.length; i++)
 		{
 			var $existingChild = $($existingChildren[i]);
 
-			if (!folderInserted && $.trim($existingChild.text()) > $.trim($subFolder.text()))
+			if ($.trim($existingChild.children('a:first').text()) > subfolderLabel)
 			{
 				$existingChild.before($subFolder);
 				folderInserted = true;
+				break;
 			}
 		};
 
@@ -4492,12 +4678,15 @@ Craft.AssetIndex = Craft.BaseElementIndex.extend(
 		{
 			$parentFolder.siblings('ul').append($subFolder);
 		}
+
+		this.$sidebar.trigger('resize');
 	},
 
 	_cleanUpTree: function($parentFolder)
 	{
-		if ($parentFolder !== null && $parentFolder.siblings('ul').find('li').length == 0)
+		if ($parentFolder !== null && $parentFolder.siblings('ul').children('li').length == 0)
 		{
+			this.deinitSourceToggle($parentFolder);
 			$parentFolder.siblings('ul').remove();
 			$parentFolder.siblings('.toggle').remove();
 			$parentFolder.parent().removeClass('expanded');
@@ -4576,6 +4765,13 @@ Craft.AssetSelectInput = Craft.BaseElementSelectInput.extend(
 				elementId: this.sourceElementId
 			}
 		};
+
+		// If CSRF protection isn't enabled, these won't be defined.
+		if (typeof Craft.csrfTokenName !== 'undefined' && typeof Craft.csrfTokenValue !== 'undefined')
+		{
+			// Add the CSRF token
+			options.formData[Craft.csrfTokenName] = Craft.csrfTokenValue;
+		}
 
 		if (typeof this.criteria.kind != "undefined")
 		{
@@ -4662,10 +4858,16 @@ Craft.AssetSelectInput = Craft.BaseElementSelectInput.extend(
 	 */
 	_onUploadComplete: function(event, data)
 	{
-		var html = $(data.result.html);
-		$('head').append(data.result.css);
-
-		this.selectUploadedFile(Craft.getElementInfo(html));
+		if (data.result.error)
+		{
+			alert(data.result.error);
+		}
+		else
+		{
+			var html = $(data.result.html);
+			$('head').append(data.result.css);
+			this.selectUploadedFile(Craft.getElementInfo(html));
+		}
 
 		// Last file
 		if (this.uploader.isLastUpload())
@@ -5034,7 +5236,7 @@ Craft.AuthManager = Garnish.Base.extend(
 				}
 
 				// Will the session expire before the next checkup?
-				if (this.authTimeout < Craft.AuthManager.quickCheckInterval)
+				if (this.authTimeout < Craft.AuthManager.checkInterval)
 				{
 					if (this.showLoginModalTimer)
 					{
@@ -5050,8 +5252,7 @@ Craft.AuthManager = Garnish.Base.extend(
 				this.showLoginModal();
 			}
 
-			// Check again 5 seconds, in case they're logging in from a different tab
-			this.setCheckAuthTimeoutTimer(Craft.AuthManager.quickCheckInterval);
+			this.setCheckAuthTimeoutTimer(Craft.AuthManager.checkInterval);
 		}
 		else
 		{
@@ -5060,13 +5261,13 @@ Craft.AuthManager = Garnish.Base.extend(
 			this.hideLoginModal();
 
 			// Will be be within the minSafeAuthTimeout before the next update?
-			if (this.authTimeout != -1 && this.authTimeout < (Craft.AuthManager.minSafeAuthTimeout + Craft.AuthManager.normalCheckInterval))
+			if (this.authTimeout != -1 && this.authTimeout < (Craft.AuthManager.minSafeAuthTimeout + Craft.AuthManager.checkInterval))
 			{
 				this.setCheckAuthTimeoutTimer(this.authTimeout - Craft.AuthManager.minSafeAuthTimeout + 1);
 			}
 			else
 			{
-				this.setCheckAuthTimeoutTimer(Craft.AuthManager.normalCheckInterval);
+				this.setCheckAuthTimeoutTimer(Craft.AuthManager.checkInterval);
 			}
 		}
 	},
@@ -5380,8 +5581,7 @@ Craft.AuthManager = Garnish.Base.extend(
 	}
 },
 {
-	normalCheckInterval: 60,
-	quickCheckInterval: 5,
+	checkInterval: 60,
 	minSafeAuthTimeout: 120
 });
 
@@ -6513,7 +6713,7 @@ Craft.FieldLayoutDesigner = Garnish.Base.extend(
 		if (newName && newName != oldName)
 		{
 			$labelSpan.text(newName);
-			$tab.find('.id-input').attr('name', 'fieldLayout['+Craft.encodeUriComponent(newName)+'][]');
+			$tab.find('.id-input').attr('name', this.getFieldInputName(newName));
 		}
 	},
 
@@ -6553,7 +6753,7 @@ Craft.FieldLayoutDesigner = Garnish.Base.extend(
 		else
 		{
 			$field.addClass('fld-required');
-			$('<input class="required-input" type="hidden" name="requiredFields[]" value="'+$field.data('id')+'">').appendTo($field);
+			$('<input class="required-input" type="hidden" name="'+this.settings.requiredFieldInputName+'" value="'+$field.data('id')+'">').appendTo($field);
 
 			setTimeout(function() {
 				$option.text(Craft.t('Make not required'));
@@ -6615,6 +6815,11 @@ Craft.FieldLayoutDesigner = Garnish.Base.extend(
 		this.tabDrag.addItems($tab);
 
 		this.initTab($tab);
+	},
+
+	getFieldInputName: function(tabName)
+	{
+		return this.settings.fieldInputName.replace(/__TAB_NAME__/g, Craft.encodeUriComponent(tabName));
 	}
 },
 {
@@ -6626,7 +6831,9 @@ Craft.FieldLayoutDesigner = Garnish.Base.extend(
 		snapToGrid: 30
 	},
 	defaults: {
-		customizableTabs: true
+		customizableTabs: true,
+		fieldInputName: 'fieldLayout[__TAB_NAME__][]',
+		requiredFieldInputName: 'requiredFields[]'
 	}
 });
 
@@ -6950,8 +7157,10 @@ Craft.FieldLayoutDesigner.TabDrag = Craft.FieldLayoutDesigner.BaseDrag.extend(
 
 			for (var i = 0; i < $fields.length; i++)
 			{
-				var $field = $($fields[i]);
-				$field.append('<input class="id-input" type="hidden" name="fieldLayout['+Craft.encodeUriComponent(tabName)+'][]" value="'+$field.data('id')+'">');
+				var $field = $($fields[i]),
+					inputName = this.designer.getFieldInputName(tabName);
+
+				$field.append('<input class="id-input" type="hidden" name="'+inputName+'" value="'+$field.data('id')+'">');
 			}
 
 			this.designer.fieldDrag.addItems($fields);
@@ -7048,7 +7257,7 @@ Craft.FieldLayoutDesigner.FieldDrag = Craft.FieldLayoutDesigner.BaseDrag.extend(
 		{
 			// Find the field's new tab name
 			var tabName = this.$insertion.parent().parent().find('.tab span').text(),
-				inputName = 'fieldLayout['+Craft.encodeUriComponent(tabName)+'][]';
+				inputName = this.designer.getFieldInputName(tabName);
 
 			if (this.draggingUnusedItem)
 			{
@@ -10013,7 +10222,6 @@ Craft.TagSelectInput = Craft.BaseElementSelectInput.extend(
 			filter: $.proxy(function() {
 				return this.elementSelect.getSelectedItems();
 			}, this),
-			caboose: $('<div class="caboose"/>'),
 			onSortChange: $.proxy(function() {
 				this.elementSelect.resetItemOrder();
 			}, this)

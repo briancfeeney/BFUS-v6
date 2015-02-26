@@ -25,7 +25,7 @@ class RichTextFieldType extends BaseFieldType
 	// =========================================================================
 
 	/**
-	 * Returns the type of field this is.
+	 * @inheritDoc IComponentType::getName()
 	 *
 	 * @return string
 	 */
@@ -35,7 +35,7 @@ class RichTextFieldType extends BaseFieldType
 	}
 
 	/**
-	 * Returns the field's settings HTML.
+	 * @inheritDoc ISavableComponentType::getSettingsHtml()
 	 *
 	 * @return string|null
 	 */
@@ -64,7 +64,7 @@ class RichTextFieldType extends BaseFieldType
 	}
 
 	/**
-	 * Returns the content attribute config.
+	 * @inheritDoc IFieldType::defineContentAttribute()
 	 *
 	 * @return mixed
 	 */
@@ -74,7 +74,7 @@ class RichTextFieldType extends BaseFieldType
 	}
 
 	/**
-	 * Preps the field value for use.
+	 * @inheritDoc IFieldType::prepValue()
 	 *
 	 * @param mixed $value
 	 *
@@ -95,7 +95,7 @@ class RichTextFieldType extends BaseFieldType
 	}
 
 	/**
-	 * Returns the field's input HTML.
+	 * @inheritDoc IFieldType::getInputHtml()
 	 *
 	 * @param string $name
 	 * @param mixed  $value
@@ -140,7 +140,7 @@ class RichTextFieldType extends BaseFieldType
 	}
 
 	/**
-	 * Returns the input value as it should be saved to the database.
+	 * @inheritDoc IFieldType::prepValueFromPost()
 	 *
 	 * @param mixed $value
 	 *
@@ -153,6 +153,17 @@ class RichTextFieldType extends BaseFieldType
 			// Swap any pagebreak <hr>'s with <!--pagebreak-->'s
 			$value = preg_replace('/<hr class="redactor_pagebreak".*?>/', '<!--pagebreak-->', $value);
 
+			if ($this->getSettings()->purifyHtml)
+			{
+				$purifier = new \CHtmlPurifier();
+				$purifier->setOptions(array(
+					'Attr.AllowedFrameTargets' => array('_blank'),
+					'HTML.AllowedComments' => array('pagebreak'),
+				));
+
+				$value = $purifier->purify($value);
+			}
+
 			if ($this->getSettings()->cleanupHtml)
 			{
 				// Remove <span> and <font> tags
@@ -163,15 +174,7 @@ class RichTextFieldType extends BaseFieldType
 				$value = preg_replace('/(<(?:h1|h2|h3|h4|h5|h6|p|div|blockquote|pre|strong|em|b|i|u|a)\b[^>]*)\s+style="[^"]*"/', '$1', $value);
 
 				// Remove empty tags
-				// (Leave empty <a> tags though, since they might be defining a standalone #anchor.)
-				$value = preg_replace('/<(h1|h2|h3|h4|h5|h6|p|div|blockquote|pre|strong|em|b|i|u)\s*><\/\1>/', '', $value);
-			}
-
-			if ($this->getSettings()->purifyHtml)
-			{
-				$purifier = new \CHtmlPurifier();
-				$value = $purifier->purify($value);
-
+				$value = preg_replace('/<(h1|h2|h3|h4|h5|h6|p|div|blockquote|pre|strong|em|a|b|i|u)\s*><\/\1>/', '', $value);
 			}
 		}
 
@@ -185,7 +188,7 @@ class RichTextFieldType extends BaseFieldType
 	}
 
 	/**
-	 * Returns static HTML for the field's value.
+	 * @inheritDoc BaseFieldType::getStaticHtml()
 	 *
 	 * @param mixed $value
 	 *
@@ -200,7 +203,7 @@ class RichTextFieldType extends BaseFieldType
 	// =========================================================================
 
 	/**
-	 * Defines the settings.
+	 * @inheritDoc BaseSavableComponentType::defineSettings()
 	 *
 	 * @return array
 	 */

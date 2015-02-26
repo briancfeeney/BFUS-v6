@@ -4,12 +4,13 @@ namespace Craft;
 /**
  * A temporary asset source type class.
  *
- * @author    Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @copyright Copyright (c) 2014, Pixel & Tonic, Inc.
- * @license   http://buildwithcraft.com/license Craft License Agreement
- * @see       http://buildwithcraft.com
- * @package   craft.app.assetsourcetypes
- * @since     2.0
+ * @author     Pixel & Tonic, Inc. <support@pixelandtonic.com>
+ * @copyright  Copyright (c) 2014, Pixel & Tonic, Inc.
+ * @license    http://buildwithcraft.com/license Craft License Agreement
+ * @see        http://buildwithcraft.com
+ * @package    craft.app.assetsourcetypes
+ * @since      2.0
+ * @deprecated This class will be removed in Craft 3.0.
  */
 class TempAssetSourceType extends LocalAssetSourceType
 {
@@ -31,7 +32,7 @@ class TempAssetSourceType extends LocalAssetSourceType
 	// =========================================================================
 
 	/**
-	 * Returns the name of the source type.
+	 * @inheritDoc IComponentType::getName()
 	 *
 	 * @return string
 	 */
@@ -41,7 +42,7 @@ class TempAssetSourceType extends LocalAssetSourceType
 	}
 
 	/**
-	 * Returns the component's settings HTML.
+	 * @inheritDoc ISavableComponentType::getSettingsHtml()
 	 *
 	 * @return string|null
 	 */
@@ -51,7 +52,7 @@ class TempAssetSourceType extends LocalAssetSourceType
 	}
 
 	/**
-	 * Preps the settings before they're saved to the database.
+	 * @inheritDoc ISavableComponentType::prepSettings()
 	 *
 	 * @param array $settings
 	 *
@@ -63,7 +64,7 @@ class TempAssetSourceType extends LocalAssetSourceType
 	}
 
 	/**
-	 * Starts an indexing session.
+	 * @inheritDoc BaseAssetSourceType::startIndex()
 	 *
 	 * @param $sessionId
 	 *
@@ -76,7 +77,7 @@ class TempAssetSourceType extends LocalAssetSourceType
 	}
 
 	/**
-	 * Process an indexing session.
+	 * @inheritDoc BaseAssetSourceType::processIndex()
 	 *
 	 * @param $sessionId
 	 * @param $offset
@@ -90,7 +91,7 @@ class TempAssetSourceType extends LocalAssetSourceType
 	}
 
 	/**
-	 * Cannot be selected. Ever.
+	 * @inheritDoc IComponentType::isSelectable()
 	 *
 	 * @return bool
 	 */

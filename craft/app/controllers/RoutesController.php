@@ -20,6 +20,18 @@ class RoutesController extends BaseController
 	// =========================================================================
 
 	/**
+	 * @inheritDoc BaseController::init()
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function init()
+	{
+		// All route actions require an admin
+		craft()->userSession->requireAdmin();
+	}
+
+	/**
 	 * Saves a new or existing route.
 	 *
 	 * @return null

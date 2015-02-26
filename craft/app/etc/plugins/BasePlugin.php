@@ -27,7 +27,9 @@ abstract class BasePlugin extends BaseSavableComponentType implements IPlugin
 	public $isEnabled = false;
 
 	/**
-	 * @var string The type of component this is.
+	 * The type of component, e.g. "Plugin", "Widget", "FieldType", etc. Defined by the component type's base class.
+	 *
+	 * @var string
 	 */
 	protected $componentType = 'Plugin';
 
@@ -35,33 +37,16 @@ abstract class BasePlugin extends BaseSavableComponentType implements IPlugin
 	// =========================================================================
 
 	/**
-	 * Returns the plugin’s version.
+	 * A wrapper for writing to the log files for plugins that will ultimately call {@link Craft::log()}. This allows
+	 * plugins to be able to write to their own log files at `craft/storage/runtime/logs/pluginHandle.log` using
+	 * `PluginHandle::log()` syntax.
 	 *
-	 * @return string
-	 */
-	abstract public function getVersion();
-
-	/**
-	 * Returns the plugin developer's name.
+	 * @param        $msg   The message to be logged.
+	 * @param string $level The level of the message (e.g. LogLevel::Trace', LogLevel::Info, LogLevel::Warning or
+	 *                      LogLevel::Error).
+	 * @param bool   $force Whether to force the message to be logged regardless of the level or category.
 	 *
-	 * @return string
-	 */
-	abstract public function getDeveloper();
-
-	/**
-	 * Returns the plugin developer's URL.
-	 *
-	 * @return string
-	 */
-	abstract public function getDeveloperUrl();
-
-	/**
-	 * A wrapper for logging with plugins.
-	 *
-	 * @param string $msg
-	 * @param string $level
-	 *
-	 * @param bool $force
+	 * @return mixed
 	 */
 	public static function log($msg, $level = LogLevel::Info, $force = false)
 	{
@@ -158,6 +143,30 @@ abstract class BasePlugin extends BaseSavableComponentType implements IPlugin
 	}
 
 	/**
+	 * Returns the record classes provided by this plugin.
+	 *
+	 * @param string|null $scenario The scenario to initialize the records with.
+	 *
+	 * @return array
+	 */
+	public function getRecords($scenario = null)
+	{
+		$records = array();
+		$classes = craft()->plugins->getPluginClasses($this, 'records', 'Record', false);
+
+		foreach ($classes as $class)
+		{
+			if (craft()->components->validateClass($class))
+			{
+				$class = __NAMESPACE__.'\\'.$class;
+				$records[] = new $class($scenario);
+			}
+		}
+
+		return $records;
+	}
+
+	/**
 	 * Perform any actions after the plugin has been installed.
 	 *
 	 * @return null
@@ -185,29 +194,5 @@ abstract class BasePlugin extends BaseSavableComponentType implements IPlugin
 	public function onBeforeUninstall()
 	{
 
-	}
-
-	/**
-	 * Returns the record classes provided by this plugin.
-	 *
-	 * @param string|null $scenario The scenario to initialize the records with.
-	 *
-	 * @return array
-	 */
-	public function getRecords($scenario = null)
-	{
-		$records = array();
-		$classes = craft()->plugins->getPluginClasses($this, 'records', 'Record', false);
-
-		foreach ($classes as $class)
-		{
-			if (craft()->components->validateClass($class))
-			{
-				$class = __NAMESPACE__.'\\'.$class;
-				$records[] = new $class($scenario);
-			}
-		}
-
-		return $records;
 	}
 }

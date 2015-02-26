@@ -30,7 +30,7 @@ class ContentModel extends BaseModel
 	// =========================================================================
 
 	/**
-	 * Returns this model's normalized attribute configs.
+	 * @inheritDoc BaseModel::getAttributeConfigs()
 	 *
 	 * @return array
 	 */
@@ -74,7 +74,10 @@ class ContentModel extends BaseModel
 	}
 
 	/**
-	 * Validates the custom fields.
+	 * Validates all of the attributes for the current Model. Any attributes that fail validation will additionally get
+	 * logged to the `craft/storage/runtime/logs` folder with a level of LogLevel::Warning.
+	 *
+	 * In addition we validates the custom fields on this model.
 	 *
 	 * @param array|null $attributes
 	 * @param bool       $clearErrors
@@ -132,6 +135,8 @@ class ContentModel extends BaseModel
 	// =========================================================================
 
 	/**
+	 * @inheritDoc BaseModel::defineAttributes()
+	 *
 	 * @return array
 	 */
 	protected function defineAttributes()
@@ -145,33 +150,30 @@ class ContentModel extends BaseModel
 			'title'     => array(AttributeType::String, 'required' => $requiredTitle, 'maxLength' => 255, 'label' => 'Title'),
 		);
 
-		if (craft()->isInstalled() && !craft()->isConsole())
+		foreach (craft()->fields->getAllFields() as $field)
 		{
-			foreach (craft()->fields->getAllFields() as $field)
+			$fieldType = $field->getFieldType();
+
+			if ($fieldType)
 			{
-				$fieldType = $field->getFieldType();
-
-				if ($fieldType)
-				{
-					$attributeConfig = $fieldType->defineContentAttribute();
-				}
-
-				// Default to Mixed
-				if (!$fieldType || !$attributeConfig)
-				{
-					$attributeConfig = AttributeType::Mixed;
-				}
-
-				$attributeConfig = ModelHelper::normalizeAttributeConfig($attributeConfig);
-				$attributeConfig['label'] = $field->name;
-
-				if (isset($this->_requiredFields) && in_array($field->id, $this->_requiredFields))
-				{
-					$attributeConfig['required'] = true;
-				}
-
-				$attributes[$field->handle] = $attributeConfig;
+				$attributeConfig = $fieldType->defineContentAttribute();
 			}
+
+			// Default to Mixed
+			if (!$fieldType || !$attributeConfig)
+			{
+				$attributeConfig = AttributeType::Mixed;
+			}
+
+			$attributeConfig = ModelHelper::normalizeAttributeConfig($attributeConfig);
+			$attributeConfig['label'] = $field->name;
+
+			if (isset($this->_requiredFields) && in_array($field->id, $this->_requiredFields))
+			{
+				$attributeConfig['required'] = true;
+			}
+
+			$attributes[$field->handle] = $attributeConfig;
 		}
 
 		return $attributes;

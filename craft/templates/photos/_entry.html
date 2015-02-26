@@ -29,7 +29,24 @@
 		</article>
 	{% endif %}
 	</div>
+	
+	
+	{% set allEntries = craft.entries.section('photos').limit() %}
+	{% set prevEntry = entry.getPrev(allEntries) %}
+	{% set nextEntry = entry.getNext(allEntries) %}
+	
+	<div class="container">
+		<div class="pagination">
+		    {% if nextEntry %}
+		        <a href="{{ nextEntry.url }}" class="paging prev">Previous</a>
+		    {% endif %}
+			{% if prevEntry %}
+		        <a href="{{ prevEntry.url }}" class="paging next">Next</a>
+		    {% endif %}
+		</div>
+	</div>
 
 </div>
+
 
 {% endblock %}

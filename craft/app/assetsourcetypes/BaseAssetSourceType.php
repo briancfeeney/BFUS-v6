@@ -10,7 +10,7 @@ namespace Craft;
  * @see        http://buildwithcraft.com
  * @package    craft.app.assetsourcetypes
  * @since      1.0
- * @deprecated This class will likely be modified.
+ * @deprecated This class will be removed in Craft 3.0.
  */
 abstract class BaseAssetSourceType extends BaseSavableComponentType
 {
@@ -25,7 +25,7 @@ abstract class BaseAssetSourceType extends BaseSavableComponentType
 	protected $isSourceLocal = false;
 
 	/**
-	 * The type of component this is.
+	 * The type of component, e.g. "Plugin", "Widget", "FieldType", etc. Defined by the component type's base class.
 	 *
 	 * @var string
 	 */
@@ -54,7 +54,7 @@ abstract class BaseAssetSourceType extends BaseSavableComponentType
 	abstract public function processIndex($sessionId, $offset);
 
 	/**
-	 * Get the image source path
+	 * Get the image source path.
 	 *
 	 * @param AssetFileModel $fileModel The assetFileModel for the image source path.
 	 *

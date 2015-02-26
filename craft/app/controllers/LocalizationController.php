@@ -22,6 +22,18 @@ class LocalizationController extends BaseController
 	// =========================================================================
 
 	/**
+	 * @inheritDoc BaseController::init()
+	 *
+	 * @throws HttpException
+	 * @return null
+	 */
+	public function init()
+	{
+		// All localization related actions require an admin
+		craft()->userSession->requireAdmin();
+	}
+
+	/**
 	 * Adds a new a locale.
 	 *
 	 * @return null
